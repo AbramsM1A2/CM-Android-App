@@ -14,5 +14,6 @@ public class MainActivity extends AppCompatActivity {
         //coment debajo de comment
         //probando otro comment por si acaso
         //les aparecera un aviso a mis compas de que tienen que hacer pull???
+        //esta linea solo debe de aparecer en el branch llamado funcionalidad_1
     }
 }
