@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="home">Inicio</string>
+    <string name="cards">Cartas</string>
+    <string name="statistics">Estadísticas</string>
+    <string name="settings">Ajustes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="cards_fragment">Hello card fragment</string>
 </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_tab"
+        android:enabled="true"
+        android:icon="@drawable/baseline_home_24"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/cards_tab"
+        android:enabled="true"
+        android:icon="@drawable/baseline_bookmarks_24"
+        android:title="@string/cards"/>
+    <item
+        android:id="@+id/statistics_tab"
+        android:enabled="true"
+        android:icon="@drawable/baseline_analytics_24"
+        android:title="@string/statistics"/>
+    <item
+        android:id="@+id/settings_tab"
+        android:enabled="true"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="@string/settings"/>
+</menu>
