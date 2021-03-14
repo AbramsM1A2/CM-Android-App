@@ -6,4 +6,6 @@
     <string name="settings">Ajustes</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="cards_fragment">Hello card fragment</string>
+    <string name="review">Repasar</string>
+    <string name="mace_name">nombre_mazo</string>
 </resources>
