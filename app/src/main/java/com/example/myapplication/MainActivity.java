@@ -28,10 +28,12 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == home_tab) {
+
                 //TODO
                 return true;
             } else if (itemId == R.id.cards_tab) {
-                showFragment(CardsFragment.newInstance("a","b"));
+                //showFragment(CardsFragment.newInstance("a","b"));
+                showFragment(ItemFragment.newInstance(1));
                 return true;
             } else if (itemId == R.id.statistics_tab) {
                 //TODO
