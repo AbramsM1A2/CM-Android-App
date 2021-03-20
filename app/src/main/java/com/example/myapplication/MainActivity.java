@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == home_tab) {
-                showFragment(HomeFragment.newInstance("a","b"));
+                showFragment(HomeFragment.newInstance());
                 return true;
             } else if (itemId == R.id.cards_tab) {
                 showFragment(CardsFragment.newInstance("a","b"));
