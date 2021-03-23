@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.cardstab;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,12 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myapplication.R;
 import com.example.myapplication.dummy.DummyContent;
 
 /**
  * A fragment representing a list of Items.
  */
-public class ItemFragment extends Fragment {
+public class CardsTabFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -28,13 +29,14 @@ public class ItemFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemFragment() {
+    public CardsTabFragment() {
+
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ItemFragment newInstance(int columnCount) {
-        ItemFragment fragment = new ItemFragment();
+    public static CardsTabFragment newInstance(int columnCount) {
+        CardsTabFragment fragment = new CardsTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -57,7 +59,7 @@ public class ItemFragment extends Fragment {
     //to_do lo que sean elementos visuales
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_card_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {

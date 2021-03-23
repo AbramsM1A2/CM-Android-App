@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.cardstab;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.myapplication.R;
 import com.example.myapplication.dummy.DummyContent.DummyItem;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item, parent, false);
+                .inflate(R.layout.fragment_card, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,8 +52,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = (TextView) view.findViewById(R.id.front_content);
+            mContentView = (TextView) view.findViewById(R.id.back_content);
         }
 
         @Override

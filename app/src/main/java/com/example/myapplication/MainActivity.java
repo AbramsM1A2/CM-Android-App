@@ -1,14 +1,13 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
-import android.content.Intent;
+
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.MenuItem;
 
+import com.example.myapplication.cardstab.CardsTabFragment2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -31,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
                 //TODO
                 return true;
-            } else if (itemId == R.id.cards_tab) {
-                //showFragment(CardsFragment.newInstance("a","b"));
-                showFragment(ItemFragment.newInstance(1));
+            } else if (itemId == R.id.cards_tab){
+                showFragment(CardsTabFragment2.newInstance(1));
                 return true;
             } else if (itemId == R.id.statistics_tab) {
                 //TODO
