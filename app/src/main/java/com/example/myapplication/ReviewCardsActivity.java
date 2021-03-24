@@ -25,6 +25,10 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
     private DeckViewModel mDeckViewModel;
     private CardViewModel mCardViewModel;
     private Integer deckId;
+    private List<Card> cardList;
+    private Card card;
+    private Button frontext;
+    private Button backtext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,8 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         Intent intent = getIntent();
         String deckName = intent.getStringExtra("message_key");
 
-        Button frontext = findViewById(R.id.buttonFrontText);
-        Button backtext = findViewById(R.id.buttonBackText);
+        frontext = findViewById(R.id.buttonFrontText);
+        backtext = findViewById(R.id.buttonBackText);
         //backtext.setVisibility(View.INVISIBLE);
         //TODO: borrar
         TextView textView = findViewById(R.id.textView);
@@ -45,28 +49,42 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         mDeckViewModel.getAllDecks().observe(this, decks -> {
             for (Deck s : decks) {
+                Log.d("decktag",s.getNameText());
                 if (s.getNameText().equals(deckName)) {
                     deckId = s.getDeckId();
+                    Log.d("tag","id");
                     break;
                 }
             }
         });
 
         //Get cards
-        List<Card> cardList = new ArrayList<>();
+        cardList = new ArrayList<>();
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         mCardViewModel.getAllCards().observe(this, cards -> {
             for (Card s : cards) {
+                //Implementar logica de paso de cartas y algoritmo
+
                 if (s.getDeckId().equals(deckId)) {
                     cardList.add(s);
-                    //Implementar logica de paso de cartas
-                    frontext.setText(s.getFrontText());
-                    backtext.setText(s.getBackText());
+                    Log.d("cardtag",s.getFrontText());
                 }
+            }
+            if (!cardList.isEmpty()) {
+                updateCard(cardList.get(0));
             }
         });
 
 
+    }
+    private void nextCard(){
+        int pos = cardList.indexOf(card);
+        card = cardList.get(pos+1);
+        updateCard(card);
+    }
+    private void updateCard(Card card){
+        frontext.setText(card.getFrontText());
+        backtext.setText(card.getBackText());
     }
 
     @Override
@@ -76,7 +94,9 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
             Button b = findViewById(R.id.buttonBackText);
             b.setVisibility(View.VISIBLE);
         } else if (id == R.id.buttonAgain) {
-            // do something for button 2 click
+            Button b = findViewById(R.id.buttonBackText);
+            b.setVisibility(View.INVISIBLE);
+            nextCard();
         }else if (id == R.id.buttonHard) {
             // do something for button 2 click
         }else if (id == R.id.buttonGood) {
