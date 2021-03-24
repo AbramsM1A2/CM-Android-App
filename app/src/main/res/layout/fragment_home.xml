@@ -7,23 +7,10 @@
     tools:context=".HomeFragment">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="138dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:text="@string/mace_name"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-
-    <Spinner
+       <Spinner
         android:id="@+id/mace_selector_spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="138dp" />
 
     <Space
         android:layout_width="match_parent"

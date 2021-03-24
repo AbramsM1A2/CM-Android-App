@@ -3,7 +3,6 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -11,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import com.example.myapplication.database.Card.Card;
+import com.example.myapplication.database.Card.CardsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,19 +56,17 @@ public class HomeFragment extends Fragment {
         Spinner spinner = (Spinner) v.findViewById(R.id.mace_selector_spinner);
 
         //Data for the Spinner
-        String [] values =
-                {"Time at Residence","Under 6 months",};
-
-        List<String> lista = new ArrayList<>();
+       List<String> values = new ArrayList<>();
+       values.add("Seleccionar mazo");
 
         // Create an ArrayAdapter using the string and a default spinner layout
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, lista);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
 
         //DB
         mCardsViewModel = new ViewModelProvider(this).get(CardsViewModel.class);
-        mCardsViewModel.getAllWords().observe(this, questions ->  {
-            for (Questions s: questions) {
-                adapter.add(s.getText());
+        mCardsViewModel.getAllCards().observe(getViewLifecycleOwner(), cards ->  {
+            for (Card s: cards) {
+                adapter.add(s.getFrontText());
             }
         });
 

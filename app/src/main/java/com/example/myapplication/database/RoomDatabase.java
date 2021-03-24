@@ -1,32 +1,38 @@
-package com.example.myapplication;
+package com.example.myapplication.database;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.myapplication.database.Card.Card;
+import com.example.myapplication.database.Card.CardDao;
+
+import java.time.DateTimeException;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Questions.class}, version = 1, exportSchema = false)
-public abstract class CardsRoomDatabase extends RoomDatabase {
+@Database(entities = {Card.class}, version = 1, exportSchema = false)
+@TypeConverters({Converters.class})
+public abstract class RoomDatabase extends androidx.room.RoomDatabase {
 
-    public abstract QuestionsDao questionDao();
+    public abstract CardDao CardDao();
 
-    private static volatile CardsRoomDatabase INSTANCE;
+    private static volatile RoomDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    public static CardsRoomDatabase getDatabase(final Context context) {
+    public static RoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (CardsRoomDatabase.class) {
+            synchronized (RoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            CardsRoomDatabase.class, "cards_database")
+                            RoomDatabase.class, "room_database")
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
@@ -34,7 +40,8 @@ public abstract class CardsRoomDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
-    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+
+    private static androidx.room.RoomDatabase.Callback sRoomDatabaseCallback = new androidx.room.RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -44,13 +51,14 @@ public abstract class CardsRoomDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 // Populate the database in the background.
                 // If you want to start with more words, just add them.
-                QuestionsDao dao = INSTANCE.questionDao();
+                CardDao dao = INSTANCE.CardDao();
                 dao.deleteAll();
 
-                Questions question = new Questions("Hello");
-                dao.insert(question);
-                question = new Questions("World");
-                dao.insert(question);
+                Card card = new Card("Hello", "Hola", new Date(), 1);
+                dao.insert(card);
+
+                card = new Card("Dog", "Perro", new Date(), 1);
+                dao.insert(card);
             });
         }
     };
