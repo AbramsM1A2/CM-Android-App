@@ -17,6 +17,9 @@ import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ReviewCardsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DeckViewModel mDeckViewModel;
@@ -27,7 +30,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_cards);
-        Log.d("intetn","pressed");
+
         Intent intent = getIntent();
         String deckName = intent.getStringExtra("message_key");
 
@@ -50,29 +53,35 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         });
 
         //Get cards
+        List<Card> cardList = new ArrayList<>();
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         mCardViewModel.getAllCards().observe(this, cards -> {
             for (Card s : cards) {
-                frontext.setText(s.getFrontText());
-                backtext.setText(s.getBackText());
+                if (s.getDeckId().equals(deckId)) {
+                    cardList.add(s);
+                    //Implementar logica de paso de cartas
+                    frontext.setText(s.getFrontText());
+                    backtext.setText(s.getBackText());
+                }
             }
         });
+
+
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.buttonFrontText) {
-            Log.d("bb","pressed");
             Button b = findViewById(R.id.buttonBackText);
             b.setVisibility(View.VISIBLE);
-        } else if (id == R.id.button3) {
+        } else if (id == R.id.buttonAgain) {
             // do something for button 2 click
-        }else if (id == R.id.button4) {
+        }else if (id == R.id.buttonHard) {
             // do something for button 2 click
-        }else if (id == R.id.button5) {
+        }else if (id == R.id.buttonGood) {
             // do something for button 2 click
-        }else if (id == R.id.button6) {
+        }else if (id == R.id.buttonEasy) {
             // do something for button 2 click
         }
     }

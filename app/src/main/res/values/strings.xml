@@ -8,4 +8,8 @@
     <string name="cards_fragment">Hello card fragment</string>
     <string name="review">Repasar</string>
     <string name="mace_name">nombre_mazo</string>
+    <string name="again">otra vez</string>
+    <string name="hard">dificil</string>
+    <string name="good">normal</string>
+    <string name="easy">facil</string>
 </resources>

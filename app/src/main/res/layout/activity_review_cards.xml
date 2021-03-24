@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:onClick="onClick"
-            android:text="Button"
+            android:text=""
             android:visibility="visible" />
 
         <Button
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:clickable="false"
-            android:text="Button"
+            android:text=""
             android:visibility="invisible" />
 
         <TextView
@@ -41,36 +41,36 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/buttonAgain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="Button" />
+                android:text="@string/again" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/buttonHard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="Button" />
+                android:text="@string/hard" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/buttonGood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="Button" />
+                android:text="@string/good" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/buttonEasy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="Button" />
+                android:text="@string/easy" />
         </LinearLayout>
     </LinearLayout>
 
