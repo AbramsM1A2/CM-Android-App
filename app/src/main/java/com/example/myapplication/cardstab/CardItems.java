@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Card {
+public class CardItems {
     private Integer id;
     private String front;
     private String back;
 
-    public Card(Integer id, String front, String back) {
+    public CardItems(Integer id, String front, String back) {
         this.id = id;
         this.front = front;
         this.back = back;
@@ -25,8 +25,8 @@ public class Card {
         return back;
     }
 
-    public static ArrayList<Card> createCardList() {
-        ArrayList<Card> cardList = new ArrayList<Card>();
+    public static ArrayList<CardItems> createCardList() {
+        ArrayList<CardItems> cardItemsList = new ArrayList<CardItems>();
         String originalWord,translatedWord;
         String[] strsOrig = new String[]{"Aceituna","Aguacate","Calabaza","Cebolla","Espinaca","Gallina",
                 "Gelatina","Harina","Huevo","Lechuga","Limon","Mandarina","Naranja","Patata","Queso"};
@@ -38,9 +38,9 @@ public class Card {
         for(int i=0;i<=14; i++){
             originalWord = original.get(i);
             translatedWord = translated.get(i);
-            cardList.add(new Card(i+1,originalWord,translatedWord));
+            cardItemsList.add(new CardItems(i+1,originalWord,translatedWord));
         }
-        return cardList;
+        return cardItemsList;
     }
     public String toString() {
         return "Front: '" +this.front + "', Back: '" + this.back+"'";

@@ -14,10 +14,10 @@ import java.util.List;
 
 public class CardRecyclerViewAdapter2 extends RecyclerView.Adapter<CardRecyclerViewAdapter2.ViewHolder> {
 
-    private final List<Card> mCardList;
+    private final List<CardItems> mCardItemsList;
 
-    public CardRecyclerViewAdapter2(List<Card> items) {
-        mCardList = items;
+    public CardRecyclerViewAdapter2(List<CardItems> items) {
+        mCardItemsList = items;
     }
 
     @Override
@@ -31,21 +31,21 @@ public class CardRecyclerViewAdapter2 extends RecyclerView.Adapter<CardRecyclerV
     @Override
     //Metodo que bindea los datos en una view
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mCardList.get(position);
-        holder.mFrontView.setText(mCardList.get(position).getFront());
-        holder.mBackView.setText(mCardList.get(position).getBack());
+        holder.mItem = mCardItemsList.get(position);
+        holder.mFrontView.setText(mCardItemsList.get(position).getFront());
+        holder.mBackView.setText(mCardItemsList.get(position).getBack());
     }
 
     @Override
     public int getItemCount() {
-        return mCardList.size();
+        return mCardItemsList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mFrontView;
         public final TextView mBackView;
-        public Card mItem;
+        public CardItems mItem;
 
         public ViewHolder(View view) {
             super(view);

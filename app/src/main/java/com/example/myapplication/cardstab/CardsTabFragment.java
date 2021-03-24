@@ -16,7 +16,7 @@ import java.util.List;
 
 public class CardsTabFragment extends Fragment {
 
-    List<Card> cardList;
+    List<CardItems> cardItemsList;
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
@@ -50,7 +50,7 @@ public class CardsTabFragment extends Fragment {
     //to_do lo que sean elementos visuales
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        cardList = Card.createCardList();
+        cardItemsList = CardItems.createCardList();
         //Tomamos el view del archivo .xml
         View view = inflater.inflate(R.layout.recycler_view, container, false);
 
@@ -58,7 +58,7 @@ public class CardsTabFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.RecyclerId);
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new CardRecyclerViewAdapter2(cardList));
+        recyclerView.setAdapter(new CardRecyclerViewAdapter2(cardItemsList));
         return view;
     }
 
