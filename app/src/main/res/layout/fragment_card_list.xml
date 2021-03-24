@@ -12,7 +12,5 @@
     app:layoutManager="LinearLayoutManager"
     tools:context=".cardstab.CardsTabFragment2"
     tools:listitem="@layout/fragment_card">
-
-
 </androidx.recyclerview.widget.RecyclerView>
 

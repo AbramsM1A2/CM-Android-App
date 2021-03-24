@@ -6,4 +6,6 @@
     <string name="settings">Ajustes</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="cards_fragment">Hello card fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Bienvenidos</string>
 </resources>
