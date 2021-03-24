@@ -9,6 +9,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.myapplication.cardstab.CardsTabFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -30,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == home_tab) {
                 showFragment(HomeFragment.newInstance());
                 return true;
-            } else if (itemId == R.id.cards_tab) {
-                showFragment(CardsFragment.newInstance("a","b"));
+            } else if (itemId == R.id.cards_tab){
+                showFragment(CardsTabFragment.newInstance(1));
                 return true;
             } else if (itemId == R.id.statistics_tab) {
                 //TODO
