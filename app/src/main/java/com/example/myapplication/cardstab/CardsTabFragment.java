@@ -11,28 +11,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.dummy.DummyDeck;
 
 import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- */
-public class CardsTabFragment3 extends Fragment {
+public class CardsTabFragment extends Fragment {
 
-    List<DummyDeck.DummyCard> cardList;
+    List<Card> cardList;
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
 
-    public CardsTabFragment3() {
+    public CardsTabFragment() {
 
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static CardsTabFragment3 newInstance(int columnCount) {
-        CardsTabFragment3 fragment = new CardsTabFragment3();
+    public static CardsTabFragment newInstance(int columnCount) {
+        CardsTabFragment fragment = new CardsTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -54,14 +50,15 @@ public class CardsTabFragment3 extends Fragment {
     //to_do lo que sean elementos visuales
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        cardList = Card.createCardList();
         //Tomamos el view del archivo .xml
         View view = inflater.inflate(R.layout.recycler_view, container, false);
 
-        //Accedemos al recyclerView contenido
+        //Accedemos al recyclerView contenido en el view del .xml
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.RecyclerId);
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter2(DummyDeck.ITEMS));
+        recyclerView.setAdapter(new CardRecyclerViewAdapter2(cardList));
         return view;
     }
 

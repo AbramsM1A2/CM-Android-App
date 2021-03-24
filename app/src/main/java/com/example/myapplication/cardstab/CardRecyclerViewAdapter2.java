@@ -8,17 +8,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.dummy.DummyDeck.DummyCard;
 
 import java.util.List;
 
 
-public class MyItemRecyclerViewAdapter2 extends RecyclerView.Adapter<MyItemRecyclerViewAdapter2.ViewHolder> {
+public class CardRecyclerViewAdapter2 extends RecyclerView.Adapter<CardRecyclerViewAdapter2.ViewHolder> {
 
-    private final List<DummyCard> mValues;
+    private final List<Card> mCardList;
 
-    public MyItemRecyclerViewAdapter2(List<DummyCard> items) {
-        mValues = items;
+    public CardRecyclerViewAdapter2(List<Card> items) {
+        mCardList = items;
     }
 
     @Override
@@ -32,32 +31,32 @@ public class MyItemRecyclerViewAdapter2 extends RecyclerView.Adapter<MyItemRecyc
     @Override
     //Metodo que bindea los datos en una view
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).front);
-        holder.mContentView.setText(mValues.get(position).back);
+        holder.mItem = mCardList.get(position);
+        holder.mFrontView.setText(mCardList.get(position).getFront());
+        holder.mBackView.setText(mCardList.get(position).getBack());
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mCardList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyCard mItem;
+        public final TextView mFrontView;
+        public final TextView mBackView;
+        public Card mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.front_content);
-            mContentView = (TextView) view.findViewById(R.id.back_content);
+            mFrontView = (TextView) view.findViewById(R.id.front_content);
+            mBackView = (TextView) view.findViewById(R.id.back_content);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mFrontView.getText() + "'";
         }
     }
 }

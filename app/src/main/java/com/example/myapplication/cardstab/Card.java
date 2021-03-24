@@ -10,6 +10,7 @@ public class Card {
     private String back;
 
     public Card(Integer id, String front, String back) {
+        this.id = id;
         this.front = front;
         this.back = back;
     }
@@ -41,4 +42,8 @@ public class Card {
         }
         return cardList;
     }
+    public String toString() {
+        return "Front: '" +this.front + "', Back: '" + this.back+"'";
+    }
+
 }

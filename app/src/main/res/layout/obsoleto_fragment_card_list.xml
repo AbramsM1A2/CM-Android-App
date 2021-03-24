@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!--Este archivo solo esta para ver las diferentes referencias que habia antes -->
 <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
@@ -10,7 +11,7 @@
     android:layout_marginLeft="0dp"
     android:layout_marginRight="0dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".cardstab.CardsTabFragment2"
+    tools:context=".cardstab.CardsTabFragment"
     tools:listitem="@layout/fragment_card">
 </androidx.recyclerview.widget.RecyclerView>
 
