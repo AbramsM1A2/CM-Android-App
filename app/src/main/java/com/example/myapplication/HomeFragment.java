@@ -5,14 +5,15 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.example.myapplication.database.Card.Card;
-import com.example.myapplication.database.Card.CardsViewModel;
+import com.example.myapplication.database.Deck.Deck;
+import com.example.myapplication.database.Deck.DeckViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    private CardsViewModel mCardsViewModel;
+    private DeckViewModel mDeckViewModel;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -43,7 +44,6 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
 
         }
-
     }
 
     @Override
@@ -51,7 +51,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        //TODO Selector de tarjetas creadas
 
         Spinner spinner = (Spinner) v.findViewById(R.id.mace_selector_spinner);
 
@@ -63,10 +62,10 @@ public class HomeFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
 
         //DB
-        mCardsViewModel = new ViewModelProvider(this).get(CardsViewModel.class);
-        mCardsViewModel.getAllCards().observe(getViewLifecycleOwner(), cards ->  {
-            for (Card s: cards) {
-                adapter.add(s.getFrontText());
+        mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
+        mDeckViewModel.getAllDecks().observe(getViewLifecycleOwner(), decks ->  {
+            for (Deck s: decks) {
+                adapter.add(s.getNameText());
             }
         });
 

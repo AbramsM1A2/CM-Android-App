@@ -9,19 +9,19 @@ import com.example.myapplication.database.Repository;
 
 import java.util.List;
 
-public class CardsViewModel extends AndroidViewModel {
+public class CardViewModel extends AndroidViewModel {
 
     private Repository mRepository;
 
-    private final LiveData<List<Card>> mAllQuestions;
+    private final LiveData<List<Card>> mAllCards;
 
-    public CardsViewModel (Application application) {
+    public CardViewModel(Application application) {
         super(application);
         mRepository = new Repository(application);
-        mAllQuestions = mRepository.getAllCards();
+        mAllCards = mRepository.getAllCards();
     }
 
-    public LiveData<List<Card>> getAllCards() { return mAllQuestions; }
+    public LiveData<List<Card>> getAllCards() { return mAllCards; }
 
     public void insert(Card card) { mRepository.insert(card); }
 }
