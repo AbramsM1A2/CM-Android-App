@@ -5,18 +5,28 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.database.Deck.Deck;
+import com.example.myapplication.database.Deck.DeckViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CardsTabFragment extends Fragment {
+public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    List<CardItems> cardItemsList;
+    private List<CardItems> cardItemsList;
+    private String deckName="";
+    private DeckViewModel mDeckViewModel;
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
@@ -50,16 +60,55 @@ public class CardsTabFragment extends Fragment {
     //to_do lo que sean elementos visuales
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        cardItemsList = CardItems.createCardList();
         //Tomamos el view del archivo .xml
-        View view = inflater.inflate(R.layout.recycler_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_card, container, false);
+
+        //-----------Spinner-----------------------
+        Spinner spinner = (Spinner) view.findViewById(R.id.cards_tab_mace_selector_spinner);
+        spinner.setOnItemSelectedListener(this);
+
+        //Data for the Spinner
+        List<String> values = new ArrayList<>();
+        values.add("Seleccionar mazo");
+
+        // Create an ArrayAdapter using the string and a default spinner layout
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
+
+        //DB
+        mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
+        mDeckViewModel.getAllDecks().observe(getViewLifecycleOwner(), decks -> {
+            for (Deck s : decks) {
+                adapter.add(s.getNameText());
+            }
+        });
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        //Introduce en la lista que mazo se va a enseñar
+        cardItemsList = CardItems.createCardList();
 
         //Accedemos al recyclerView contenido en el view del .xml
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.RecyclerId);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.List_of_Cards);
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new CardRecyclerViewAdapter2(cardItemsList));
+        recyclerView.setAdapter(new CardsRecyclerViewAdapter(cardItemsList));
         return view;
     }
 
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        deckName = parent.getItemAtPosition(position).toString();
+
+        Toast.makeText(parent.getContext(), "The deck is " +
+                parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

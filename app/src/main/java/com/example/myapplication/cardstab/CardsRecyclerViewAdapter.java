@@ -12,11 +12,11 @@ import com.example.myapplication.R;
 import java.util.List;
 
 
-public class CardRecyclerViewAdapter2 extends RecyclerView.Adapter<CardRecyclerViewAdapter2.ViewHolder> {
+public class CardsRecyclerViewAdapter extends RecyclerView.Adapter<CardsRecyclerViewAdapter.ViewHolder> {
 
     private final List<CardItems> mCardItemsList;
 
-    public CardRecyclerViewAdapter2(List<CardItems> items) {
+    public CardsRecyclerViewAdapter(List<CardItems> items) {
         mCardItemsList = items;
     }
 
