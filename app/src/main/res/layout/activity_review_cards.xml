@@ -15,6 +15,9 @@
             android:id="@+id/buttonFrontText"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
             android:onClick="onClick"
             android:text=""
             android:visibility="visible" />
@@ -23,6 +26,9 @@
             android:id="@+id/buttonBackText"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
             android:clickable="false"
             android:text=""
             android:visibility="invisible" />
@@ -44,33 +50,43 @@
                 android:id="@+id/buttonAgain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="@string/again" />
+                android:text="@string/again"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/buttonHard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="@string/hard" />
+                android:text="@string/hard"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/buttonGood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="@string/good" />
+                android:text="@string/good"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/buttonEasy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="@string/easy" />
+                android:text="@string/easy"
+                android:visibility="invisible" />
         </LinearLayout>
     </LinearLayout>
 

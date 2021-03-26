@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +31,14 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private DeckViewModel mDeckViewModel;
-    private String deckName="";
+    private String deckName = "";
+
+    private static int spinnerValue;
+    private static String savedDeck;
+    Spinner spinner;
+
+    //the static keyword makes a variable stay throughout all classes, even if the class has been destroyed via garbage collection.
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -57,28 +66,36 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //------------Button
+        //------------Button-------------
         Button b = v.findViewById(R.id.buttonStart);
         b.setOnClickListener(this);
 
         //-----------Spinner-----------------------
-        Spinner spinner = (Spinner) v.findViewById(R.id.mace_selector_spinner);
+        spinner = v.findViewById(R.id.mace_selector_spinner);
         spinner.setOnItemSelectedListener(this);
 
         //Data for the Spinner
         List<String> values = new ArrayList<>();
-        values.add("Seleccionar mazo");
 
         // Create an ArrayAdapter using the string and a default spinner layout
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, values);
 
-        //DB
+
+        //Get decks from Data Base
         mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         mDeckViewModel.getAllDecks().observe(getViewLifecycleOwner(), decks -> {
-            for (Deck s : decks) {
-                adapter.add(s.getNameText());
+            if (decks.isEmpty()) {
+                adapter.add(getString(R.string.NoDeck));
+            } else {
+                for (Deck s : decks) {
+                    adapter.add(s.getNameText());
+                }
             }
         });
+
+        //set last selected item
+        spinnerValue = adapter.getPosition(savedDeck);
+        spinner.setSelection(spinnerValue);
 
 
         // Specify the layout to use when the list of choices appears
@@ -89,13 +106,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         return v;
     }
 
+
     //---------Manejador de eventos del dropdown
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         deckName = adapterView.getItemAtPosition(i).toString();
+        //store selected item
+        savedDeck = spinner.getSelectedItem().toString();
 
-        Toast.makeText(adapterView.getContext(), "The deck is " +
-                adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override

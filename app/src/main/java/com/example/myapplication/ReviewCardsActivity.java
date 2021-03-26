@@ -29,7 +29,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
     private Card card;
     private Button frontext;
     private Button backtext;
-
+//TODO: guardar en la BD el ultimo deck seleccionado para que no se pierda cuando la app muere?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +49,10 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         mDeckViewModel.getAllDecks().observe(this, decks -> {
             for (Deck s : decks) {
-                Log.d("decktag",s.getNameText());
+                Log.d("decktag", s.getNameText());
                 if (s.getNameText().equals(deckName)) {
                     deckId = s.getDeckId();
-                    Log.d("tag","id");
+                    Log.d("tag", "id");
                     break;
                 }
             }
@@ -67,22 +67,32 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
 
                 if (s.getDeckId().equals(deckId)) {
                     cardList.add(s);
-                    Log.d("cardtag",s.getFrontText());
+                    Log.d("CardList", s.getFrontText());
                 }
             }
             if (!cardList.isEmpty()) {
-                updateCard(cardList.get(0));
+                card=cardList.get(0);
+                updateCard(card);
+                Log.d("FirstCard",card.getFrontText());
             }
         });
 
 
     }
-    private void nextCard(){
+
+    private void nextCard() {
         int pos = cardList.indexOf(card);
-        card = cardList.get(pos+1);
+        if (pos != cardList.size()-1){
+        card = cardList.get(pos + 1);
+        Log.d("nextCard",card.getFrontText());
         updateCard(card);
+        }else{
+            ReviewCardsActivity.this.finish(); //Cierra la activity
+        }
     }
-    private void updateCard(Card card){
+
+    private void updateCard(Card card) {
+        Log.d("updateCard",card.getFrontText());
         frontext.setText(card.getFrontText());
         backtext.setText(card.getBackText());
     }
@@ -91,19 +101,87 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.buttonFrontText) {
-            Button b = findViewById(R.id.buttonBackText);
-            b.setVisibility(View.VISIBLE);
+            showUIAnswerAndButtons();
         } else if (id == R.id.buttonAgain) {
-            Button b = findViewById(R.id.buttonBackText);
-            b.setVisibility(View.INVISIBLE);
+            hideUIAnswerAndButtons();
             nextCard();
-        }else if (id == R.id.buttonHard) {
+        } else if (id == R.id.buttonHard) {
             // do something for button 2 click
-        }else if (id == R.id.buttonGood) {
+        } else if (id == R.id.buttonGood) {
             // do something for button 2 click
-        }else if (id == R.id.buttonEasy) {
+        } else if (id == R.id.buttonEasy) {
             // do something for button 2 click
         }
+    }
+
+    private void hideUIAnswerAndButtons() {
+        Button backText = findViewById(R.id.buttonBackText);
+        backText.setVisibility(View.INVISIBLE);
+
+        Button again = findViewById(R.id.buttonAgain);
+        again.setVisibility(View.INVISIBLE);
+
+        Button hard = findViewById(R.id.buttonHard);
+        hard.setVisibility(View.INVISIBLE);
+
+        Button good = findViewById(R.id.buttonGood);
+        good.setVisibility(View.INVISIBLE);
+
+        Button easy = findViewById(R.id.buttonEasy);
+        easy.setVisibility(View.INVISIBLE);
+    }
+
+    private void showUIAnswerAndButtons() {
+        Button backText = findViewById(R.id.buttonBackText);
+        backText.setVisibility(View.VISIBLE);
+
+        Button again = findViewById(R.id.buttonAgain);
+        again.setVisibility(View.VISIBLE);
+
+        Button hard = findViewById(R.id.buttonHard);
+        hard.setVisibility(View.VISIBLE);
+
+        Button good = findViewById(R.id.buttonGood);
+        good.setVisibility(View.VISIBLE);
+
+        Button easy = findViewById(R.id.buttonEasy);
+        easy.setVisibility(View.VISIBLE);
+    }
+
+    //FULL SCREEN MODE - TODO: implement View.OnSystemUiVisibilityChangeListener & Implement onWindowFocusChanged() & Implement a GestureDetector that detects onSingleTapUp(MotionEvent)
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        // Enables regular immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    // Shows the system bars by removing all the flags
+// except for the ones that make the content appear under the system bars.
+    private void showSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
 }
