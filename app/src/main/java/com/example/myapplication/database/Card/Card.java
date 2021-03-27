@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Entity(tableName = "card_table")
 public class Card {
     private static final AtomicInteger count = new AtomicInteger(0);
-
+    //TODO: autoincrement aqui o en SQLite(esto no se como se hace, tal vez con una migracion)?
     @PrimaryKey
     @NonNull
     private Integer cardId;

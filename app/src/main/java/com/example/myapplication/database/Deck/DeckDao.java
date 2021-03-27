@@ -12,8 +12,8 @@ import java.util.List;
 @Dao
 public interface DeckDao {
 
-    // allowing the insert of the same word multiple times by passing a
-    // conflict resolution strategy
+    // permitie la inserción del mismo mazo varias veces pasando una
+    // estrategia de resolución de conflictos
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Deck deck);
 

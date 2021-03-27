@@ -37,7 +37,6 @@ public class HomeFragment extends Fragment {
     private onFragmentInteraction mListener;
 
 
-
 //    private Deck deckName = "";
 
     //the static keyword makes a variable stay throughout all classes, even if the class has been destroyed via garbage collection.
@@ -56,7 +55,6 @@ public class HomeFragment extends Fragment {
         }
 
     }
-
 
 
     public HomeFragment() {
@@ -103,7 +101,7 @@ public class HomeFragment extends Fragment {
         Context context = v.getContext();
 
         // BEGIN_INCLUDE(initializeRecyclerView)
-        RecyclerView  recyclerView = v.findViewById(R.id.recyclerViewHome);
+        RecyclerView recyclerView = v.findViewById(R.id.recyclerViewHome);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         mListAdapter = new HomeCustomAdapter(mListener);
 
@@ -119,6 +117,7 @@ public class HomeFragment extends Fragment {
 
     /**
      * Se le asigna un listener al fragment
+     *
      * @param context
      */
     @Override
@@ -142,7 +141,6 @@ public class HomeFragment extends Fragment {
     public interface onFragmentInteraction {
         public void onListClickListener(Deck dataItem);
     }
-
 
 
 }

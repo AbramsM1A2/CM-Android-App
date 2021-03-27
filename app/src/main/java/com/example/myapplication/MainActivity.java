@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
         setContentView(R.layout.activity_main);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        //Menu
+        //Menu inferior
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
         navigation.setOnNavigationItemSelectedListener(item -> {
@@ -46,6 +46,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
         });
         navigation.setSelectedItemId(home_tab);
     }
+
+    /**
+     * Maneja la visualizacion de los diferentes fragments del menu
+     * @param frg
+     */
     private void showFragment(Fragment frg) {
         getSupportFragmentManager()
                 .beginTransaction()
@@ -62,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
     @Override
     public void onListClickListener(Deck dataItem) {
         Intent intent = new Intent(this, ReviewCardsActivity.class);
-        intent.putExtra("message_key", dataItem.getDeckId());
+        intent.putExtra("message_key", dataItem.getNameText());
         startActivity(intent);
     }
 }

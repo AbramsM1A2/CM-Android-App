@@ -12,8 +12,8 @@ import java.util.List;
 @Dao
 public interface CardDao {
 
-    // allowing the insert of the same word multiple times by passing a
-    // conflict resolution strategy
+    // permitie la inserción de la misma carta varias veces pasando una
+    // estrategia de resolución de conflictos
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Card card);
 

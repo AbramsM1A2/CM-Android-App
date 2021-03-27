@@ -44,7 +44,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         TextView textView = findViewById(R.id.deckName);
         textView.setText(deckName);
 
-        //Get deck ID
+        //Se obtiene de la BD el ID del mazo a partir del mazo seleccionado en la lista de mazos
         mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         mDeckViewModel.getAllDecks().observe(this, decks -> {
             for (Deck s : decks) {
@@ -57,12 +57,12 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
-        //Get cards
+        //Se obtienen las cartas de la BD a partir del mazo seleccionado
         cardList = new ArrayList<>();
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         mCardViewModel.getAllCards().observe(this, cards -> {
             for (Card s : cards) {
-                //algoritmo
+                //TODO: algoritmo
 
                 if (s.getDeckId().equals(deckId)) {
                     cardList.add(s);
@@ -79,6 +79,9 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    /**
+     * Se encarga de mostrar la siguiente carta
+     */
     private void nextCard() {
         int pos = cardList.indexOf(card);
         if (pos != cardList.size()-1){
@@ -91,12 +94,17 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    /**
+     * Se encarda de mostrar la carta al usuario
+     * @param card
+     */
     private void updateCard(Card card) {
         Log.d("updateCard",card.getFrontText());
         frontext.setText(card.getFrontText());
         backtext.setText(card.getBackText());
     }
 
+    //TODO: Botones algoritmo
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -114,6 +122,9 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    /**
+     * Se encarga de controlar la visibilidad de los elementos para el usuario
+     */
     private void hideUIAnswerAndButtons() {
         Button backText = findViewById(R.id.buttonBackText);
         backText.setVisibility(View.INVISIBLE);
@@ -131,6 +142,9 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         easy.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * Se encarga de controlar la visibilidad de los elementos para el usuario
+     */
     private void showUIAnswerAndButtons() {
         Button backText = findViewById(R.id.buttonBackText);
         backText.setVisibility(View.VISIBLE);
@@ -148,7 +162,9 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         easy.setVisibility(View.VISIBLE);
     }
 
-    //FULL SCREEN MODE - TODO: implement View.OnSystemUiVisibilityChangeListener & Implement onWindowFocusChanged() & Implement a GestureDetector that detects onSingleTapUp(MotionEvent)
+    //---------------------Modo pantalla completa-----------------------
+    //TODO: revisar mas esta parte y los conceptos
+    //TODO: implement View.OnSystemUiVisibilityChangeListener & Implement onWindowFocusChanged() & Implement a GestureDetector that detects onSingleTapUp(MotionEvent)
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

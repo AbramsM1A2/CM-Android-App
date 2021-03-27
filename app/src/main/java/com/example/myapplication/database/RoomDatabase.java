@@ -24,6 +24,7 @@ import java.util.concurrent.Executors;
 public abstract class RoomDatabase extends androidx.room.RoomDatabase {
 
     public abstract CardDao CardDao();
+
     public abstract DeckDao DeckDao();
 
     private static volatile RoomDatabase INSTANCE;
@@ -37,9 +38,9 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             RoomDatabase.class, "room_database")
-                            .addMigrations(MIGRATION_1_2)
-                            .addCallback(sRoomDatabaseCallback)
-                            .build();
+                            .addMigrations(MIGRATION_1_2) //Todas las migraciones se ponen en esta linea
+                            .addCallback(sRoomDatabaseCallback) //Rellena la BD
+                            .build(); //Se inicializa la BD en la APP
                 }
             }
         }
@@ -51,11 +52,11 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
-            // If you want to keep data through app restarts,
-            // comment out the following block
+            // Si quieres mantener los datos durante los reinicios de la aplicación,
+            // comenta el siguiente bloque (TODO: Borrar cuando la app este mas madura)
             databaseWriteExecutor.execute(() -> {
-                // Populate the database in the background.
-                // If you want to start with more words, just add them.
+                //Rellena la base de datos en segundo plano.
+                // Si quieres empezar con más elementos, sólo tienes que añadirlos debajo.
 
                 //---------------------------Deck---------------------------
                 DeckDao deckDao = INSTANCE.DeckDao();
@@ -64,7 +65,7 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
                 Deck deck = new Deck("Inglés");
                 deckDao.insert(deck);
 
-                deck= new Deck("Español");
+                deck = new Deck("Español");
                 deckDao.insert(deck);
                 //---------------------------Card---------------------------
                 CardDao carddao = INSTANCE.CardDao();
@@ -78,6 +79,9 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
             });
         }
     };
+    //Cualquier modificación de la BD requiere actualizar la version y eso resulta en una migracion
+    // que hay que indicar de forma explicita.
+
     //No funciona, pero si reinstalas si ¯\_(ツ)_/¯
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override

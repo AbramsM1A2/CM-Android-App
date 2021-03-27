@@ -88,7 +88,7 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<HomeCustomAdapter.Vi
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mView=itemView;
+            mView = itemView;
             mTextView = itemView.findViewById(R.id.deckName);
         }
 

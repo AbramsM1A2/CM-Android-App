@@ -19,10 +19,6 @@ public class Repository {
     private DeckDao mDeckDao;
     private LiveData<List<Deck>> mAllDecks;
 
-    // Note that in order to unit test the WordRepository, you have to remove the Application
-    // dependency. This adds complexity and much more code, and this sample is not about testing.
-    // See the BasicSample in the android-architecture-components repository at
-    // https://github.com/googlesamples
     public Repository(Application application) {
         RoomDatabase db = RoomDatabase.getDatabase(application);
 
@@ -33,8 +29,8 @@ public class Repository {
         mAllDecks = mDeckDao.getDecksById();
     }
 
-    // Room executes all queries on a separate thread.
-    // Observed LiveData will notify the observer when the data has changed.
+    // ROOM ejecuta todas las consultas en un hilo separado.
+    // El LiveData observado notificará al observador cuando los datos hayan cambiado.
     public LiveData<List<Card>> getAllCards() {
         return mAllCards;
     }
@@ -43,8 +39,8 @@ public class Repository {
         return mAllDecks;
     }
 
-    // You must call this on a non-UI thread or your app will throw an exception. Room ensures
-    // that you're not doing any long running operations on the main thread, blocking the UI.
+    // Debes llamar a esto en un hilo no-UI o tu aplicación lanzará una excepción. ROOM asegura
+    // que no estás haciendo ninguna operación de larga duración en el hilo principal, bloqueando la UI.
     public void insert(Card card) {
         RoomDatabase.databaseWriteExecutor.execute(() -> {
             mCardDao.insert(card);
