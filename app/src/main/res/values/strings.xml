@@ -13,4 +13,5 @@
     <string name="good">normal</string>
     <string name="easy">facil</string>
     <string name="NoDeck">Aun no tienes ningún mazo</string>
+    <string name="element_text">element_text</string>
 </resources>

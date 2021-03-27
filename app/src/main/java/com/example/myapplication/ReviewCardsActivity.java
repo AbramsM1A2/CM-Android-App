@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -15,7 +14,6 @@ import com.example.myapplication.database.Card.Card;
 import com.example.myapplication.database.Card.CardViewModel;
 import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +40,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         backtext = findViewById(R.id.buttonBackText);
         //backtext.setVisibility(View.INVISIBLE);
         //TODO: borrar
-        TextView textView = findViewById(R.id.textView);
+        TextView textView = findViewById(R.id.deckName);
         textView.setText(deckName);
 
         //Get deck ID

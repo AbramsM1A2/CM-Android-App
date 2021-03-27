@@ -4,25 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HomeFragment">
+    tools:context=".hometab.HomeFragment">
 
-
-       <Spinner
-        android:id="@+id/mace_selector_spinner"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewHome"
         android:layout_width="match_parent"
-        android:layout_height="138dp" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="275dp" />
-
-    <Button
-        android:id="@+id/buttonStart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:gravity="center"
-        android:text="@string/review" />
-
+        android:layout_height="match_parent" />
 </LinearLayout>

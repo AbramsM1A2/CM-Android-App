@@ -1,21 +1,23 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.myapplication.cardstab.CardsTabFragment;
+import com.example.myapplication.database.Deck.Deck;
+import com.example.myapplication.hometab.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 import static com.example.myapplication.R.id.home_tab;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.onFragmentInteraction {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,5 +54,13 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.container, frg)
                 .commit();
 
+    }
+
+    @Override
+    public void onListClickListener(Deck dataItem) {
+        Toast.makeText(this, "HOLA", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ReviewCardsActivity.class);
+        intent.putExtra("message_key", dataItem.getNameText());
+        startActivity(intent);
     }
 }
