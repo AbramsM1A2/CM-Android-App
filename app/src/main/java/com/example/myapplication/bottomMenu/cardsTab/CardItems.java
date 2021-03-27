@@ -1,4 +1,4 @@
-package com.example.myapplication.cardstab;
+package com.example.myapplication.bottomMenu.cardsTab;
 
 import java.util.ArrayList;
 import java.util.Arrays;

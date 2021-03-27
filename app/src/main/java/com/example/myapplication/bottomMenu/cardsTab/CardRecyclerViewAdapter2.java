@@ -1,4 +1,4 @@
-package com.example.myapplication.cardstab;
+package com.example.myapplication.bottomMenu.cardsTab;
 
 import android.view.LayoutInflater;
 import android.view.View;

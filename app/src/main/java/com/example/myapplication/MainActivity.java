@@ -7,11 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.example.myapplication.cardstab.CardsTabFragment;
+import com.example.myapplication.bottomMenu.cardsTab.CardsTabFragment;
 import com.example.myapplication.database.Deck.Deck;
-import com.example.myapplication.hometab.HomeFragment;
+import com.example.myapplication.bottomMenu.homeTab.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //Menu
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
         navigation.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -56,11 +55,14 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
 
     }
 
+    /**
+     * Inicia el repaso de cartas a partir del mazo seleccionado
+     * @param dataItem
+     */
     @Override
     public void onListClickListener(Deck dataItem) {
-        Toast.makeText(this, "HOLA", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ReviewCardsActivity.class);
-        intent.putExtra("message_key", dataItem.getNameText());
+        intent.putExtra("message_key", dataItem.getDeckId());
         startActivity(intent);
     }
 }

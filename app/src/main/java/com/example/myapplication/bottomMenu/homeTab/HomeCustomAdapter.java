@@ -1,4 +1,4 @@
-package com.example.myapplication.hometab;
+package com.example.myapplication.bottomMenu.homeTab;
 
 import android.view.LayoutInflater;
 import android.view.View;

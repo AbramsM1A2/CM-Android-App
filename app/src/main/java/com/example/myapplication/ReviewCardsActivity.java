@@ -27,19 +27,20 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
     private Card card;
     private Button frontext;
     private Button backtext;
-//TODO: guardar en la BD el ultimo deck seleccionado para que no se pierda cuando la app muere?
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_cards);
 
+        //TODO pasar los datos del deck mas eficiente, y asi ahorrarme la consulta
         Intent intent = getIntent();
         String deckName = intent.getStringExtra("message_key");
 
         frontext = findViewById(R.id.buttonFrontText);
         backtext = findViewById(R.id.buttonBackText);
-        //backtext.setVisibility(View.INVISIBLE);
-        //TODO: borrar
+
+        //TODO: Poner nombre del mazo?
         TextView textView = findViewById(R.id.deckName);
         textView.setText(deckName);
 
@@ -61,7 +62,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         mCardViewModel.getAllCards().observe(this, cards -> {
             for (Card s : cards) {
-                //Implementar logica de paso de cartas y algoritmo
+                //algoritmo
 
                 if (s.getDeckId().equals(deckId)) {
                     cardList.add(s);
@@ -85,7 +86,8 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         Log.d("nextCard",card.getFrontText());
         updateCard(card);
         }else{
-            ReviewCardsActivity.this.finish(); //Cierra la activity
+            //Cierra la activity cuando ya no hay mas cartas
+            ReviewCardsActivity.this.finish();
         }
     }
 

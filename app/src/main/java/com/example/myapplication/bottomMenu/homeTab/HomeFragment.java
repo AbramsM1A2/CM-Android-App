@@ -1,4 +1,4 @@
-package com.example.myapplication.hometab;
+package com.example.myapplication.bottomMenu.homeTab;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -117,6 +117,10 @@ public class HomeFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Se le asigna un listener al fragment
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
