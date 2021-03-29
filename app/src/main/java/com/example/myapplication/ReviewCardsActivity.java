@@ -63,7 +63,10 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         mCardViewModel.getAllCards().observe(this, cards -> {
             for (Card s : cards) {
                 //TODO: algoritmo
-
+                //DE x cartas coge 5 due y fecha anterior
+                // populate db con mas cartas y fechas random
+                // numero fijo de cartas (ajuste de usuario)
+                //solo un repaso al dia
                 if (s.getDeckId().equals(deckId)) {
                     cardList.add(s);
                     Log.d("CardList", s.getFrontText());
@@ -111,13 +114,13 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         if (id == R.id.buttonFrontText) {
             showUIAnswerAndButtons();
         } else if (id == R.id.buttonAgain) {
-            hideUIAnswerAndButtons();
+            hideUIAnswerAndButtons(); //meterlo de nuevo en cardList o salir al dia siguiente
             nextCard();
-        } else if (id == R.id.buttonHard) {
+        } else if (id == R.id.buttonHard) { //3 dias
             // do something for button 2 click
-        } else if (id == R.id.buttonGood) {
+        } else if (id == R.id.buttonGood) { //10 dias
             // do something for button 2 click
-        } else if (id == R.id.buttonEasy) {
+        } else if (id == R.id.buttonEasy) {//20 dias
             // do something for button 2 click
         }
     }
@@ -162,42 +165,6 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         easy.setVisibility(View.VISIBLE);
     }
 
-    //---------------------Modo pantalla completa-----------------------
-    //TODO: revisar mas esta parte y los conceptos
-    //TODO: implement View.OnSystemUiVisibilityChangeListener & Implement onWindowFocusChanged() & Implement a GestureDetector that detects onSingleTapUp(MotionEvent)
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            hideSystemUI();
-        }
-    }
 
-    private void hideSystemUI() {
-        // Enables regular immersive mode.
-        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
-        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE
-                        // Set the content to appear under the system bars so that the
-                        // content doesn't resize when the system bars hide and show.
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        // Hide the nav bar and status bar
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
-    }
-
-    // Shows the system bars by removing all the flags
-// except for the ones that make the content appear under the system bars.
-    private void showSystemUI() {
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-    }
 
 }
