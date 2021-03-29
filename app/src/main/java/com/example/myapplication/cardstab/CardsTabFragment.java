@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +54,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
     //aqui va toda la logica de codigo backend y para inicializar cosas
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -62,7 +67,6 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
                              Bundle savedInstanceState) {
         //Tomamos el view del archivo .xml
         View view = inflater.inflate(R.layout.fragment_list_card, container, false);
-
         //-----------Spinner-----------------------
         Spinner spinner = (Spinner) view.findViewById(R.id.cards_tab_mace_selector_spinner);
         spinner.setOnItemSelectedListener(this);
@@ -95,6 +99,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new CardsRecyclerViewAdapter(cardItemsList));
+
         return view;
     }
 
