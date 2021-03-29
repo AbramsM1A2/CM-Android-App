@@ -9,6 +9,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.example.myapplication.bottomMenu.cardsTab.CardsTabFragment;
+import com.example.myapplication.bottomMenu.settingsTab.SettingsFragment;
 import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.bottomMenu.homeTab.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
                 //TODO
                 return true;
             } else if (itemId == R.id.settings_tab) {
-                //TODO
+                showFragment(new SettingsFragment());
                 return true;
             }
             return false;

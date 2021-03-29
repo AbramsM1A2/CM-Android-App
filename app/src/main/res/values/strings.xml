@@ -14,4 +14,16 @@
     <string name="easy">facil</string>
     <string name="NoDeck">Aun no tienes ningún mazo</string>
     <string name="element_text">element_text</string>
+    <!-- Preference Titles -->
+    <string name="cards_header">Cartas</string>
+    <string name="interface_header">Interfaz</string>
+    <string name="account_header">Cuenta</string>
+    <string name="help_header">Centro de ayuda</string>
+    <!-- Cards Preferences -->
+    <string name="number_title">Cartas diarias</string>
+    <!-- Interface Preferences -->
+    <string name="theme">Tema oscuro</string>
+    <!-- Account Preferences -->
+    <string name="aboutus_title">Acerca de</string>
+    <string name="contact_title">Contacto</string>
 </resources>
