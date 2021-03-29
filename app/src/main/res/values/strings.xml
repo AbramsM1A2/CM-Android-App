@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">iCartas</string>
     <string name="home">Inicio</string>
     <string name="cards">Cartas</string>
     <string name="statistics">Estadísticas</string>
