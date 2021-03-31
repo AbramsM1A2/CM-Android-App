@@ -20,18 +20,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.database.Card.Card;
+import com.example.myapplication.database.Card.CardViewModel;
 import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
+    private List<Card> cardList;
     private List<CardItems> cardItemsList;
     private String deckName="";
+
+    //RecyclerView
+    private RecyclerView recyclerView;
+
+    //Models de la dataBase
+    private CardViewModel mCardViewModel;
     private DeckViewModel mDeckViewModel;
+
+    //Diccionario con mazos y sus IDs;
+    private Map<String, Integer> mDecksByName;
 
     //fabs
     private FloatingActionButton mMainAddFab, mAddCardFab, mAddDeckFab;
@@ -80,32 +94,37 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
 
         //Data for the Spinner
         List<String> values = new ArrayList<>();
-        values.add("Seleccionar mazo");
 
         // Create an ArrayAdapter using the string and a default spinner layout
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
+        //Iniciar el diccionario
+        mDecksByName = new HashMap<String, Integer>();
 
         //DB
+        mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         mDeckViewModel.getAllDecks().observe(getViewLifecycleOwner(), decks -> {
             for (Deck s : decks) {
+                //Podriamos poner solo una estructura de datos
+                mDecksByName.put(s.getNameText(),s.getDeckId());
                 adapter.add(s.getNameText());
             }
         });
+        //TODO AQUI DEBERIA DE PILLAR EL PRIMER DECK QUE SE MUESTRE EN LA LISTA
+        deckName = "Inglés";
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        //Introduce en la lista que mazo se va a enseñar
-        cardItemsList = CardItems.createCardList();
 
         //Accedemos al recyclerView contenido en el view del .xml
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.List_of_Cards);
+        recyclerView = (RecyclerView) view.findViewById(R.id.List_of_Cards);
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new CardsRecyclerViewAdapter(cardItemsList));
+
+
 
         //FABS
 
@@ -184,9 +203,29 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         deckName = parent.getItemAtPosition(position).toString();
+        Integer deckId = mDecksByName.get(deckName);
 
-        Toast.makeText(parent.getContext(), "The deck is " +
-                parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+        //TODO ESTA ES LA PARTE QUE DA PROBLEMAS, TENGO QUE MIRAR REPOSITORY Y CARDVIEWMODEL
+//        mCardViewModel.getAllCardsWithThisId(deckId).observe(getViewLifecycleOwner(), cards -> {
+//            for (Card c : cards){
+//                cardList.add(c);
+//            }
+//        });
+
+
+
+        //Introduce en la lista que mazo se va a enseñar
+        if(deckId == 2){
+            cardItemsList = CardItems.createCardList2();
+        }
+        else{
+            cardItemsList = CardItems.createCardList();
+        }
+
+        recyclerView.setAdapter(new CardsRecyclerViewAdapter(cardItemsList));
+
+        Toast.makeText(parent.getContext(), "The deck id is " +
+                deckId, Toast.LENGTH_LONG).show();
     }
 
     @Override

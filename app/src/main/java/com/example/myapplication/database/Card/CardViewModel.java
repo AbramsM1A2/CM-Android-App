@@ -23,5 +23,8 @@ public class CardViewModel extends AndroidViewModel {
 
     public LiveData<List<Card>> getAllCards() { return mAllCards; }
 
+    public LiveData<List<Card>> getAllCardsWithThisId(Integer id){
+        return mRepository.getAllCardsWithThisId(id);
+    }
     public void insert(Card card) { mRepository.insert(card); }
 }

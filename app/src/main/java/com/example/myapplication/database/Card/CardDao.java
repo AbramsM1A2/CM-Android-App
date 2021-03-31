@@ -22,5 +22,9 @@ public interface CardDao {
 
     @Query("SELECT * FROM card_table ORDER BY cardId ASC")
     LiveData<List<Card>> getCardsbyId();
+
+    //Query para obtener el id de un mazo pasandole su nombre
+    @Query("SELECT * FROM card_table WHERE deckId = :deckid ORDER BY front_text ASC")
+    LiveData<List<Card>>getCardsWithId(Integer deckid);
 }
 

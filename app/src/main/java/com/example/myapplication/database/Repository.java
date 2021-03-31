@@ -19,6 +19,8 @@ public class Repository {
     private DeckDao mDeckDao;
     private LiveData<List<Deck>> mAllDecks;
 
+    private LiveData<List<Card>> mAllCardsWithThisId;
+
     public Repository(Application application) {
         RoomDatabase db = RoomDatabase.getDatabase(application);
 
@@ -27,6 +29,9 @@ public class Repository {
 
         mDeckDao = db.DeckDao();
         mAllDecks = mDeckDao.getDecksById();
+
+
+
     }
 
     // ROOM ejecuta todas las consultas en un hilo separado.
@@ -37,6 +42,11 @@ public class Repository {
 
     public LiveData<List<Deck>> getAllDecks() {
         return mAllDecks;
+    }
+
+    public LiveData<List<Card>> getAllCardsWithThisId(Integer idOfDeck){
+        mAllCardsWithThisId = mCardDao.getCardsWithId(idOfDeck);
+        return mAllCardsWithThisId;
     }
 
     // Debes llamar a esto en un hilo no-UI o tu aplicación lanzará una excepción. ROOM asegura
