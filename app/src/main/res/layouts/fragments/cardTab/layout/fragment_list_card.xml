@@ -25,7 +25,8 @@
             android:layout_margin="@dimen/text_margin"
             android:textAppearance="?attr/textAppearanceListItem"
             android:layout_weight="1"
-            android:text="Pregunta ▼ "/>
+            android:textStyle="bold"
+            android:text="@string/front_of_card"/>
         <TextView
             android:id="@+id/Answer"
             android:layout_width="match_parent"
@@ -33,7 +34,8 @@
             android:layout_margin="@dimen/text_margin"
             android:textAppearance="?attr/textAppearanceListItem"
             android:layout_weight="1"
-            android:text="Respuesta ▼"/>
+            android:textStyle="bold"
+            android:text="@string/back_of_card"/>/>
     </LinearLayout>
 
     <FrameLayout
@@ -46,16 +48,17 @@
             android:layout_height="wrap_content" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="179dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp">
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="0dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floating_action_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/baseline_add_24"
@@ -66,13 +69,16 @@
                 android:id="@+id/floating_add_card_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="16dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/baseline_add_24"
                 android:visibility="invisible"
+                app:fabSize="mini"
                 app:layout_constraintBottom_toTopOf="@+id/floating_action_button"
-                app:layout_constraintEnd_toEndOf="@+id/floating_action_button" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:backgroundTint="@color/design_default_color_primary_variant"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floating_add_deck_button"
@@ -83,8 +89,44 @@
                 android:focusable="true"
                 android:src="@drawable/baseline_create_new_folder_24"
                 android:visibility="invisible"
+                app:fabSize="mini"
                 app:layout_constraintBottom_toTopOf="@+id/floating_add_card_button"
-                app:layout_constraintEnd_toEndOf="@+id/floating_add_card_button" />
+                app:layout_constraintEnd_toEndOf="@+id/floating_add_card_button"
+                android:backgroundTint="@color/design_default_color_primary_variant"/>
+
+            <TextView
+                android:id="@+id/textView_add_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/design_default_color_primary_variant"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="4dp"
+                android:text="@string/fab_add_card"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/floating_add_card_button"
+                app:layout_constraintEnd_toStartOf="@+id/floating_add_card_button"
+                app:layout_constraintTop_toTopOf="@+id/floating_add_card_button" />
+
+            <TextView
+                android:id="@+id/textView_add_deck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/design_default_color_primary_variant"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="4dp"
+                android:text="@string/fab_add_deck"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/floating_add_deck_button"
+                app:layout_constraintEnd_toStartOf="@+id/floating_add_deck_button"
+                app:layout_constraintTop_toTopOf="@+id/floating_add_deck_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

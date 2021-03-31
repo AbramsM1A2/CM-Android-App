@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -31,6 +32,12 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
     private List<CardItems> cardItemsList;
     private String deckName="";
     private DeckViewModel mDeckViewModel;
+
+    //fabs
+    private FloatingActionButton mMainAddFab, mAddCardFab, mAddDeckFab;
+    private TextView mAddCardText, mAddDeckText;
+    private boolean isOpen;
+    private Animation mRotateOpen,mRotateClose,mFromBottom,mToBottom;
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
@@ -99,6 +106,76 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new CardsRecyclerViewAdapter(cardItemsList));
+
+        //FABS
+
+        mMainAddFab = view.findViewById(R.id.floating_action_button);
+        mAddCardFab = view.findViewById(R.id.floating_add_card_button);
+        mAddDeckFab = view.findViewById(R.id.floating_add_deck_button);
+
+        mAddCardText = view.findViewById(R.id.textView_add_card);
+        mAddDeckText = view.findViewById(R.id.textView_add_deck);
+
+        mRotateOpen = AnimationUtils.loadAnimation(context,R.anim.rotate_open_anim);
+        mRotateClose = AnimationUtils.loadAnimation(context,R.anim.rotate_close_anim);
+        mFromBottom = AnimationUtils.loadAnimation(context,R.anim.from_bottom_anim);
+        mToBottom = AnimationUtils.loadAnimation(context,R.anim.to_bottom_anim);
+
+        isOpen = false;
+
+        mMainAddFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isOpen){
+                    //Animaciones
+                    mMainAddFab.startAnimation(mRotateClose);
+
+                    mAddCardFab.startAnimation(mToBottom);
+                    mAddDeckFab.startAnimation(mToBottom);
+                    mAddCardText.startAnimation(mToBottom);
+                    mAddDeckText.startAnimation(mToBottom);
+
+                    //Visibilidad
+                    mAddCardFab.setVisibility(View.INVISIBLE);
+                    mAddDeckFab.setVisibility(View.INVISIBLE);
+                    mAddCardText.setVisibility(View.INVISIBLE);
+                    mAddDeckText.setVisibility(View.INVISIBLE);
+
+                    isOpen= false;
+                }else{
+                    //Animaciones
+                    mMainAddFab.startAnimation(mRotateOpen);
+                    mAddCardFab.startAnimation(mFromBottom);
+                    mAddDeckFab.startAnimation(mFromBottom);
+                    mAddCardText.startAnimation(mFromBottom);
+                    mAddDeckText.startAnimation(mFromBottom);
+                    //Visibilidad
+                    mAddCardFab.setVisibility(View.VISIBLE);
+                    mAddDeckFab.setVisibility(View.VISIBLE);
+                    mAddCardText.setVisibility(View.VISIBLE);
+                    mAddDeckText.setVisibility(View.VISIBLE);
+
+                    isOpen = true;
+                }
+            }
+        });
+
+        mAddCardFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos una carta a un mazo elegido
+                Toast.makeText(context,"Add Card Button Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mAddDeckFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos un mazo
+                Toast.makeText(context,"Add Deck Button Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         return view;
     }

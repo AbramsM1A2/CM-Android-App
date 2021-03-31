@@ -14,4 +14,10 @@
     <string name="easy">facil</string>
     <string name="NoDeck">Aun no tienes ningún mazo</string>
     <string name="element_text">element_text</string>
+    <!-- Strings para el fragment card -->
+    <string name="front_of_card"> Pregunta</string>
+    <string name="back_of_card"> Respuesta</string>
+    <string name="fab_add_card"> Añadir carta</string>
+    <string name="fab_add_deck"> Crear mazo</string>
+
 </resources>
