@@ -22,8 +22,9 @@
     <!-- Cards Preferences -->
     <string name="number_title">Cartas diarias</string>
     <!-- Interface Preferences -->
-    <string name="theme">Tema oscuro</string>
+    <string name="theme">Cambiar tema</string>
+    <string name="language">Idioma</string>
     <!-- Account Preferences -->
     <string name="aboutus_title">Acerca de</string>
-    <string name="contact_title">Contacto</string>
+    <string name="contact_title">Contacta con nosotros</string>
 </resources>
