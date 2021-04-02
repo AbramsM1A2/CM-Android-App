@@ -1,6 +1,17 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="@string/cards_header">
+    <PreferenceCategory app:title="@string/cards_header" app:icon="@drawable/baseline_style_24">
+
+        <ListPreference
+            app:key="daily_cards"
+            app:title="@string/number_title"
+            app:useSimpleSummaryProvider="true"
+            app:entries="@array/cardsNumber_entries"
+            app:entryValues="@array/cardsNumber_values"
+            app:defaultValue="2"
+            />
+
 
         <EditTextPreference
             app:key="daily_cards"
@@ -17,12 +28,12 @@
             app:title="@string/theme" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/account_header">
+    <PreferenceCategory app:title="@string/account_header" app:icon="@drawable/baseline_account_circle_24">
         <EditTextPreference
             app:key="name"
             app:title="Alias"
             app:useSimpleSummaryProvider="true"
-            app:defaultValue="Añada su alias."
+            app:defaultValue="Añada su alias"
             />
     </PreferenceCategory>
 
