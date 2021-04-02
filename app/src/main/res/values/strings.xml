@@ -15,10 +15,10 @@
     <string name="NoDeck">Aun no tienes ningún mazo</string>
     <string name="element_text">element_text</string>
     <!-- Preference Titles -->
-    <string name="cards_header">Cartas</string>
-    <string name="interface_header">Interfaz</string>
-    <string name="account_header">Cuenta</string>
-    <string name="help_header">Centro de ayuda</string>
+    <string name="cards_header"><b>Cartas</b></string>
+    <string name="interface_header"><b>Interfaz</b></string>
+    <string name="account_header"><b>Cuenta</b></string>
+    <string name="help_header"><b>Centro de ayuda</b></string>
     <!-- Cards Preferences -->
     <string name="number_title">Cartas diarias</string>
     <!-- Interface Preferences -->

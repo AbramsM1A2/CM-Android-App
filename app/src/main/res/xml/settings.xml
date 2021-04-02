@@ -2,7 +2,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory app:title="@string/cards_header" app:icon="@drawable/baseline_style_24">
-
         <ListPreference
             app:key="daily_cards"
             app:title="@string/number_title"
@@ -11,7 +10,6 @@
             app:entryValues="@array/cardsNumber_values"
             app:defaultValue="10"
             />
-
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/interface_header" app:icon="@drawable/baseline_aod_24">
