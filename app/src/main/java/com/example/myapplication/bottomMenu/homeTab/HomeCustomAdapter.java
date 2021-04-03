@@ -1,5 +1,6 @@
 package com.example.myapplication.bottomMenu.homeTab;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ReviewCardsActivity;
 import com.example.myapplication.database.Deck.Deck;
 
 import java.util.ArrayList;

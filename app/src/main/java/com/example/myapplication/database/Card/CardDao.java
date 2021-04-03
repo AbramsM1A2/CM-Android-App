@@ -5,9 +5,13 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 
+import java.util.Date;
 import java.util.List;
+
+import static androidx.room.OnConflictStrategy.REPLACE;
 
 @Dao
 public interface CardDao {
@@ -22,5 +26,15 @@ public interface CardDao {
 
     @Query("SELECT * FROM card_table ORDER BY cardId ASC")
     LiveData<List<Card>> getCardsbyId();
+
+    @Query("UPDATE card_table SET due_date=:date WHERE cardId=:cardId")
+    void updateCardDueDate (Date date, Integer cardId);
+
+    @Query("SELECT * FROM card_Table WHERE due_date <= :date AND deckId =:deckID ORDER BY due_date DESC LIMIT 5")
+    LiveData<List<Card>> getOlderCards(Date date, Integer deckID);
+
+
+
+
 }
 

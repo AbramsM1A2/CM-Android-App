@@ -9,6 +9,7 @@ import com.example.myapplication.database.Card.CardDao;
 import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckDao;
 
+import java.util.Date;
 import java.util.List;
 
 public class Repository {
@@ -39,6 +40,10 @@ public class Repository {
         return mAllDecks;
     }
 
+    public LiveData<List<Card>> getAllOlderCards(Date date, Integer deckID) {
+        return mCardDao.getOlderCards(date, deckID);
+    }
+
     // Debes llamar a esto en un hilo no-UI o tu aplicación lanzará una excepción. ROOM asegura
     // que no estás haciendo ninguna operación de larga duración en el hilo principal, bloqueando la UI.
     public void insert(Card card) {
@@ -52,4 +57,12 @@ public class Repository {
             mDeckDao.insert(deck);
         });
     }
+
+    public void updateCardsDueDate(Date date, Integer cardId) {
+        RoomDatabase.databaseWriteExecutor.execute(() -> {
+            mCardDao.updateCardDueDate(date,cardId);
+        });
+    }
+
+
 }
