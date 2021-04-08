@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".bottomMenu.cardsTab.AddCardActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textAddCard"
+        android:layout_width="411dp"
+        android:layout_height="50dp"
+        android:text="@string/fab_add_card"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteY="76dp" />
+
+    <TextView
+        android:id="@+id/textAddFront2"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_deck"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteY="165dp" />
+
+
+    <TextView
+        android:id="@+id/textAddFront"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:text="@string/front_of_card"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteY="270dp" />
+
+    <EditText
+        android:id="@+id/editTextAddFront"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        tools:layout_editor_absoluteY="314dp" />
+
+    <TextView
+        android:id="@+id/textAddBack"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:text="@string/back_of_card"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteY="405dp" />
+
+    <EditText
+        android:id="@+id/editTextAddBack"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        tools:layout_editor_absoluteY="443dp" />
+
+    <Button
+        android:id="@+id/buttonAddCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_add"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="541dp" />
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.myapplication.bottomMenu.cardsTab;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -183,7 +184,8 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             @Override
             public void onClick(View v) {
                 //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos una carta a un mazo elegido
-                Toast.makeText(context,"Add Card Button Clicked", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getActivity(),AddCardActivity.class);
+                startActivity(i);
             }
         });
 
@@ -191,7 +193,8 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             @Override
             public void onClick(View v) {
                 //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos un mazo
-                Toast.makeText(context,"Add Deck Button Clicked", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getActivity(),AddDeckActivity.class);
+                startActivity(i);
             }
         });
 

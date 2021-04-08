@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/itc_launcher_flashcards_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".ReviewCardsActivity"></activity>
+        <activity android:name=".bottomMenu.cardsTab.AddCardActivity"></activity>
+        <activity android:name=".bottomMenu.cardsTab.AddDeckActivity" />
+        <activity android:name=".ReviewCardsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
