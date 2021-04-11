@@ -32,4 +32,12 @@
     <!-- Account Help Center -->
     <string name="aboutus_title">Acerca de</string>
     <string name="contact_title">Contacta con nosotros</string>
+    <!-- Strings para el fragment card -->
+    <string name="front_of_card">Pregunta</string>
+    <string name="back_of_card">Respuesta</string>
+    <string name="fab_add_card">Añadir carta</string>
+    <string name="fab_add_deck">Crear mazo</string>
+    <string name="btn_add">Añadir</string>
+    <string name="txt_deck">Mazo</string>
+    <string name="txt_deck_name">Nombre del mazo</string>
 </resources>

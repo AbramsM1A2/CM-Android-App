@@ -33,13 +33,11 @@
     <string name="aboutus_title">About us</string>
     <string name="contact_title">Contact</string>
     <!-- Strings para el fragment card -->
-    <string name="front_of_card"> Pregunta</string>
-    <string name="back_of_card"> Respuesta</string>
-    <string name="fab_add_card"> Añadir carta</string>
-    <string name="fab_add_deck"> Crear mazo</string>
-    <string name="btn_add"> Añadir </string>
-    <string name="txt_deck">Mazo</string>
-    <string name="txt_deck_name">Nombre del mazo</string>
-
-
+    <string name="front_of_card">Front</string>
+    <string name="back_of_card">Back</string>
+    <string name="fab_add_card">Add card</string>
+    <string name="fab_add_deck">New deck</string>
+    <string name="btn_add">Add</string>
+    <string name="txt_deck">Deck</string>
+    <string name="txt_deck_name">Deck name</string>
 </resources>
