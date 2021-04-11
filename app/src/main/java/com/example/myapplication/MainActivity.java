@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
     @Override
     public void onListClickListener(Deck dataItem) {
         Intent intent = new Intent(this, ReviewCardsActivity.class);
-        intent.putExtra("message_key", dataItem.getNameText());
+        intent.putExtra("selected_deck_id", String.valueOf(dataItem.getDeckId()));
+        intent.putExtra("selected_deck_name", dataItem.getNameText());
         startActivity(intent);
     }
 

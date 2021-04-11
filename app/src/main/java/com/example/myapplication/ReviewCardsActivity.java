@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
+import androidx.appcompat.widget.Toolbar;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 
 import com.example.myapplication.database.Card.Card;
 import com.example.myapplication.database.Card.CardViewModel;
@@ -22,36 +25,42 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class ReviewCardsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private DeckViewModel mDeckViewModel;
     private CardViewModel mCardViewModel;
-    private LifecycleOwner lc;
-    private Integer deckId;
+
     private List<Card> cardList;
     private Card card;
     private Button frontext;
     private Button backtext;
+
+    private int currentDeckId;
+    private String currentDeckName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_cards);
 
-        //TODO pasar los datos del deck mas eficiente, y asi ahorrarme la consulta
+        //TODO: dar Nombre de la barra
+       /* Toolbar toolbar = findViewById(R.id.toolbar_reviewcards);
+        toolbar.setTitle(currentDeckName);
+        setSupportActionBar(toolbar);*/
+
         Intent intent = getIntent();
-        String deckName = intent.getStringExtra("message_key");
+        currentDeckId = Integer.parseInt(intent.getStringExtra("selected_deck_id"));
+        currentDeckName = intent.getStringExtra("selected_deck_name");
 
         frontext = findViewById(R.id.buttonFrontText);
         backtext = findViewById(R.id.buttonBackText);
 
-        //TODO: Poner nombre del mazo?
+        //TODO borrar cuando se acabe el desarrollo
         TextView textView = findViewById(R.id.deckName);
-        textView.setText(deckName);
+        textView.setText(currentDeckName);
 
-        lc = this;
-        mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
+
         //TODO: algoritmo
         //DE x cartas coge 5 due y fecha anterior
         // populate db con mas cartas y fechas random
@@ -59,53 +68,41 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         //solo un repaso al dia
 
         //Se obtienen las cartas de la BD a partir del mazo seleccionado
+
         cardList = new ArrayList<>();
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
-        //selectCards();
 
-        //TODO: hacer metodos en el viewmodel y no aqui
-        //https://google-developer-training.github.io/android-developer-fundamentals-course-concepts-v2/unit-4-saving-user-data/lesson-10-storing-data-with-room/10-1-c-room-livedata-viewmodel/10-1-c-room-livedata-viewmodel.html#viewmodel
-        new DBTask().execute(new DBRunnable() {
-            @Override
-            public void executeDBTask() {
-                //Se obtiene de la BD el ID del mazo a partir del mazo seleccionado en la lista de mazos
-                mDeckViewModel.getAllDecks().observe(lc, decks -> {
-                    for (Deck s : decks) {
-                        Log.d("decktag", s.getNameText());
-                        if (s.getNameText().equals(deckName)) {
-                            deckId = s.getDeckId();
-                            Log.d("tag", "id");
-                            break;
-                        }
-                    }
-                });
-
-                //Se obtiene de la BD las cartas con fecha inferior a la de hoy
-                mCardViewModel.getAllOlderCards(new Date(), deckId).observe(lc, olderCards -> {
-                    cardList.addAll(olderCards);
-                });
-                //Se obtiene de la BD las cartas restantes
-                mCardViewModel.getAllCards().observe(lc, cards -> {
-                    while (cardList.size() < 20) {
-                        for (Card s : cards) {
-                            if (s.getDeckId().equals(deckId) && !cardList.contains(s)) {
-                                cardList.add(s);
-                                Log.d("CardList", s.getFrontText());
-                            }
-                        }
-                    }
-                });
+        mCardViewModel.getAllOlderCards(new Date(), currentDeckId).observe(this, cards -> {
+            for (Card c : cards) {
+                System.out.println(c);
+                cardList.add(c);
             }
-
-            @Override
-            public void postExecuteDBTask() {
-                // run your post execute code here
-                updateCard(cardList.get(0));
-                Log.d("FirstCard", card.getFrontText());
-            }
+            System.out.println(cardList);
+            mCardViewModel.getAllCardsWithThisId(currentDeckId).observe(this, moreCards -> {
+                while (cardList.size() < 20) { //TODO seleccion de cartas en base a la cantidad, requerir que el usuario tenga minimo x cartas añadidas antes de ejecutar
+                    for (int i = 0; i < 15; i++) {
+                        cardList.add(getRandomElement(moreCards));
+                    }
+                }
+            });
+            updateCard(cardList.get(0));
         });
 
-        Log.d("CardList", cardList.toString());
+    }
+
+    /**
+     * Metodo auxliar para elegir una carta aleatoria de una lista de cartas
+     * @param list lista de cartas
+     * @return carta seleccionada
+     */
+    private Card getRandomElement(List<Card> list) {
+        Random rand = new Random();
+        Card c = list.get(rand.nextInt(list.size()));
+        if (cardList.contains(c)) {
+            return getRandomElement(cardList);
+        } else {
+            return c;
+        }
     }
 
     /**
@@ -217,22 +214,5 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
 
         Button easy = findViewById(R.id.buttonEasy);
         easy.setVisibility(View.VISIBLE);
-    }
-
-    public interface DBRunnable {
-        public void executeDBTask();
-        public void postExecuteDBTask();
-    }
-    private class DBTask extends AsyncTask<DBRunnable, Void, DBRunnable> {
-        @Override
-        protected DBRunnable doInBackground(DBRunnable...runnables) {
-            runnables[0].executeDBTask();
-            return runnables[0];
-        }
-
-        @Override
-        protected void onPostExecute(DBRunnable runnable) {
-            runnable.postExecuteDBTask();
-        }
     }
 }

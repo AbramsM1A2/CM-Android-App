@@ -26,7 +26,7 @@ public class Repository {
         RoomDatabase db = RoomDatabase.getDatabase(application);
 
         mCardDao = db.CardDao();
-        mAllCards = mCardDao.getCardsbyId();
+        mAllCards = mCardDao.getAllCards();
 
         mDeckDao = db.DeckDao();
         mAllDecks = mDeckDao.getDecksById();

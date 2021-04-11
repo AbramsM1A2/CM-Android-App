@@ -68,7 +68,6 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
 
                 deck = new Deck("Español");
                 deckDao.insert(deck);
-
                 //---------------------------Card---------------------------
                 CardDao carddao = INSTANCE.CardDao();
                 carddao.deleteAll();
