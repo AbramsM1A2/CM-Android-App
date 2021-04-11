@@ -1,11 +1,14 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.example.myapplication.bottomMenu.cardsTab.CardsTabFragment;
@@ -24,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         //Menu inferior
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
                 .commit();
 
     }
-
     /**
      * Inicia el repaso de cartas a partir del mazo seleccionado
      * @param dataItem
@@ -71,4 +72,5 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
         intent.putExtra("message_key", dataItem.getNameText());
         startActivity(intent);
     }
+
 }

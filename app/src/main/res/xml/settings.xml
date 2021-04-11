@@ -1,5 +1,4 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/cards_header" app:icon="@drawable/baseline_style_24">
         <ListPreference
@@ -14,8 +13,10 @@
 
     <PreferenceCategory app:title="@string/interface_header" app:icon="@drawable/baseline_aod_24">
         <SwitchPreferenceCompat
+            app:defaultValue="false"
             app:key="theme"
-            app:title="@string/theme" />
+            app:title="@string/theme"
+            app:summary="@string/theme_summary"/>
 
         <ListPreference
             app:key="language"
@@ -30,9 +31,9 @@
     <PreferenceCategory app:title="@string/account_header" app:icon="@drawable/baseline_account_circle_24">
         <EditTextPreference
             app:key="name"
-            app:title="Alias"
+            app:title="@string/alias"
             app:useSimpleSummaryProvider="true"
-            app:defaultValue="Añada su alias"
+            app:defaultValue="@string/defaultAlias"
             />
     </PreferenceCategory>
 
