@@ -42,6 +42,22 @@ public class CardItems {
         }
         return cardItemsList;
     }
+
+    public static ArrayList<CardItems> createCardList2() {
+        ArrayList<CardItems> cardItemsList = new ArrayList<CardItems>();
+        String originalWord,translatedWord;
+        String[] strsOrig = new String[]{"Aceituna","Aguacate"};
+        String[] strsTrans = new String[]{"Olive","Avocado"};
+        List<String> original =  Arrays.asList(strsOrig);
+        List<String> translated =  Arrays.asList(strsTrans);
+
+        for(int i=0;i<=1; i++){
+            originalWord = original.get(i);
+            translatedWord = translated.get(i);
+            cardItemsList.add(new CardItems(i+1,originalWord,translatedWord));
+        }
+        return cardItemsList;
+    }
     public String toString() {
         return "Front: '" +this.front + "', Back: '" + this.back+"'";
     }

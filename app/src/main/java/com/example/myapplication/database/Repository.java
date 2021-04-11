@@ -20,6 +20,8 @@ public class Repository {
     private DeckDao mDeckDao;
     private LiveData<List<Deck>> mAllDecks;
 
+    private LiveData<List<Card>> mAllCardsWithThisId;
+
     public Repository(Application application) {
         RoomDatabase db = RoomDatabase.getDatabase(application);
 
@@ -38,6 +40,11 @@ public class Repository {
 
     public LiveData<List<Deck>> getAllDecks() {
         return mAllDecks;
+    }
+
+    public LiveData<List<Card>> getAllCardsWithThisId(Integer idOfDeck){
+        mAllCardsWithThisId = mCardDao.getCardsWithId(idOfDeck);
+        return mAllCardsWithThisId;
     }
 
     public LiveData<List<Card>> getAllOlderCards(Date date, Integer deckID) {

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iCartas</string>
+    <string name="home">Inicio</string>
+    <string name="cards">Cartas</string>
+    <string name="statistics">Estadísticas</string>
+    <string name="settings">Ajustes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="cards_fragment">Hello card fragment</string>
+    <string name="review">Repasar</string>
+    <string name="mace_name">nombre_mazo</string>
+    <string name="again">Otra vez</string>
+    <string name="hard">Dificil</string>
+    <string name="good">Normal</string>
+    <string name="easy">Fácil</string>
+    <string name="NoDeck">Aún no tienes ningún mazo</string>
+    <string name="element_text">element_text</string>
+    <!-- Preference Titles -->
+    <string name="cards_header"><b>Cartas</b></string>
+    <string name="interface_header"><b>Interfaz</b></string>
+    <string name="account_header"><b>Cuenta</b></string>
+    <string name="help_header"><b>Centro de ayuda</b></string>
+    <!-- Cards Preferences -->
+    <string name="number_title">Cartas diarias</string>
+    <!-- Interface Preferences -->
+    <string name="theme">Cambiar tema</string>
+    <string name="theme_summary">Activa esta opción para cambiar el tema de la app</string>
+    <string name="language">Idioma</string>
+    <!-- Account Preferences -->
+    <string name="alias">Alias</string>
+    <string name="defaultAlias">Añada su alias</string>
+    <!-- Account Help Center -->
+    <string name="aboutus_title">Acerca de</string>
+    <string name="contact_title">Contacta con nosotros</string>
+    <!-- Strings para el fragment card -->
+    <string name="front_of_card">Pregunta</string>
+    <string name="back_of_card">Respuesta</string>
+    <string name="fab_add_card">Añadir carta</string>
+    <string name="fab_add_deck">Crear mazo</string>
+    <string name="btn_add">Añadir</string>
+    <string name="txt_deck">Mazo</string>
+    <string name="txt_deck_name">Nombre del mazo</string>
+</resources>

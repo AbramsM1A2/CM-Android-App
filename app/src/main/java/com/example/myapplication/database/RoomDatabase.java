@@ -116,7 +116,6 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
 
                 card = new Card("Patata", "Potato", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 2);
                 carddao.insert(card);
-
             });
         }
     };

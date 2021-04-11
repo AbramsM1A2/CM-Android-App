@@ -1,6 +1,7 @@
 package com.example.myapplication.bottomMenu.cardsTab;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -19,18 +21,38 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.database.Card.Card;
+import com.example.myapplication.database.Card.CardViewModel;
 import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
+    private List<Card> cardList;
     private List<CardItems> cardItemsList;
     private String deckName="";
+
+    //RecyclerView
+    private RecyclerView recyclerView;
+
+    //Models de la dataBase
+    private CardViewModel mCardViewModel;
     private DeckViewModel mDeckViewModel;
+
+    //Diccionario con mazos y sus IDs;
+    private Map<String, Integer> mDecksByName;
+
+    //fabs
+    private FloatingActionButton mMainAddFab, mAddCardFab, mAddDeckFab;
+    private TextView mAddCardText, mAddDeckText;
+    private boolean isOpen;
+    private Animation mRotateOpen,mRotateClose,mFromBottom,mToBottom;
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
@@ -73,32 +95,110 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
 
         //Data for the Spinner
         List<String> values = new ArrayList<>();
-        values.add("Seleccionar mazo");
 
         // Create an ArrayAdapter using the string and a default spinner layout
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
+        //Iniciar el diccionario
+        mDecksByName = new HashMap<String, Integer>();
 
         //DB
+        mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         mDeckViewModel.getAllDecks().observe(getViewLifecycleOwner(), decks -> {
             for (Deck s : decks) {
+                //Podriamos poner solo una estructura de datos
+                mDecksByName.put(s.getNameText(),s.getDeckId());
                 adapter.add(s.getNameText());
             }
         });
+        //TODO AQUI DEBERIA DE PILLAR EL PRIMER DECK QUE SE MUESTRE EN LA LISTA
+        deckName = "Inglés";
+        cardList = new ArrayList<Card>();
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        //Introduce en la lista que mazo se va a enseñar
-        cardItemsList = CardItems.createCardList();
 
         //Accedemos al recyclerView contenido en el view del .xml
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.List_of_Cards);
+        recyclerView = (RecyclerView) view.findViewById(R.id.List_of_Cards);
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new CardsRecyclerViewAdapter(cardItemsList));
+
+
+
+        //FABS
+
+        mMainAddFab = view.findViewById(R.id.floating_action_button);
+        mAddCardFab = view.findViewById(R.id.floating_add_card_button);
+        mAddDeckFab = view.findViewById(R.id.floating_add_deck_button);
+
+        mAddCardText = view.findViewById(R.id.textView_add_card);
+        mAddDeckText = view.findViewById(R.id.textView_add_deck);
+
+        mRotateOpen = AnimationUtils.loadAnimation(context,R.anim.rotate_open_anim);
+        mRotateClose = AnimationUtils.loadAnimation(context,R.anim.rotate_close_anim);
+        mFromBottom = AnimationUtils.loadAnimation(context,R.anim.from_bottom_anim);
+        mToBottom = AnimationUtils.loadAnimation(context,R.anim.to_bottom_anim);
+
+        isOpen = false;
+
+        mMainAddFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isOpen){
+                    //Animaciones
+                    mMainAddFab.startAnimation(mRotateClose);
+
+                    mAddCardFab.startAnimation(mToBottom);
+                    mAddDeckFab.startAnimation(mToBottom);
+                    mAddCardText.startAnimation(mToBottom);
+                    mAddDeckText.startAnimation(mToBottom);
+
+                    //Visibilidad
+                    mAddCardFab.setVisibility(View.INVISIBLE);
+                    mAddDeckFab.setVisibility(View.INVISIBLE);
+                    mAddCardText.setVisibility(View.INVISIBLE);
+                    mAddDeckText.setVisibility(View.INVISIBLE);
+
+                    isOpen= false;
+                }else{
+                    //Animaciones
+                    mMainAddFab.startAnimation(mRotateOpen);
+                    mAddCardFab.startAnimation(mFromBottom);
+                    mAddDeckFab.startAnimation(mFromBottom);
+                    mAddCardText.startAnimation(mFromBottom);
+                    mAddDeckText.startAnimation(mFromBottom);
+                    //Visibilidad
+                    mAddCardFab.setVisibility(View.VISIBLE);
+                    mAddDeckFab.setVisibility(View.VISIBLE);
+                    mAddCardText.setVisibility(View.VISIBLE);
+                    mAddDeckText.setVisibility(View.VISIBLE);
+
+                    isOpen = true;
+                }
+            }
+        });
+
+        mAddCardFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos una carta a un mazo elegido
+                Intent i = new Intent(getActivity(),AddCardActivity.class);
+                startActivity(i);
+            }
+        });
+
+        mAddDeckFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos un mazo
+                Intent i = new Intent(getActivity(),AddDeckActivity.class);
+                startActivity(i);
+            }
+        });
+
 
         return view;
     }
@@ -107,9 +207,20 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         deckName = parent.getItemAtPosition(position).toString();
+        Integer deckId = mDecksByName.get(deckName);
 
-        Toast.makeText(parent.getContext(), "The deck is " +
-                parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+
+        mCardViewModel.getAllCardsWithThisId(deckId).observe(getViewLifecycleOwner(), cards -> {
+            //SE PUEDE HACER UN CLEAR O CREAR UNA NUEVA LISTA, MIRAR CUAL SERIA LA MEJOR OPCION
+            cardList.clear();
+            for (Card c : cards){
+                cardList.add(c);
+            }
+            recyclerView.setAdapter(new CardsRecyclerViewAdapter2(cardList));
+        });
+
+        Toast.makeText(parent.getContext(), "The deck id is " +
+                deckId, Toast.LENGTH_LONG).show();
     }
 
     @Override

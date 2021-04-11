@@ -22,4 +22,5 @@ public interface DeckDao {
 
     @Query("SELECT * FROM deck_table ORDER BY DeckId ASC")
     LiveData<List<Deck>> getDecksById();
+
 }

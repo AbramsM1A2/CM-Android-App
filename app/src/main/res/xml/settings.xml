@@ -1,0 +1,50 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/cards_header" app:icon="@drawable/baseline_style_24">
+        <ListPreference
+            app:key="daily_cards"
+            app:title="@string/number_title"
+            app:useSimpleSummaryProvider="true"
+            app:entries="@array/cardsNumber_entries"
+            app:entryValues="@array/cardsNumber_values"
+            app:defaultValue="10"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/interface_header" app:icon="@drawable/baseline_aod_24">
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="theme"
+            app:title="@string/theme"
+            app:summary="@string/theme_summary"/>
+
+        <ListPreference
+            app:key="language"
+            app:title="@string/language"
+            app:useSimpleSummaryProvider="true"
+            app:entries="@array/language_entries"
+            app:entryValues="@array/language_values"
+            app:defaultValue="spanish"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/account_header" app:icon="@drawable/baseline_account_circle_24">
+        <EditTextPreference
+            app:key="name"
+            app:title="@string/alias"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="@string/defaultAlias"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/help_header" app:icon="@drawable/baseline_help_center_24">
+        <Preference
+            app:key="about_us"
+            app:title="@string/aboutus_title"
+            />
+        <Preference
+            app:key="contact"
+            app:title="@string/contact_title"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>
