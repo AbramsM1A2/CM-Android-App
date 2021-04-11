@@ -15,7 +15,9 @@ import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckDao;
 
 import java.time.DateTimeException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -67,14 +69,53 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
 
                 deck = new Deck("Español");
                 deckDao.insert(deck);
+
                 //---------------------------Card---------------------------
                 CardDao carddao = INSTANCE.CardDao();
                 carddao.deleteAll();
 
+                //-----Mazo 1 (ingles)
                 Card card = new Card("Hello", "Hola", new Date(), 1);
                 carddao.insert(card);
 
                 card = new Card("Dog", "Perro", new Date(), 1);
+                carddao.insert(card);
+
+                card = new Card("Olive", "Aceituna", new Date(), 1);
+                carddao.insert(card);
+
+                card = new Card("Onion", "Cebolla", new GregorianCalendar(2021, Calendar.FEBRUARY, 11).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("Limon", "Lemon", new GregorianCalendar(2021, Calendar.APRIL, 11).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("Egg", "Huevo", new GregorianCalendar(2021, Calendar.APRIL, 12).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("Potato", "Patata", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                //------Mazo 2(español)
+                card = new Card("Hola", "Hello", new Date(), 2);
+                carddao.insert(card);
+
+                card = new Card("Perro", "Dog", new Date(), 2);
+                carddao.insert(card);
+
+                card = new Card("Aceituna", "Olive", new Date(), 2);
+                carddao.insert(card);
+
+                card = new Card("Cebolla", "Onion", new GregorianCalendar(2021, Calendar.FEBRUARY, 11).getTime(), 2);
+                carddao.insert(card);
+
+                card = new Card("Limon", "Lemon", new GregorianCalendar(2021, Calendar.APRIL, 11).getTime(), 2);
+                carddao.insert(card);
+
+                card = new Card("Huevo", "Egg", new GregorianCalendar(2021, Calendar.APRIL, 12).getTime(), 2);
+                carddao.insert(card);
+
+                card = new Card("Patata", "Potato", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 2);
                 carddao.insert(card);
             });
         }

@@ -113,6 +113,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         });
         //TODO AQUI DEBERIA DE PILLAR EL PRIMER DECK QUE SE MUESTRE EN LA LISTA
         deckName = "Inglés";
+        cardList = new ArrayList<Card>();
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -208,24 +209,15 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         deckName = parent.getItemAtPosition(position).toString();
         Integer deckId = mDecksByName.get(deckName);
 
-        //TODO ESTA ES LA PARTE QUE DA PROBLEMAS, TENGO QUE MIRAR REPOSITORY Y CARDVIEWMODEL
-//        mCardViewModel.getAllCardsWithThisId(deckId).observe(getViewLifecycleOwner(), cards -> {
-//            for (Card c : cards){
-//                cardList.add(c);
-//            }
-//        });
 
-
-
-        //Introduce en la lista que mazo se va a enseñar
-        if(deckId == 2){
-            cardItemsList = CardItems.createCardList2();
-        }
-        else{
-            cardItemsList = CardItems.createCardList();
-        }
-
-        recyclerView.setAdapter(new CardsRecyclerViewAdapter(cardItemsList));
+        mCardViewModel.getAllCardsWithThisId(deckId).observe(getViewLifecycleOwner(), cards -> {
+            //SE PUEDE HACER UN CLEAR O CREAR UNA NUEVA LISTA, MIRAR CUAL SERIA LA MEJOR OPCION
+            cardList.clear();
+            for (Card c : cards){
+                cardList.add(c);
+            }
+            recyclerView.setAdapter(new CardsRecyclerViewAdapter2(cardList));
+        });
 
         Toast.makeText(parent.getContext(), "The deck id is " +
                 deckId, Toast.LENGTH_LONG).show();
