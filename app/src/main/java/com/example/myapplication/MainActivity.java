@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import static com.example.myapplication.R.id.home_tab;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.onFragmentInteraction {
+    private String up_bar_string;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +34,24 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
         navigation.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == home_tab) {
+                up_bar_string = String.valueOf(R.string.app_name);
                 showFragment(HomeFragment.newInstance());
+                getSupportActionBar().setTitle("iCartas");
                 return true;
             } else if (itemId == R.id.cards_tab){
+                up_bar_string = String.valueOf(R.string.cards);
                 showFragment(CardsTabFragment.newInstance(1));
+                getSupportActionBar().setTitle("Cartas");
                 return true;
             } else if (itemId == R.id.statistics_tab) {
+                up_bar_string = String.valueOf(R.string.statistics);
+                getSupportActionBar().setTitle("Estadísticas");
                 //TODO
                 return true;
             } else if (itemId == R.id.settings_tab) {
+                up_bar_string = String.valueOf(R.string.settings);
                 showFragment(new SettingsFragment());
+                getSupportActionBar().setTitle("Ajustes");
                 return true;
             }
             return false;

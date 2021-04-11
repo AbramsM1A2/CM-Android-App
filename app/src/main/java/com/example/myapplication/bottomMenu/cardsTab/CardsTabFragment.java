@@ -61,7 +61,6 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
 
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static CardsTabFragment newInstance(int columnCount) {
         CardsTabFragment fragment = new CardsTabFragment();

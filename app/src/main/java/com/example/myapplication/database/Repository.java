@@ -9,6 +9,7 @@ import com.example.myapplication.database.Card.CardDao;
 import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckDao;
 
+import java.util.Date;
 import java.util.List;
 
 public class Repository {
@@ -20,6 +21,8 @@ public class Repository {
     private LiveData<List<Deck>> mAllDecks;
 
     private LiveData<List<Card>> mAllCardsWithThisId;
+
+    private LiveData<List<Card>> mOnly5OldCards;
 
     public Repository(Application application) {
         RoomDatabase db = RoomDatabase.getDatabase(application);
@@ -47,6 +50,10 @@ public class Repository {
     public LiveData<List<Card>> getAllCardsWithThisId(Integer idOfDeck){
         mAllCardsWithThisId = mCardDao.getCardsWithId(idOfDeck);
         return mAllCardsWithThisId;
+    }
+    public LiveData<List<Card>> get5OldCards(Date date, Integer idOfDeck){
+        mOnly5OldCards = mCardDao.getOlderCards(date,idOfDeck);
+        return mOnly5OldCards;
     }
 
     // Debes llamar a esto en un hilo no-UI o tu aplicación lanzará una excepción. ROOM asegura

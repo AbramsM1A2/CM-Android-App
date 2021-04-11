@@ -16,6 +16,7 @@ import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ReviewCardsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -58,26 +59,45 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         });
 
         //Se obtienen las cartas de la BD a partir del mazo seleccionado
-        cardList = new ArrayList<>();
+        cardList = new ArrayList<Card>();
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
-        mCardViewModel.getAllCards().observe(this, cards -> {
-            for (Card s : cards) {
-                //TODO: algoritmo
-                //DE x cartas coge 5 due y fecha anterior
-                // populate db con mas cartas y fechas random
-                // numero fijo de cartas (ajuste de usuario)
-                //solo un repaso al dia
-                if (s.getDeckId().equals(deckId)) {
-                    cardList.add(s);
-                    Log.d("CardList", s.getFrontText());
-                }
+
+        deckId = 1;
+        mCardViewModel.get5OldCards( new Date(),deckId).observe(this, cards -> {
+            System.out.println("--------------------------------------------");
+            System.out.println(new Date());
+            System.out.println(deckId);
+            System.out.println("------");
+            for (Card c : cards){
+                System.out.println(c);
+                cardList.add(c);
             }
-            if (!cardList.isEmpty()) {
-                card=cardList.get(0);
-                updateCard(card);
-                Log.d("FirstCard",card.getFrontText());
-            }
+            System.out.println(cardList);
+            updateCard(cardList.get(0));
+
         });
+
+
+
+
+//        mCardViewModel.getAllCards().observe(this, cards -> {
+//            for (Card s : cards) {
+//                //TODO: algoritmo
+//                //DE x cartas coge 5 due y fecha anterior
+//                // populate db con mas cartas y fechas random
+//                // numero fijo de cartas (ajuste de usuario)
+//                //solo un repaso al dia
+//                if (s.getDeckId().equals(deckId)) {
+//                    cardList.add(s);
+//                    Log.d("CardList", s.getFrontText());
+//                }
+//            }
+//            if (!cardList.isEmpty()) {
+//                card=cardList.get(0);
+//                updateCard(card);
+//                Log.d("FirstCard",card.getFrontText());
+//            }
+//        });
 
 
     }

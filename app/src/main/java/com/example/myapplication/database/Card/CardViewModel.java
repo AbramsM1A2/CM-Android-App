@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.myapplication.database.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 public class CardViewModel extends AndroidViewModel {
@@ -25,6 +26,10 @@ public class CardViewModel extends AndroidViewModel {
 
     public LiveData<List<Card>> getAllCardsWithThisId(Integer id){
         return mRepository.getAllCardsWithThisId(id);
+    }
+
+    public LiveData<List<Card>> get5OldCards(Date date, Integer idOfDeck){
+        return mRepository.get5OldCards(date,idOfDeck);
     }
     public void insert(Card card) { mRepository.insert(card); }
 }
