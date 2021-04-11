@@ -1,19 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">iCartas</string>
-    <string name="home">Inicio</string>
-    <string name="cards">Cartas</string>
-    <string name="statistics">Estadísticas</string>
-    <string name="settings">Ajustes</string>
+    <string name="home">Home</string>
+    <string name="cards">Cards</string>
+    <string name="statistics">Statistics</string>
+    <string name="settings">Settings</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="cards_fragment">Hello card fragment</string>
-    <string name="review">Repasar</string>
-    <string name="mace_name">nombre_mazo</string>
-    <string name="again">otra vez</string>
-    <string name="hard">dificil</string>
-    <string name="good">normal</string>
-    <string name="easy">facil</string>
-    <string name="NoDeck">Aun no tienes ningún mazo</string>
+    <string name="review">Review</string>
+    <string name="mace_name">mace_name</string>
+    <string name="again">Again</string>
+    <string name="hard">Hard</string>
+    <string name="good">Normal</string>
+    <string name="easy">Easy</string>
+    <string name="NoDeck">You have no decks yet.</string>
     <string name="element_text">element_text</string>
+    <!-- Preference Titles -->
+    <string name="cards_header"><b>Cards</b></string>
+    <string name="interface_header"><b>Interface</b></string>
+    <string name="account_header"><b>Account</b></string>
+    <string name="help_header"><b>Help center</b></string>
+    <!-- Cards Preferences -->
+    <string name="number_title">Daily cards</string>
+    <!-- Interface Preferences -->
+    <string name="theme">Switch theme</string>
+    <string name="theme_summary">Turn on to change app theme</string>
+    <string name="language">Language</string>
+    <!-- Account Preferences -->
+    <string name="alias">Alias</string>
+    <string name="defaultAlias">Set your alias</string>
+    <!-- Account Help Center -->
+    <string name="aboutus_title">About us</string>
+    <string name="contact_title">Contact</string>
     <!-- Strings para el fragment card -->
     <string name="front_of_card"> Pregunta</string>
     <string name="back_of_card"> Respuesta</string>

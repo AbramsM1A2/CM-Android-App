@@ -1,0 +1,26 @@
+<resources>
+    <!-- Cards Number Preference -->
+    <string-array name="cardsNumber_entries">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+    <string-array name="cardsNumber_values">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+
+    <string-array name="language_entries">
+        <item>Default</item>
+        <item>Español</item>
+        <item>English</item>
+    </string-array>
+    <string-array name="language_values">
+        <item>automatic</item>
+        <item>spanish</item>
+        <item>english</item>
+    </string-array>
+</resources>
