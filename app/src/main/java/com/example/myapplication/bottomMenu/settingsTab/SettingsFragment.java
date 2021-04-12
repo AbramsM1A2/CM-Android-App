@@ -59,22 +59,20 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         super.onPause();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals("theme"))
+        if(key.equals("theme"))
         {
             SwitchPreferenceCompat fPref = (SwitchPreferenceCompat) findPreference(key);
             if(fPref.isChecked()){
                     Integer a = AppCompatDelegate.getDefaultNightMode();
-                    Log.i("ESTADO NIGHT MODE:",Integer.toString(a));
-                    //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    //fPref.setSummary(getString(R.string.theme_summary) + ": %s");
-                    /*if(Resources.getSystem().getConfiguration().isNightModeActive()){
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    }else{
+                    int nightModeFlags = getContext().getResources().getConfiguration().uiMode &
+                                Configuration.UI_MODE_NIGHT_MASK;
+                    if(nightModeFlags==Configuration.UI_MODE_NIGHT_NO){
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    }*/
+                    }else if(nightModeFlags==Configuration.UI_MODE_NIGHT_YES) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    }
             }else{
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             }
