@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/cards_header" app:icon="@drawable/baseline_style_24">
         <ListPreference
@@ -13,10 +14,11 @@
 
     <PreferenceCategory app:title="@string/interface_header" app:icon="@drawable/baseline_aod_24">
         <SwitchPreferenceCompat
+            android:id="@+id/theme"
             app:defaultValue="false"
             app:key="theme"
-            app:title="@string/theme"
-            app:summary="@string/theme_summary"/>
+            app:summary="@string/theme_summary"
+            app:title="@string/theme"/>
 
         <ListPreference
             app:key="language"

@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
                 //.setCustomAnimations(R.anim.bottom_nav_enter, R.anim.bottom_nav_exit)
                 .replace(R.id.container, frg)
                 .commit();
-
     }
     /**
      * Inicia el repaso de cartas a partir del mazo seleccionado
