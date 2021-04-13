@@ -34,24 +34,25 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
         navigation.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == home_tab) {
-                up_bar_string = String.valueOf(R.string.app_name);
+                System.out.println(R.string.app_name);
+                up_bar_string = getApplicationContext().getString(R.string.app_name);
                 showFragment(HomeFragment.newInstance());
-                getSupportActionBar().setTitle("iCartas");
+                getSupportActionBar().setTitle(up_bar_string);
                 return true;
             } else if (itemId == R.id.cards_tab){
-                up_bar_string = String.valueOf(R.string.cards);
+                up_bar_string = getApplicationContext().getString(R.string.cards);
                 showFragment(CardsTabFragment.newInstance(1));
-                getSupportActionBar().setTitle("Cartas");
+                getSupportActionBar().setTitle(up_bar_string);
                 return true;
             } else if (itemId == R.id.statistics_tab) {
-                up_bar_string = String.valueOf(R.string.statistics);
-                getSupportActionBar().setTitle("Estadísticas");
+                up_bar_string = getApplicationContext().getString(R.string.statistics);
+                getSupportActionBar().setTitle(up_bar_string);
                 //TODO
                 return true;
             } else if (itemId == R.id.settings_tab) {
-                up_bar_string = String.valueOf(R.string.settings);
+                up_bar_string = getApplicationContext().getString(R.string.settings);
                 showFragment(new SettingsFragment());
-                getSupportActionBar().setTitle("Ajustes");
+                getSupportActionBar().setTitle(up_bar_string);
                 return true;
             }
             return false;

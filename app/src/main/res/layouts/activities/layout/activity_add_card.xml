@@ -1,69 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".bottomMenu.cardsTab.AddCardActivity"
-    android:orientation="vertical">
+    tools:context=".bottomMenu.cardsTab.AddCardActivity">
 
-    <TextView
-        android:id="@+id/textAddCard"
-        android:layout_width="411dp"
-        android:layout_height="50dp"
-        android:text="@string/fab_add_card"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        tools:layout_editor_absoluteY="76dp" />
-
-    <TextView
-        android:id="@+id/textAddFront2"
-        android:layout_width="411dp"
+    <LinearLayout
+        android:id="@+id/linearLayoutWithSpinner"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/txt_deck"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteY="165dp" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+
+        <TextView
+            android:id="@+id/textViewDeck"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/txt_deck"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerDecks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="24sp" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/textAddFront"
-        android:layout_width="411dp"
+        android:id="@+id/textViewFront"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="16dp"
         android:text="@string/front_of_card"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteY="270dp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutWithSpinner" />
 
     <EditText
         android:id="@+id/editTextAddFront"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
-        tools:layout_editor_absoluteY="314dp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFront" />
 
     <TextView
-        android:id="@+id/textAddBack"
-        android:layout_width="411dp"
+        android:id="@+id/textViewBack"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="16dp"
         android:text="@string/back_of_card"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteY="405dp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAddFront" />
 
     <EditText
         android:id="@+id/editTextAddBack"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
-        tools:layout_editor_absoluteY="443dp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBack" />
 
     <Button
         android:id="@+id/buttonAddCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:text="@string/btn_add"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="541dp" />
-</LinearLayout>
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAddBack"
+        app:layout_constraintVertical_bias="0.200" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
