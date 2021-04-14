@@ -40,4 +40,5 @@
     <string name="btn_add">Añadir</string>
     <string name="txt_deck">Mazo</string>
     <string name="txt_deck_name">Nombre del mazo</string>
+    <string name="minimun_deck_size">Por favor añade 20 cartas al mazo</string>
 </resources>

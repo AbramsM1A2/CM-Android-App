@@ -40,4 +40,5 @@
     <string name="btn_add">Add</string>
     <string name="txt_deck">Deck</string>
     <string name="txt_deck_name">Deck name</string>
+    <string name="minimun_deck_size">Please add 20 cards to your deck</string>
 </resources>

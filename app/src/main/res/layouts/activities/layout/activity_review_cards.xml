@@ -44,12 +44,6 @@
             android:text=""
             android:visibility="invisible" />
 
-        <TextView
-            android:id="@+id/deckName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"

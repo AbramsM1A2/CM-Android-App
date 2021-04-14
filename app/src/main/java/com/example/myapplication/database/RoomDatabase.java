@@ -94,6 +94,49 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
                 card = new Card("Potato", "Patata", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
                 carddao.insert(card);
 
+                //--7
+                card = new Card("friendship", "amistad", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("blood", "sangre", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("medicine", "medicina", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("week", "semana", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("president", "presidente", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("worker", "trabajador", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("device", "dispositivo", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("phone", "telefono", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("satisfaction", "satisfaccion", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("marriage", "matrimonio", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("truth", "verdad", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("ad", "publicidad", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("weakness", "debilidad", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
+                card = new Card("cool", "guay", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                carddao.insert(card);
+
                 //------Mazo 2(español)
                 card = new Card("Hola", "Hello", new Date(), 2);
                 carddao.insert(card);

@@ -1,13 +1,12 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleOwner;
+
 import androidx.lifecycle.ViewModelProvider;
 
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,12 +16,10 @@ import android.widget.TextView;
 
 import com.example.myapplication.database.Card.Card;
 import com.example.myapplication.database.Card.CardViewModel;
-import com.example.myapplication.database.Deck.Deck;
-import com.example.myapplication.database.Deck.DeckViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -44,21 +41,16 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_cards);
 
-        //TODO: dar Nombre de la barra
-       /* Toolbar toolbar = findViewById(R.id.toolbar_reviewcards);
-        toolbar.setTitle(currentDeckName);
-        setSupportActionBar(toolbar);*/
-
         Intent intent = getIntent();
         currentDeckId = Integer.parseInt(intent.getStringExtra("selected_deck_id"));
         currentDeckName = intent.getStringExtra("selected_deck_name");
 
+        //Se actualiza el nombre de la barra superior con el mazo actual
+        getSupportActionBar().setTitle(currentDeckName);
+
+        //Se inicializan el anverso y el reverso
         frontext = findViewById(R.id.buttonFrontText);
         backtext = findViewById(R.id.buttonBackText);
-
-        //TODO borrar cuando se acabe el desarrollo
-        TextView textView = findViewById(R.id.deckName);
-        textView.setText(currentDeckName);
 
 
         //TODO: algoritmo
@@ -79,36 +71,31 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
             }
             System.out.println(cardList);
             mCardViewModel.getAllCardsWithThisId(currentDeckId).observe(this, moreCards -> {
-                while (cardList.size() < 20) { //TODO seleccion de cartas en base a la cantidad, requerir que el usuario tenga minimo x cartas añadidas antes de ejecutar
-                    for (int i = 0; i < 15; i++) {
-                        cardList.add(getRandomElement(moreCards));
+                if (moreCards.size()<20){
+                    cardList.addAll(moreCards);
+                }else {
+                    Collections.shuffle(moreCards);
+                    int end=15;
+                    while (cardList.size() < 19) {
+                        for (int i = 0; i < end; i++) {
+                            if (!cardList.contains(moreCards.get(i))) {
+                                cardList.add(moreCards.get(i));
+                            }
+                        }
                     }
                 }
             });
-            updateCard(cardList.get(0));
+            card=cardList.get(0);
+            updateCard(card);
         });
 
     }
 
-    /**
-     * Metodo auxliar para elegir una carta aleatoria de una lista de cartas
-     * @param list lista de cartas
-     * @return carta seleccionada
-     */
-    private Card getRandomElement(List<Card> list) {
-        Random rand = new Random();
-        Card c = list.get(rand.nextInt(list.size()));
-        if (cardList.contains(c)) {
-            return getRandomElement(cardList);
-        } else {
-            return c;
-        }
-    }
 
     /**
      * Se encarga de mostrar la siguiente carta
      */
-    private void nextCard() {
+    private void nextCard() {//TODO: creo que cuando se le da again esto hace bucle
         int pos = cardList.indexOf(card);
         if (pos != cardList.size() - 1) {
             card = cardList.get(pos + 1);
@@ -145,15 +132,8 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         return cal.getTime();
     }
 
-    /**
-     * Controla la interfaz de la activity
-     */
-    private void viewHandler() {
-        hideUIAnswerAndButtons();
-        nextCard();
-    }
 
-    //TODO: Botones algoritmo
+    //TODO: Botones algoritmo, comprobar updates de la BD
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -174,6 +154,14 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
             mCardViewModel.updateCardsDueDate(setNewDatebyDays(card.getDueDate(), 20), card.getCardId());
             viewHandler();
         }
+    }
+
+    /**
+     * Controla la interfaz de la activity
+     */
+    private void viewHandler() {
+        hideUIAnswerAndButtons();
+        nextCard();
     }
 
     /**
