@@ -40,4 +40,10 @@
     <string name="btn_add">Añadir</string>
     <string name="txt_deck">Mazo</string>
     <string name="txt_deck_name">Nombre del mazo</string>
+    <string name="add_deck">Añadir mazo</string>
+    <string name="btn_confirm">Confirmar</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="msg_add_deck">Está a punto de añadir el mazo llamado</string>
+    <string name="msg_snack_add_deck">Mazo añadido correctamente</string>
+    <string name="msg_toast_empty">Por favor, no deje el nombre del mazo en blanco</string>
 </resources>

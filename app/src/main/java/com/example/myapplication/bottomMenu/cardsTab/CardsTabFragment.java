@@ -111,8 +111,6 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
                 adapter.add(s.getNameText());
             }
         });
-        //TODO AQUI DEBERIA DE PILLAR EL PRIMER DECK QUE SE MUESTRE EN LA LISTA
-        deckName = "Inglés";
         cardList = new ArrayList<Card>();
 
         // Specify the layout to use when the list of choices appears

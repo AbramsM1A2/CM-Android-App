@@ -101,7 +101,7 @@
 
     <Button
         android:id="@+id/buttonAddCard"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="50dp"
         android:text="@string/btn_add"
         android:textSize="18sp"

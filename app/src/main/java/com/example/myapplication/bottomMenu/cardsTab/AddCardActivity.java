@@ -21,9 +21,11 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
     private DeckViewModel mDeckViewModel;
     private CardViewModel mCardViewModel;
 
-    //TODO HACER QUE EL SPINNER MUESTRE LOS NOMBRES DEL MISMO TAMAÑO QUE LAS DEMAS LETRAS
+    //TODO HACER QUE EL SPINNER MUESTRE LOS NOMBRES DEL MISMO TAMAÑO QUE LAS DEMAS LETRAS (PARA ESO CAMBIAR XML DEL SPINNER)
 
     //TODO CREO QUE EL TAMAÑO DEL SPINNER ES UN PELIN MAS PEQUEÑO QUE EL TEXTVIEW DE AL LADO
+
+    //AÑADIR TAMBIEN LOS AVANCES HECHOS EN ADD DECK
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

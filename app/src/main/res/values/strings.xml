@@ -40,4 +40,11 @@
     <string name="btn_add">Add</string>
     <string name="txt_deck">Deck</string>
     <string name="txt_deck_name">Deck name</string>
+    <string name="add_deck">Add deck</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="msg_add_deck">You are about to add the deck named</string>
+    <string name="msg_snack_add_deck">Deck successfully added</string>
+    <string name="msg_toast_empty"> Please don\'t leave the deck name blank</string>
+
 </resources>
