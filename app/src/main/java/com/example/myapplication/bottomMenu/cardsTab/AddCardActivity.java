@@ -20,10 +20,9 @@ import java.util.List;
 public class AddCardActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private DeckViewModel mDeckViewModel;
     private CardViewModel mCardViewModel;
+    private String mMsg_snack_add_card;
 
-    //TODO HACER QUE EL SPINNER MUESTRE LOS NOMBRES DEL MISMO TAMAÑO QUE LAS DEMAS LETRAS (PARA ESO CAMBIAR XML DEL SPINNER)
-
-    //TODO CREO QUE EL TAMAÑO DEL SPINNER ES UN PELIN MAS PEQUEÑO QUE EL TEXTVIEW DE AL LADO
+    //TODO AÑADIR LAS ACCIONES DEL BOTON, ALGUNA COMPROBACION EN LOS STRINGS Y LA ACCION DE LA BASE DE DATOS ADEMAS DEL ALERT DIALOG
 
     //AÑADIR TAMBIEN LOS AVANCES HECHOS EN ADD DECK
     @Override
@@ -31,32 +30,40 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
         getSupportActionBar().setTitle(getApplicationContext().getString(R.string.fab_add_card));
+        //Para tener el boton de hacia atras
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Msg to the user when he adds a deck to the database
+        mMsg_snack_add_card = getApplicationContext().getString(R.string.msg_snack_add_card);
 
 
-    //-----------Spinner-----------------------
-    Spinner spinner = (Spinner) findViewById(R.id.spinnerDecks);
-    spinner.setOnItemSelectedListener(this);
+        //-----------Spinner-----------------------
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerDecks);
+        spinner.setOnItemSelectedListener(this);
 
-    //Data for the Spinner
-    List<String> values = new ArrayList<String>();
+        //Data for the Spinner
+        List<String> values = new ArrayList<String>();
 
-    // Create an ArrayAdapter using the string and a default spinner layout
-    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, values);
+        // Create an ArrayAdapter using the string and a default spinner layout
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_item, values);
 
-    //Viewmodel de BD
-    mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
+        //Viewmodel de BD
+        mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
 
-    mDeckViewModel.getAllDecks().observe(this, decks -> {
-        for (Deck s : decks) {
-            //Podriamos poner solo una estructura de datos
-            adapter.add(s.getNameText());
-        }
-    });
+        mDeckViewModel.getAllDecks().observe(this, decks -> {
+            for (Deck s : decks) {
+                //Podriamos poner solo una estructura de datos
+                adapter.add(s.getNameText());
+            }
+        });
 
-    // Specify the layout to use when the list of choices appears
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    // Apply the adapter to the spinner
-    spinner.setAdapter(adapter);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+
     }
 
 
@@ -68,5 +75,10 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+    public boolean onSupportNavigateUp() {
+        //Metodo para el boton de atras del actionbar
+        finish();
+        return true;
     }
 }

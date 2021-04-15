@@ -28,10 +28,11 @@ public class AddDeckActivity extends AppCompatActivity {
     private String mMsg_snack_add_deck;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO HACER QUE SE MODIFIQUE LA ACTION BAR Y PONER UNA MANERA DE VOLVER ATRAS (BASICAMENTE UN BOTON QUE CIERRE LA ACTIVIDAD) CON UNA X O UNA FLECHITA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_deck);
         getSupportActionBar().setTitle(getApplicationContext().getString(R.string.fab_add_deck));
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Msg to the user when he adds a deck to the database
         mMsg_snack_add_deck = getApplicationContext().getString(R.string.msg_snack_add_deck);
@@ -74,5 +75,11 @@ public class AddDeckActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public boolean onSupportNavigateUp() {
+        //Metodo para el boton de atras del actionbar
+        finish();
+        return true;
     }
 }

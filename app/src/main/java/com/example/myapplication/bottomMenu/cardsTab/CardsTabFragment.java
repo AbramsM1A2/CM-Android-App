@@ -184,6 +184,9 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             public void onClick(View v) {
                 //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos una carta a un mazo elegido
                 Intent i = new Intent(getActivity(),AddCardActivity.class);
+                //Para que se vuelva a cerrar el fab button
+                mMainAddFab.callOnClick();
+
                 startActivity(i);
             }
         });
@@ -193,6 +196,9 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             public void onClick(View v) {
                 //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos un mazo
                 Intent i = new Intent(getActivity(),AddDeckActivity.class);
+                //Para que se vuelva a cerrar el fab button
+                mMainAddFab.callOnClick();
+
                 startActivity(i);
             }
         });
