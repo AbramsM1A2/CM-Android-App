@@ -63,7 +63,9 @@ public class AddDeckActivity extends AppCompatActivity {
                                             Deck deck = new Deck(deckName);
                                             mDeckViewModel.insert(deck);
                                             //Si no funciona la view v poner mejor findViewById(android.R.id.content)
-                                            Snackbar.make(v, mMsg_snack_add_deck,Snackbar.LENGTH_SHORT).show();
+                                            Snackbar.make(v, mMsg_snack_add_deck,Snackbar.LENGTH_LONG).show();
+                                            //Para vaciar el campo despues de añadir el mazo
+                                            mEditTextDeckName.getText().clear();
                                         }
                                     })
                             .setNegativeButton(R.string.btn_cancel,null)

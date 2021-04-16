@@ -47,4 +47,7 @@
     <string name="msg_snack_add_deck">Mazo añadido correctamente</string>
     <string name="msg_toast_empty">Por favor, no deje el nombre del mazo en blanco</string>
     <string name="msg_snack_add_card">Carta añadida correctamente a su mazo</string>
+    <string name="msg_toast_noMaze">Por favor, cree un mazo antes de añadir cartas</string>
+    <string name="msg_toast_card_noText">Por favor, no deje ni la pregunta ni la respuesta de la carta en blanco</string>
+
 </resources>

@@ -47,6 +47,7 @@
     <string name="msg_snack_add_deck">Deck successfully added</string>
     <string name="msg_toast_empty"> Please don\'t leave the deck name blank</string>
     <string name="msg_snack_add_card">Card successfully added to your deck</string>
-
+    <string name="msg_toast_noMaze">Please create a deck before adding cards</string>
+    <string name="msg_toast_card_noText">Please don\'t the front or back of the card blank</string>
 
 </resources>
