@@ -31,7 +31,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
     private Card card;
     private Button frontext;
     private Button backtext;
-
+    private int pos;
     private int currentDeckId;
     private String currentDeckName;
 
@@ -87,8 +87,6 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
                         } else {
                             Collections.shuffle(moreCards);
                             for (int i = 0; i < 15; i++) {
-                                System.out.println("card: " + moreCards.get(i).getFrontText());
-                                System.out.println("Existe la carta: " + cardList.contains(moreCards.get(i)));
                                 if (!cardList.contains(moreCards.get(i))) {
                                     cardList.add(moreCards.get(i));
                                 }
@@ -99,12 +97,14 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
                     if (initialState.get()) {
                         card = cardList.get(0);
                         updateCardView(card);
+                        pos=0;
                         initialState.set(false);
                         System.out.println("----initialState-----");
                         System.out.println("Current cardList: ");
                         for (Card c : cardList) {
                             System.out.println(c.getFrontText());
                         }
+                        System.out.println("----END-----");
                     }
 
                 });
@@ -118,21 +118,23 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
     /**
      * Se encarga de mostrar la siguiente carta
      */
-    private void nextCard() {//TODO: creo que cuando se le da again esto hace bucle
+    private void nextCard() {//TODO: bucle :(
         System.out.println("----NextCard-----");
         System.out.println("Current card: " + card.getFrontText());
         System.out.println("CardList size: " + cardList.size());
-        int pos = cardList.indexOf(card);
         System.out.println("Current Card Position: " + pos);
-        if (pos != cardList.size() - 1) {
-            card = cardList.get(pos + 1);
+
+        pos = pos +1;
+        if (pos != cardList.size()) {
+            card = cardList.get(pos);
             System.out.println("Next card: " + card.getFrontText());
-            Log.d("nextCard", card.getFrontText());
             updateCardView(card);
         } else {
+            System.out.println("****************FINISH******************");
             //Cierra la activity cuando ya no hay mas cartas
             ReviewCardsActivity.this.finish();
         }
+        System.out.println("----END-----");
     }
 
     /**
@@ -160,10 +162,9 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         return cal.getTime();
     }
 
-
-    //TODO: Botones algoritmo, comprobar updates de la BD
     @Override
     public void onClick(View view) {
+        System.out.println("----onCLick-----");
         int id = view.getId();
         if (id == R.id.buttonFrontText) {
             showUIAnswerAndButtons();
@@ -171,19 +172,28 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
             cardList.add(card);
             viewHandler();
         } else if (id == R.id.buttonHard) { //3 dias
-            System.out.println("current card date: " + card.getDueDate());
-            System.out.println("Sum 3 days to the date: " + setNewDatebyDays(card.getDueDate(), 3));
-            mCardViewModel.updateCardsDueDate(setNewDatebyDays(card.getDueDate(), 3), card.getCardId());
+            Date updatedDate = setNewDatebyDays(card.getDueDate(), 3);
+            System.out.println("Current card: " + card.getFrontText()+" date: " + card.getDueDate());
+            System.out.println("Sum 3 days to the date: " + updatedDate);
+            mCardViewModel.updateCardsDueDate(updatedDate, card.getCardId());
+            System.out.println("card: " + card.getFrontText()+" Updateddate: " + card.getDueDate());
             viewHandler();
 
         } else if (id == R.id.buttonGood) { //10 dias
-            mCardViewModel.updateCardsDueDate(setNewDatebyDays(card.getDueDate(), 10), card.getCardId());
+            Date updatedDate = setNewDatebyDays(card.getDueDate(), 10);
+            System.out.println("Current card: " + card.getFrontText()+" date: " + card.getDueDate());
+            System.out.println("Sum 10 days to the date: " + updatedDate);
+            mCardViewModel.updateCardsDueDate(updatedDate, card.getCardId());
             viewHandler();
 
         } else if (id == R.id.buttonEasy) {//20 dias
-            mCardViewModel.updateCardsDueDate(setNewDatebyDays(card.getDueDate(), 20), card.getCardId());
+            Date updatedDate = setNewDatebyDays(card.getDueDate(), 20);
+            System.out.println("Current card: " + card.getFrontText()+" date: " + card.getDueDate());
+            System.out.println("Sum 20 days to the date: " + updatedDate);
+            mCardViewModel.updateCardsDueDate(updatedDate, card.getCardId());
             viewHandler();
         }
+        System.out.println("----END-----");
     }
 
     /**
