@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity(tableName = "card_table")
@@ -83,5 +84,18 @@ public class Card {
 
     public void setDeckId(@NonNull Integer deckId) {
         this.deckId = deckId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return cardId.equals(card.cardId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cardId);
     }
 }

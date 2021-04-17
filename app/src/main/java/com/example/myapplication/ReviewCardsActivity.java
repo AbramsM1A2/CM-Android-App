@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 
 import com.example.myapplication.database.Card.Card;
@@ -22,7 +21,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ReviewCardsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -62,31 +61,55 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         //Se obtienen las cartas de la BD a partir del mazo seleccionado
 
         cardList = new ArrayList<>();
+        AtomicBoolean initialState = new AtomicBoolean(true);
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
+        AtomicBoolean control = new AtomicBoolean(false);
 
         mCardViewModel.getAllOlderCards(new Date(), currentDeckId).observe(this, cards -> {
-            for (Card c : cards) {
-                System.out.println(c);
-                cardList.add(c);
+            if (initialState.get()) {
+                for (Card c : cards) {
+                    System.out.println(c);
+                    cardList.add(c);
+                }
+                control.set(true);
             }
-            System.out.println(cardList);
-            mCardViewModel.getAllCardsWithThisId(currentDeckId).observe(this, moreCards -> {
-                if (moreCards.size()<20){
-                    cardList.addAll(moreCards);
-                }else {
-                    Collections.shuffle(moreCards);
-                    int end=15;
-                    while (cardList.size() < 19) {
-                        for (int i = 0; i < end; i++) {
-                            if (!cardList.contains(moreCards.get(i))) {
-                                cardList.add(moreCards.get(i));
+            if (control.get()) {
+                mCardViewModel.getAllCardsWithThisId(currentDeckId).observe(this, moreCards -> {
+                    if (initialState.get()) {
+                        if (moreCards.size() < 20) {
+                            for (Card c : moreCards) {
+                                if (!cardList.contains(c)) {
+                                    cardList.add(c);
+                                }
                             }
+
+                            cardList.addAll(moreCards);
+                        } else {
+                            Collections.shuffle(moreCards);
+                            for (int i = 0; i < 15; i++) {
+                                System.out.println("card: " + moreCards.get(i).getFrontText());
+                                System.out.println("Existe la carta: " + cardList.contains(moreCards.get(i)));
+                                if (!cardList.contains(moreCards.get(i))) {
+                                    cardList.add(moreCards.get(i));
+                                }
+                            }
+
                         }
                     }
-                }
-            });
-            card=cardList.get(0);
-            updateCard(card);
+                    if (initialState.get()) {
+                        card = cardList.get(0);
+                        updateCardView(card);
+                        initialState.set(false);
+                        System.out.println("----initialState-----");
+                        System.out.println("Current cardList: ");
+                        for (Card c : cardList) {
+                            System.out.println(c.getFrontText());
+                        }
+                    }
+
+                });
+            }
+
         });
 
     }
@@ -96,11 +119,16 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
      * Se encarga de mostrar la siguiente carta
      */
     private void nextCard() {//TODO: creo que cuando se le da again esto hace bucle
+        System.out.println("----NextCard-----");
+        System.out.println("Current card: " + card.getFrontText());
+        System.out.println("CardList size: " + cardList.size());
         int pos = cardList.indexOf(card);
+        System.out.println("Current Card Position: " + pos);
         if (pos != cardList.size() - 1) {
             card = cardList.get(pos + 1);
+            System.out.println("Next card: " + card.getFrontText());
             Log.d("nextCard", card.getFrontText());
-            updateCard(card);
+            updateCardView(card);
         } else {
             //Cierra la activity cuando ya no hay mas cartas
             ReviewCardsActivity.this.finish();
@@ -112,7 +140,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
      *
      * @param card la carta a actualizar
      */
-    private void updateCard(Card card) {
+    private void updateCardView(Card card) {
         Log.d("updateCard", card.getFrontText());
         frontext.setText(card.getFrontText());
         backtext.setText(card.getBackText());
@@ -143,6 +171,8 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
             cardList.add(card);
             viewHandler();
         } else if (id == R.id.buttonHard) { //3 dias
+            System.out.println("current card date: " + card.getDueDate());
+            System.out.println("Sum 3 days to the date: " + setNewDatebyDays(card.getDueDate(), 3));
             mCardViewModel.updateCardsDueDate(setNewDatebyDays(card.getDueDate(), 3), card.getCardId());
             viewHandler();
 
