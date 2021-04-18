@@ -42,7 +42,7 @@ public class Repository {
         return mAllDecks;
     }
 
-    public LiveData<List<Card>> getAllCardsWithThisId(Integer idOfDeck){
+    public LiveData<List<Card>> getAllCardsWithThisId(Integer idOfDeck) {
         mAllCardsWithThisId = mCardDao.getCardsWithId(idOfDeck);
         return mAllCardsWithThisId;
     }
@@ -65,9 +65,12 @@ public class Repository {
         });
     }
 
-    public void updateCardsDueDate(Date date, Integer cardId) {
+    public void updateCard(Integer cardId, Integer repetitions, Integer quality,
+                           Double easiness,
+                           Integer interval,
+                           Date nextPractice) {
         RoomDatabase.databaseWriteExecutor.execute(() -> {
-            mCardDao.updateCardDueDate(date,cardId);
+            mCardDao.updateCard(cardId, repetitions, quality, easiness, interval, nextPractice);
         });
     }
 

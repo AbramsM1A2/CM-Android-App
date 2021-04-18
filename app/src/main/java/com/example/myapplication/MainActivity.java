@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
      * @param dataItem
      */
     @Override
-    public void onListClickListener(Deck dataItem) {
+    public void onListClickListener(Deck dataItem) {//TODO el boton al volver a la activity se queda presionado
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         AtomicInteger deckSize = new AtomicInteger();
         mCardViewModel.getAllCardsWithThisId(dataItem.getDeckId()).observe(this, cards -> {

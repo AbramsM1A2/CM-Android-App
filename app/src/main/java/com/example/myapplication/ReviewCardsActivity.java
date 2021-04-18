@@ -32,8 +32,6 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
     private Button frontext;
     private Button backtext;
     private int pos;
-    private int currentDeckId;
-    private String currentDeckName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +39,8 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_review_cards);
 
         Intent intent = getIntent();
-        currentDeckId = Integer.parseInt(intent.getStringExtra("selected_deck_id"));
-        currentDeckName = intent.getStringExtra("selected_deck_name");
+        int currentDeckId = Integer.parseInt(intent.getStringExtra("selected_deck_id"));
+        String currentDeckName = intent.getStringExtra("selected_deck_name");
 
         //Se actualiza el nombre de la barra superior con el mazo actual
         getSupportActionBar().setTitle(currentDeckName);
@@ -63,73 +61,99 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         cardList = new ArrayList<>();
         AtomicBoolean initialState = new AtomicBoolean(true);
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
-        AtomicBoolean control = new AtomicBoolean(false);
+
 
         mCardViewModel.getAllOlderCards(new Date(), currentDeckId).observe(this, cards -> {
+            System.out.println("----initialState-----"+cards);
             if (initialState.get()) {
                 for (Card c : cards) {
-                    System.out.println(c);
+                    System.out.println("Card :"+c);
                     cardList.add(c);
                 }
-                control.set(true);
+
+                card = cardList.get(0);
+                pos = 0;
+                updateCardView(card);
+
+
+                System.out.println("Current cardList: ");
+                for (Card c : cardList) {
+                    System.out.println(c.getFrontText());
+                }
+                initialState.set(false);
+                System.out.println("----END-----");
             }
-            if (control.get()) {
-                mCardViewModel.getAllCardsWithThisId(currentDeckId).observe(this, moreCards -> {
-                    if (initialState.get()) {
-                        if (moreCards.size() < 20) {
-                            for (Card c : moreCards) {
-                                if (!cardList.contains(c)) {
-                                    cardList.add(c);
-                                }
-                            }
 
-                            cardList.addAll(moreCards);
-                        } else {
-                            Collections.shuffle(moreCards);
-                            for (int i = 0; i < 15; i++) {
-                                if (!cardList.contains(moreCards.get(i))) {
-                                    cardList.add(moreCards.get(i));
-                                }
-                            }
-
-                        }
-                    }
-                    if (initialState.get()) {
-                        card = cardList.get(0);
-                        updateCardView(card);
-                        pos=0;
-                        initialState.set(false);
-                        System.out.println("----initialState-----");
-                        System.out.println("Current cardList: ");
-                        for (Card c : cardList) {
-                            System.out.println(c.getFrontText());
-                        }
-                        System.out.println("----END-----");
-                    }
-
-                });
-            }
 
         });
 
     }
 
 
+
+
+    /**
+     * Algoritmo de flashcards
+     * @param card una carta
+     * @param quality la calidad del aprendizaje
+     */
+    private void calculateSuperMemo2Algorithm(Card card, Integer quality) {
+
+        // recuperar los valores almacenados (valores por defecto si las tarjetas son nuevas)
+        int repetitions = card.getRepetitions();
+        double easiness = card.getEasiness();
+        int interval = card.getInterval();
+
+        // factor de facilidad
+        easiness = (Double) Math.max(1.3, easiness + 0.1 - (5.0 - quality) * (0.08 + (5.0 - quality) * 0.02));
+
+
+        if (quality >= 3) {
+            if (repetitions == 0) {
+                interval = 1;
+            } else if (repetitions == 1) {
+                interval = 6;
+            } else {
+                interval = (int) Math.round(interval * easiness);
+            }
+            repetitions += 1;
+            easiness = easiness + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
+        } else {
+            repetitions = 0;
+            interval = 1;
+        }
+
+        if (easiness < 1.3) {
+            easiness = 1.3;
+        }
+
+        // actualizamos la fecha de la siguiente practica
+        Date nextPractice = setNewDatebyDays(card.getNextPractice(), interval);
+
+        // Actualizamos la carta en la BD
+        mCardViewModel.updateCard(card.getCardId(), repetitions, quality, easiness, interval, nextPractice);
+
+        //Source: https://www.skoumal.com/en/how-does-the-learning-algorithm-in-the-flashcard-app-vocabulary-miner-work/
+        //Source: https://github.com/thyagoluciano/sm2
+        //source: https://www.javaer101.com/en/article/458455.html
+    }
+
     /**
      * Se encarga de mostrar la siguiente carta
      */
-    private void nextCard() {//TODO: bucle :(
+    private void nextCard() {
         System.out.println("----NextCard-----");
         System.out.println("Current card: " + card.getFrontText());
         System.out.println("CardList size: " + cardList.size());
         System.out.println("Current Card Position: " + pos);
 
-        pos = pos +1;
+        pos = pos + 1;
         if (pos != cardList.size()) {
             card = cardList.get(pos);
             System.out.println("Next card: " + card.getFrontText());
             updateCardView(card);
         } else {
+            //TODO handle onActivityResult().
             System.out.println("****************FINISH******************");
             //Cierra la activity cuando ya no hay mas cartas
             ReviewCardsActivity.this.finish();
@@ -169,28 +193,24 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         if (id == R.id.buttonFrontText) {
             showUIAnswerAndButtons();
         } else if (id == R.id.buttonAgain) {
-            cardList.add(card);
+            Integer quality = 0;
+            calculateSuperMemo2Algorithm(card, quality);
+            //TODO añadir al mazo de nuevo?
+            //cardList.add(card);
             viewHandler();
         } else if (id == R.id.buttonHard) { //3 dias
-            Date updatedDate = setNewDatebyDays(card.getDueDate(), 3);
-            System.out.println("Current card: " + card.getFrontText()+" date: " + card.getDueDate());
-            System.out.println("Sum 3 days to the date: " + updatedDate);
-            mCardViewModel.updateCardsDueDate(updatedDate, card.getCardId());
-            System.out.println("card: " + card.getFrontText()+" Updateddate: " + card.getDueDate());
+            Integer quality = 2;
+            calculateSuperMemo2Algorithm(card, quality);
             viewHandler();
 
         } else if (id == R.id.buttonGood) { //10 dias
-            Date updatedDate = setNewDatebyDays(card.getDueDate(), 10);
-            System.out.println("Current card: " + card.getFrontText()+" date: " + card.getDueDate());
-            System.out.println("Sum 10 days to the date: " + updatedDate);
-            mCardViewModel.updateCardsDueDate(updatedDate, card.getCardId());
+            Integer quality = 3;
+            calculateSuperMemo2Algorithm(card, quality);
             viewHandler();
 
         } else if (id == R.id.buttonEasy) {//20 dias
-            Date updatedDate = setNewDatebyDays(card.getDueDate(), 20);
-            System.out.println("Current card: " + card.getFrontText()+" date: " + card.getDueDate());
-            System.out.println("Sum 20 days to the date: " + updatedDate);
-            mCardViewModel.updateCardsDueDate(updatedDate, card.getCardId());
+            Integer quality = 5;
+            calculateSuperMemo2Algorithm(card, quality);
             viewHandler();
         }
         System.out.println("----END-----");

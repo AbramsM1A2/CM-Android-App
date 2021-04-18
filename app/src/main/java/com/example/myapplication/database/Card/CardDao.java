@@ -1,5 +1,6 @@
 package com.example.myapplication.database.Card;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -27,14 +28,17 @@ public interface CardDao {
     @Query("SELECT * FROM card_table ORDER BY cardId ASC")
     LiveData<List<Card>> getAllCards();
 
-    @Query("UPDATE card_table SET due_date=:date WHERE cardId=:cardId")
-    void updateCardDueDate (Date date, Integer cardId);
+    @Query("UPDATE card_table SET repetitions=:repetitions, quality=:quality, easiness=:easiness, interval=:interval, nextPractice=:nextPractice   WHERE cardId=:cardId")
+    void updateCard(Integer cardId, Integer repetitions, Integer quality,
+                    Double easiness,
+                    Integer interval,
+                    Date nextPractice);
 
-    @Query("SELECT * FROM card_Table WHERE due_date <= :date AND deckId =:deckID ORDER BY due_date DESC LIMIT 5")
+    @Query("SELECT * FROM card_Table WHERE nextPractice <= :date AND deckId =:deckID ORDER BY nextPractice ASC LIMIT 20")
     LiveData<List<Card>> getOlderCards(Date date, Integer deckID);
 
     //Query para obtener el id de un mazo pasandole su nombre
     @Query("SELECT * FROM card_table WHERE deckId = :deckid ORDER BY front_text ASC")
-    LiveData<List<Card>>getCardsWithId(Integer deckid);
+    LiveData<List<Card>> getCardsWithId(Integer deckid);
 }
 
