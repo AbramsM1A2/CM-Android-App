@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -64,10 +65,9 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
 
 
         mCardViewModel.getAllOlderCards(new Date(), currentDeckId).observe(this, cards -> {
-            System.out.println("----initialState-----"+cards);
+
             if (initialState.get()) {
                 for (Card c : cards) {
-                    System.out.println("Card :"+c);
                     cardList.add(c);
                 }
 
@@ -75,26 +75,40 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
                 pos = 0;
                 updateCardView(card);
 
-
-                System.out.println("Current cardList: ");
-                for (Card c : cardList) {
-                    System.out.println(c.getFrontText());
-                }
                 initialState.set(false);
-                System.out.println("----END-----");
             }
-
-
         });
 
     }
 
+    //TODO: comprobar que funciona
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        savedInstanceState.putInt("Current_position", pos);
+        savedInstanceState.putInt("CardId", card.getCardId());
+    }
 
-
+    //TODO: comprobar que funciona
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+        pos = savedInstanceState.getInt("Current_position");
+        int cardId = savedInstanceState.getInt("CardId");
+        mCardViewModel.getCardById(cardId).observe(this, c -> {
+            card = c;
+        });
+    }
 
     /**
      * Algoritmo de flashcards
-     * @param card una carta
+     *
+     * @param card    una carta
      * @param quality la calidad del aprendizaje
      */
     private void calculateSuperMemo2Algorithm(Card card, Integer quality) {
@@ -142,23 +156,14 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
      * Se encarga de mostrar la siguiente carta
      */
     private void nextCard() {
-        System.out.println("----NextCard-----");
-        System.out.println("Current card: " + card.getFrontText());
-        System.out.println("CardList size: " + cardList.size());
-        System.out.println("Current Card Position: " + pos);
-
         pos = pos + 1;
         if (pos != cardList.size()) {
             card = cardList.get(pos);
-            System.out.println("Next card: " + card.getFrontText());
             updateCardView(card);
         } else {
-            //TODO handle onActivityResult().
-            System.out.println("****************FINISH******************");
             //Cierra la activity cuando ya no hay mas cartas
             ReviewCardsActivity.this.finish();
         }
-        System.out.println("----END-----");
     }
 
     /**
@@ -167,7 +172,6 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
      * @param card la carta a actualizar
      */
     private void updateCardView(Card card) {
-        Log.d("updateCard", card.getFrontText());
         frontext.setText(card.getFrontText());
         backtext.setText(card.getBackText());
     }
@@ -188,7 +192,6 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        System.out.println("----onCLick-----");
         int id = view.getId();
         if (id == R.id.buttonFrontText) {
             showUIAnswerAndButtons();
@@ -213,7 +216,6 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
             calculateSuperMemo2Algorithm(card, quality);
             viewHandler();
         }
-        System.out.println("----END-----");
     }
 
     /**

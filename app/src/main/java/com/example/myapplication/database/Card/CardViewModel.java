@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CardViewModel extends AndroidViewModel {
 
-    private Repository mRepository;
+    private final Repository mRepository;
 
     private final LiveData<List<Card>> mAllCards;
 
@@ -32,6 +32,10 @@ public class CardViewModel extends AndroidViewModel {
 
     public LiveData<List<Card>> getAllCardsWithThisId(Integer id) {
         return mRepository.getAllCardsWithThisId(id);
+    }
+
+    public LiveData<Card> getCardById(Integer cardId) {
+        return mRepository.getCardById(cardId);
     }
 
     public void insert(Card card) {

@@ -1,6 +1,5 @@
 package com.example.myapplication.bottomMenu.homeTab;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ReviewCardsActivity;
 import com.example.myapplication.database.Deck.Deck;
 
 import java.util.ArrayList;
@@ -54,15 +52,12 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<HomeCustomAdapter.Vi
         holder.mItem = mDataItemList.get(position);
         holder.mTextView.setText(mDataItemList.get(position).getNameText()); //Se pilla el nombre
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListClickListener(holder.mItem);
+        holder.itemView.setOnClickListener(v -> {
+            if (null != mListener) {
+                // Notify the active callbacks interface (the activity, if the
+                // fragment is attached to one) that an item has been selected.
+                mListener.onListClickListener(holder.mItem);
 
-                }
             }
         });
 
@@ -94,6 +89,7 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<HomeCustomAdapter.Vi
             mTextView = itemView.findViewById(R.id.deckName);
         }
 
+        @NonNull
         @Override
         public String toString() {
             return super.toString() + " '" + mTextView.getText() + "'";

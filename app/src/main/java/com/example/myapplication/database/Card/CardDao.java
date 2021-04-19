@@ -1,18 +1,16 @@
 package com.example.myapplication.database.Card;
 
-import androidx.annotation.NonNull;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 
 import java.util.Date;
 import java.util.List;
 
-import static androidx.room.OnConflictStrategy.REPLACE;
 
 @Dao
 public interface CardDao {
@@ -27,6 +25,9 @@ public interface CardDao {
 
     @Query("SELECT * FROM card_table ORDER BY cardId ASC")
     LiveData<List<Card>> getAllCards();
+
+    @Query("SELECT * FROM card_table WHERE cardId=:cardId")
+    LiveData<Card> getCardById(Integer cardId);
 
     @Query("UPDATE card_table SET repetitions=:repetitions, quality=:quality, easiness=:easiness, interval=:interval, nextPractice=:nextPractice   WHERE cardId=:cardId")
     void updateCard(Integer cardId, Integer repetitions, Integer quality,

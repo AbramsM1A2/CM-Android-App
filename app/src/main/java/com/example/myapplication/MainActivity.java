@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.myapplication.bottomMenu.cardsTab.CardsTabFragment;
@@ -25,13 +24,11 @@ import static com.example.myapplication.R.id.home_tab;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.onFragmentInteraction {
 
-    private CardViewModel mCardViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //Menu inferior
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
@@ -40,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
             if (itemId == home_tab) {
                 showFragment(HomeFragment.newInstance());
                 return true;
-            } else if (itemId == R.id.cards_tab){
+            } else if (itemId == R.id.cards_tab) {
                 showFragment(CardsTabFragment.newInstance(1));
                 return true;
             } else if (itemId == R.id.statistics_tab) {
@@ -57,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
 
     /**
      * Maneja la visualizacion de los diferentes fragments del menu
-     * @param frg
+     *
+     * @param frg fragmento seleccionado
      */
     private void showFragment(Fragment frg) {
         getSupportFragmentManager()
@@ -67,20 +65,22 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
                 .commit();
 
     }
+
     /**
      * Inicia el repaso de cartas a partir del mazo seleccionado
-     * @param dataItem
+     *
+     * @param dataItem mazo seleccionado
      */
     @Override
     public void onListClickListener(Deck dataItem) {//TODO el boton al volver a la activity se queda presionado
-        mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
+        CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         AtomicInteger deckSize = new AtomicInteger();
         mCardViewModel.getAllCardsWithThisId(dataItem.getDeckId()).observe(this, cards -> {
             deckSize.set(cards.size());
-            Log.d("TAG", "onListClickListener: "+String.valueOf(deckSize.get()));
-            if (deckSize.get() < 20){
+
+            if (deckSize.get() < 20) {
                 Toast.makeText(this, R.string.minimun_deck_size, Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 Intent intent = new Intent(this, ReviewCardsActivity.class);
                 intent.putExtra("selected_deck_id", String.valueOf(dataItem.getDeckId()));
                 intent.putExtra("selected_deck_name", dataItem.getNameText());

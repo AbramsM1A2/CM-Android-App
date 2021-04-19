@@ -48,7 +48,7 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
         return INSTANCE;
     }
 
-    private static androidx.room.RoomDatabase.Callback sRoomDatabaseCallback = new androidx.room.RoomDatabase.Callback() {
+    private static final androidx.room.RoomDatabase.Callback sRoomDatabaseCallback = new androidx.room.RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -78,87 +78,87 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
                 Card card = new Card("Hello", "Hola", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Dog", "Perro", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("Dog", "Perro", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Olive", "Aceituna", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("Olive", "Aceituna", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
 
-                card = new Card("Onion", "Cebolla", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("Onion", "Cebolla", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Limon", "Lemon", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("Limon", "Lemon", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Egg", "Huevo", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("Egg", "Huevo", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Potato", "Patata", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("Potato", "Patata", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("friendship", "amistad", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("friendship", "amistad", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("blood", "sangre", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("blood", "sangre", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("medicine", "medicina", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("medicine", "medicina", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("week", "semana", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("week", "semana", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("president", "presidente", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("president", "presidente", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("worker", "trabajador", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("worker", "trabajador", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("device", "dispositivo", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("device", "dispositivo", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("phone", "telefono", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("phone", "telefono", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("satisfaction", "satisfaccion", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("satisfaction", "satisfaccion", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("marriage", "matrimonio", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("marriage", "matrimonio", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("truth", "verdad", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("truth", "verdad", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("ad", "publicidad", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("ad", "publicidad", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("weakness", "debilidad", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("weakness", "debilidad", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("cool", "guay", 1, 0, null, 2.5, 0,  new Date());
+                card = new Card("cool", "guay", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
                 //------Mazo 2(español)
-                card = new Card("Hola", "Hello", 2, 0, null, 2.5, 0,  new Date());
+                card = new Card("Hola", "Hello", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Perro", "Dog", 2, 0, null, 2.5, 0,  new Date());
+                card = new Card("Perro", "Dog", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Aceituna", "Olive", 2, 0, null, 2.5, 0,  new Date());
+                card = new Card("Aceituna", "Olive", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Cebolla", "Onion", 2, 0, null, 2.5, 0,  new Date());
+                card = new Card("Cebolla", "Onion", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Limon", "Lemon", 2, 0, null, 2.5, 0,  new Date());
+                card = new Card("Limon", "Lemon", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Huevo", "Egg", 2, 0, null, 2.5, 0,  new Date());
+                card = new Card("Huevo", "Egg", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Patata", "Potato", 2, 0, null, 2.5, 0,  new Date());
+                card = new Card("Patata", "Potato", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
             });
         }

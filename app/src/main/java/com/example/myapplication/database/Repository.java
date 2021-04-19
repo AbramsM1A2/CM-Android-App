@@ -14,13 +14,11 @@ import java.util.List;
 
 public class Repository {
 
-    private CardDao mCardDao;
-    private LiveData<List<Card>> mAllCards;
+    private final CardDao mCardDao;
+    private final LiveData<List<Card>> mAllCards;
 
-    private DeckDao mDeckDao;
-    private LiveData<List<Deck>> mAllDecks;
-
-    private LiveData<List<Card>> mAllCardsWithThisId;
+    private final DeckDao mDeckDao;
+    private final LiveData<List<Deck>> mAllDecks;
 
     public Repository(Application application) {
         RoomDatabase db = RoomDatabase.getDatabase(application);
@@ -32,46 +30,50 @@ public class Repository {
         mAllDecks = mDeckDao.getDecksById();
     }
 
+
+    //------------------------------------Card---------------------------------------------
+
     // ROOM ejecuta todas las consultas en un hilo separado.
     // El LiveData observado notificará al observador cuando los datos hayan cambiado.
     public LiveData<List<Card>> getAllCards() {
         return mAllCards;
     }
 
-    public LiveData<List<Deck>> getAllDecks() {
-        return mAllDecks;
-    }
-
     public LiveData<List<Card>> getAllCardsWithThisId(Integer idOfDeck) {
-        mAllCardsWithThisId = mCardDao.getCardsWithId(idOfDeck);
-        return mAllCardsWithThisId;
+        return mCardDao.getCardsWithId(idOfDeck);
     }
 
     public LiveData<List<Card>> getAllOlderCards(Date date, Integer deckID) {
         return mCardDao.getOlderCards(date, deckID);
     }
 
+    public LiveData<Card> getCardById(Integer cardId) {
+        return mCardDao.getCardById(cardId);
+    }
+
     // Debes llamar a esto en un hilo no-UI o tu aplicación lanzará una excepción. ROOM asegura
     // que no estás haciendo ninguna operación de larga duración en el hilo principal, bloqueando la UI.
     public void insert(Card card) {
-        RoomDatabase.databaseWriteExecutor.execute(() -> {
-            mCardDao.insert(card);
-        });
+        RoomDatabase.databaseWriteExecutor.execute(() -> mCardDao.insert(card));
     }
 
-    public void insert(Deck deck) {
-        RoomDatabase.databaseWriteExecutor.execute(() -> {
-            mDeckDao.insert(deck);
-        });
-    }
 
     public void updateCard(Integer cardId, Integer repetitions, Integer quality,
                            Double easiness,
                            Integer interval,
                            Date nextPractice) {
-        RoomDatabase.databaseWriteExecutor.execute(() -> {
-            mCardDao.updateCard(cardId, repetitions, quality, easiness, interval, nextPractice);
-        });
+        RoomDatabase.databaseWriteExecutor.execute(() -> mCardDao.updateCard(cardId, repetitions, quality, easiness, interval, nextPractice));
+    }
+
+
+    //------------------------------------Deck---------------------------------------------
+
+    public LiveData<List<Deck>> getAllDecks() {
+        return mAllDecks;
+    }
+
+    public void insert(Deck deck) {
+        RoomDatabase.databaseWriteExecutor.execute(() -> mDeckDao.insert(deck));
     }
 
 
