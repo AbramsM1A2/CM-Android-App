@@ -40,7 +40,6 @@
     <string name="btn_add">Añadir</string>
     <string name="txt_deck">Mazo</string>
     <string name="txt_deck_name">Nombre del mazo</string>
-    <string name="minimun_deck_size">Por favor añade 20 cartas al mazo</string>
     <string name="add_deck">Añadir mazo</string>
     <string name="btn_confirm">Confirmar</string>
     <string name="btn_cancel">Cancelar</string>
@@ -50,5 +49,6 @@
     <string name="msg_snack_add_card">Carta añadida correctamente a su mazo</string>
     <string name="msg_toast_noMaze">Por favor, cree un mazo antes de añadir cartas</string>
     <string name="msg_toast_card_noText">Por favor, no deje ni la pregunta ni la respuesta de la carta en blanco</string>
-
+    <!-- Strings para el fragment Home -->
+    <string name="minimun_deck_size">Por favor añade 20 cartas al mazo</string>
 </resources>

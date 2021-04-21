@@ -6,26 +6,26 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
 
 
 import com.example.myapplication.database.Card.Card;
 import com.example.myapplication.database.Card.CardViewModel;
-import com.example.myapplication.database.Deck.Deck;
-import com.example.myapplication.database.Deck.DeckViewModel;
+
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
+
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
+
 public class ReviewCardsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private DeckViewModel mDeckViewModel;
     private CardViewModel mCardViewModel;
 
     private List<Card> cardList;
@@ -50,15 +50,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         frontext = findViewById(R.id.buttonFrontText);
         backtext = findViewById(R.id.buttonBackText);
 
-
-        //TODO: algoritmo
-        //DE x cartas coge 5 due y fecha anterior
-        // populate db con mas cartas y fechas random
-        // numero fijo de cartas (ajuste de usuario)
-        //solo un repaso al dia
-
         //Se obtienen las cartas de la BD a partir del mazo seleccionado
-
         cardList = new ArrayList<>();
         AtomicBoolean initialState = new AtomicBoolean(true);
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
@@ -78,29 +70,6 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
                 initialState.set(false);
             }
         });
-
-
-
-
-//        mCardViewModel.getAllCards().observe(this, cards -> {
-//            for (Card s : cards) {
-//                //TODO: algoritmo
-//                //DE x cartas coge 5 due y fecha anterior
-//                // populate db con mas cartas y fechas random
-//                // numero fijo de cartas (ajuste de usuario)
-//                //solo un repaso al dia
-//                if (s.getDeckId().equals(deckId)) {
-//                    cardList.add(s);
-//                    Log.d("CardList", s.getFrontText());
-//                }
-//            }
-//            if (!cardList.isEmpty()) {
-//                card=cardList.get(0);
-//                updateCard(card);
-//                Log.d("FirstCard",card.getFrontText());
-//            }
-//        });
-
     }
 
     //TODO: comprobar que funciona
