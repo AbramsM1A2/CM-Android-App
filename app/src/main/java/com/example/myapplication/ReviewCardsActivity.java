@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -8,7 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+
 
 import com.example.myapplication.database.Card.Card;
 import com.example.myapplication.database.Card.CardViewModel;
@@ -16,65 +17,66 @@ import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckViewModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ReviewCardsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DeckViewModel mDeckViewModel;
     private CardViewModel mCardViewModel;
-    private Integer deckId;
+
     private List<Card> cardList;
     private Card card;
     private Button frontext;
     private Button backtext;
+    private int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_cards);
 
-        //TODO pasar los datos del deck mas eficiente, y asi ahorrarme la consulta
         Intent intent = getIntent();
-        String deckName = intent.getStringExtra("message_key");
+        int currentDeckId = Integer.parseInt(intent.getStringExtra("selected_deck_id"));
+        String currentDeckName = intent.getStringExtra("selected_deck_name");
 
+        //Se actualiza el nombre de la barra superior con el mazo actual
+        getSupportActionBar().setTitle(currentDeckName);
+
+        //Se inicializan el anverso y el reverso
         frontext = findViewById(R.id.buttonFrontText);
         backtext = findViewById(R.id.buttonBackText);
 
-        //TODO: Poner nombre del mazo?
-        TextView textView = findViewById(R.id.deckName);
-        textView.setText(deckName);
 
-        //Se obtiene de la BD el ID del mazo a partir del mazo seleccionado en la lista de mazos
-        mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
-        mDeckViewModel.getAllDecks().observe(this, decks -> {
-            for (Deck s : decks) {
-                Log.d("decktag", s.getNameText());
-                if (s.getNameText().equals(deckName)) {
-                    deckId = s.getDeckId();
-                    Log.d("tag", "id");
-                    break;
-                }
-            }
-        });
+        //TODO: algoritmo
+        //DE x cartas coge 5 due y fecha anterior
+        // populate db con mas cartas y fechas random
+        // numero fijo de cartas (ajuste de usuario)
+        //solo un repaso al dia
 
         //Se obtienen las cartas de la BD a partir del mazo seleccionado
-        cardList = new ArrayList<Card>();
+
+        cardList = new ArrayList<>();
+        AtomicBoolean initialState = new AtomicBoolean(true);
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
 
-        deckId = 1;
-        mCardViewModel.get5OldCards( new Date(),deckId).observe(this, cards -> {
-            System.out.println("--------------------------------------------");
-            System.out.println(new Date());
-            System.out.println(deckId);
-            System.out.println("------");
-            for (Card c : cards){
-                System.out.println(c);
-                cardList.add(c);
-            }
-            System.out.println(cardList);
-            updateCard(cardList.get(0));
 
+        mCardViewModel.getAllOlderCards(new Date(), currentDeckId).observe(this, cards -> {
+
+            if (initialState.get()) {
+                for (Card c : cards) {
+                    cardList.add(c);
+                }
+
+                card = cardList.get(0);
+                pos = 0;
+                updateCardView(card);
+
+                initialState.set(false);
+            }
         });
 
 
@@ -99,19 +101,88 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
 //            }
 //        });
 
+    }
 
+    //TODO: comprobar que funciona
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        savedInstanceState.putInt("Current_position", pos);
+        savedInstanceState.putInt("CardId", card.getCardId());
+    }
+
+    //TODO: comprobar que funciona
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+        pos = savedInstanceState.getInt("Current_position");
+        int cardId = savedInstanceState.getInt("CardId");
+        mCardViewModel.getCardById(cardId).observe(this, c -> {
+            card = c;
+        });
+    }
+
+    /**
+     * Algoritmo de flashcards
+     *
+     * @param card    una carta
+     * @param quality la calidad del aprendizaje
+     */
+    private void calculateSuperMemo2Algorithm(Card card, Integer quality) {
+
+        // recuperar los valores almacenados (valores por defecto si las tarjetas son nuevas)
+        int repetitions = card.getRepetitions();
+        double easiness = card.getEasiness();
+        int interval = card.getInterval();
+
+        // factor de facilidad
+        easiness = (Double) Math.max(1.3, easiness + 0.1 - (5.0 - quality) * (0.08 + (5.0 - quality) * 0.02));
+
+
+        if (quality >= 3) {
+            if (repetitions == 0) {
+                interval = 1;
+            } else if (repetitions == 1) {
+                interval = 6;
+            } else {
+                interval = (int) Math.round(interval * easiness);
+            }
+            repetitions += 1;
+            easiness = easiness + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
+        } else {
+            repetitions = 0;
+            interval = 1;
+        }
+
+        if (easiness < 1.3) {
+            easiness = 1.3;
+        }
+
+        // actualizamos la fecha de la siguiente practica
+        Date nextPractice = setNewDatebyDays(card.getNextPractice(), interval);
+
+        // Actualizamos la carta en la BD
+        mCardViewModel.updateCard(card.getCardId(), repetitions, quality, easiness, interval, nextPractice);
+
+        //Source: https://www.skoumal.com/en/how-does-the-learning-algorithm-in-the-flashcard-app-vocabulary-miner-work/
+        //Source: https://github.com/thyagoluciano/sm2
+        //source: https://www.javaer101.com/en/article/458455.html
     }
 
     /**
      * Se encarga de mostrar la siguiente carta
      */
     private void nextCard() {
-        int pos = cardList.indexOf(card);
-        if (pos != cardList.size()-1){
-        card = cardList.get(pos + 1);
-        Log.d("nextCard",card.getFrontText());
-        updateCard(card);
-        }else{
+        pos = pos + 1;
+        if (pos != cardList.size()) {
+            card = cardList.get(pos);
+            updateCardView(card);
+        } else {
             //Cierra la activity cuando ya no hay mas cartas
             ReviewCardsActivity.this.finish();
         }
@@ -119,34 +190,64 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
 
     /**
      * Se encarda de mostrar la carta al usuario
-     * @param card
+     *
+     * @param card la carta a actualizar
      */
-    private void updateCard(Card card) {
-        Log.d("updateCard",card.getFrontText());
+    private void updateCardView(Card card) {
         frontext.setText(card.getFrontText());
         backtext.setText(card.getBackText());
     }
 
-    //TODO: Botones algoritmo
+    /**
+     * Permite incrementar o decrementar una fecha
+     *
+     * @param date una fecha
+     * @param days numero de dias a actualizar
+     * @return fecha actualizada
+     */
+    private Date setNewDatebyDays(Date date, int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days); //un número negativo disminuiría los días
+        return cal.getTime();
+    }
+
     @Override
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.buttonFrontText) {
             showUIAnswerAndButtons();
         } else if (id == R.id.buttonAgain) {
-            hideUIAnswerAndButtons(); //meterlo de nuevo en cardList o salir al dia siguiente
-            nextCard();
+            Integer quality = 0;
+            calculateSuperMemo2Algorithm(card, quality);
+            viewHandler();
         } else if (id == R.id.buttonHard) { //3 dias
-            // do something for button 2 click
+            Integer quality = 2;
+            calculateSuperMemo2Algorithm(card, quality);
+            viewHandler();
+
         } else if (id == R.id.buttonGood) { //10 dias
-            // do something for button 2 click
+            Integer quality = 3;
+            calculateSuperMemo2Algorithm(card, quality);
+            viewHandler();
+
         } else if (id == R.id.buttonEasy) {//20 dias
-            // do something for button 2 click
+            Integer quality = 5;
+            calculateSuperMemo2Algorithm(card, quality);
+            viewHandler();
         }
     }
 
     /**
-     * Se encarga de controlar la visibilidad de los elementos para el usuario
+     * Controla la interfaz de la activity
+     */
+    private void viewHandler() {
+        hideUIAnswerAndButtons();
+        nextCard();
+    }
+
+    /**
+     * Controlar la visibilidad de los elementos para el usuario, concretamente los oculta
      */
     private void hideUIAnswerAndButtons() {
         Button backText = findViewById(R.id.buttonBackText);
@@ -166,7 +267,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
     }
 
     /**
-     * Se encarga de controlar la visibilidad de los elementos para el usuario
+     * Controlar la visibilidad de los elementos para el usuario, concretamente los muestra
      */
     private void showUIAnswerAndButtons() {
         Button backText = findViewById(R.id.buttonBackText);
@@ -184,7 +285,4 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         Button easy = findViewById(R.id.buttonEasy);
         easy.setVisibility(View.VISIBLE);
     }
-
-
-
 }

@@ -3,6 +3,7 @@ package com.example.myapplication.bottomMenu.homeTab;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -30,7 +31,6 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 //https://www.codeproject.com/Articles/1277308/Work-with-Database-using-Room-and-recyclerview-in
 
-    private DeckViewModel mViewModel;
     private List<Deck> mDataItemList;
     private HomeCustomAdapter mListAdapter;
 
@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
         //if data changed, set new list to adapter of recyclerview
 
         if (mDataItemList == null) {
-            mDataItemList = new ArrayList<Deck>();
+            mDataItemList = new ArrayList<>();
         }
         mDataItemList.clear();
         mDataItemList.addAll(dataItemList);
@@ -63,30 +63,23 @@ public class HomeFragment extends Fragment {
 
 
     public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-
-        return fragment;
+        return new HomeFragment();
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
-        Log.d("TAG", "initDataset: ");
 
         //get viewmodel
-        mViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
+        DeckViewModel mViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         //bind to Livedata
-        mViewModel.getAllDecks().observe(this, new Observer<List<Deck>>() {
-            @Override
-            public void onChanged(@Nullable final List<Deck> dataItems) {
-                if (dataItems != null) {
-                    setListData(dataItems);
-                }
+        //TODO: mostrar decks que no se han repasado, consulta de fecha en BD
+        mViewModel.getAllDecks().observe(this, dataItems -> {
+            if (dataItems != null) {
+                setListData(dataItems);
+            }else{
+                //TODO: textview diciendo que no hay mazos a repasar
             }
         });
 
@@ -118,12 +111,11 @@ public class HomeFragment extends Fragment {
     /**
      * Se le asigna un listener al fragment
      *
-     * @param context
+     * @param context el contexto actual
      */
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        mListener = (onFragmentInteraction) context;
         if (context instanceof onFragmentInteraction) {
             mListener = (onFragmentInteraction) context;
         } else {
@@ -139,7 +131,7 @@ public class HomeFragment extends Fragment {
     }
 
     public interface onFragmentInteraction {
-        public void onListClickListener(Deck dataItem);
+        void onListClickListener(Deck dataItem);
     }
 
 

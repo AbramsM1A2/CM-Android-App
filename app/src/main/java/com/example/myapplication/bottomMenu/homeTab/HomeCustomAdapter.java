@@ -52,15 +52,12 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<HomeCustomAdapter.Vi
         holder.mItem = mDataItemList.get(position);
         holder.mTextView.setText(mDataItemList.get(position).getNameText()); //Se pilla el nombre
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListClickListener(holder.mItem);
+        holder.itemView.setOnClickListener(v -> {
+            if (null != mListener) {
+                // Notify the active callbacks interface (the activity, if the
+                // fragment is attached to one) that an item has been selected.
+                mListener.onListClickListener(holder.mItem);
 
-                }
             }
         });
 
@@ -92,6 +89,7 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<HomeCustomAdapter.Vi
             mTextView = itemView.findViewById(R.id.deckName);
         }
 
+        @NonNull
         @Override
         public String toString() {
             return super.toString() + " '" + mTextView.getText() + "'";

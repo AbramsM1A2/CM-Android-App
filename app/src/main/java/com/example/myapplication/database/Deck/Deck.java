@@ -40,4 +40,7 @@ public class Deck {
     public void setNameText(@NonNull String nameText) {
         this.nameText = nameText;
     }
+
+    //TODO: campo fecha del repaso
+    //TODO: desaparecer cuando ha habido repaso
 }
