@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-    //TODO AÑADIR UN BOTON DE ELIMINAR MAZO EN ESTA PESTAÑA
+    //TODO AÑADIR FUNCIONALIDADES PARA EDITAR MAZO (EL NOMBRE Y ELIMINARLO) Y OTRO IGUAL PARA LAS CARTAS, FRONT BACK MAZO Y ELIMINAR
 
     private List<Card> cardList;
     private List<CardItems> cardItemsList;
