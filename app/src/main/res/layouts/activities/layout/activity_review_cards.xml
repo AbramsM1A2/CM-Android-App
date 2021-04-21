@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ReviewCardsActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_reviewcards"
+        style="@style/Theme.MyApplication"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,12 +43,6 @@
             android:clickable="false"
             android:text=""
             android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/deckName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -21,7 +21,7 @@ import java.util.GregorianCalendar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Card.class, Deck.class}, version = 2, exportSchema = false)
+@Database(entities = {Card.class, Deck.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class RoomDatabase extends androidx.room.RoomDatabase {
 
@@ -40,7 +40,6 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             RoomDatabase.class, "room_database")
-                            .addMigrations(MIGRATION_1_2) //Todas las migraciones se ponen en esta linea
                             .addCallback(sRoomDatabaseCallback) //Rellena la BD
                             .build(); //Se inicializa la BD en la APP
                 }
@@ -49,7 +48,7 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
         return INSTANCE;
     }
 
-    private static androidx.room.RoomDatabase.Callback sRoomDatabaseCallback = new androidx.room.RoomDatabase.Callback() {
+    private static final androidx.room.RoomDatabase.Callback sRoomDatabaseCallback = new androidx.room.RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -69,53 +68,97 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
 
                 deck = new Deck("Español");
                 deckDao.insert(deck);
-
                 //---------------------------Card---------------------------
                 CardDao carddao = INSTANCE.CardDao();
                 carddao.deleteAll();
 
+                //change date with: new GregorianCalendar(2021, Calendar.FEBRUARY, 11).getTime()
+
                 //-----Mazo 1 (ingles)
-                Card card = new Card("Hello", "Hola", new Date(), 1);
+                Card card = new Card("Hello", "Hola", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Dog", "Perro", new Date(), 1);
+                card = new Card("Dog", "Perro", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Olive", "Aceituna", new Date(), 1);
+                card = new Card("Olive", "Aceituna", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Onion", "Cebolla", new GregorianCalendar(2021, Calendar.FEBRUARY, 11).getTime(), 1);
+
+                card = new Card("Onion", "Cebolla", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Limon", "Lemon", new GregorianCalendar(2021, Calendar.APRIL, 11).getTime(), 1);
+                card = new Card("Limon", "Lemon", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Egg", "Huevo", new GregorianCalendar(2021, Calendar.APRIL, 12).getTime(), 1);
+                card = new Card("Egg", "Huevo", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Potato", "Patata", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 1);
+                card = new Card("Potato", "Patata", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("friendship", "amistad", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("blood", "sangre", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("medicine", "medicina", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("week", "semana", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("president", "presidente", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("worker", "trabajador", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("device", "dispositivo", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("phone", "telefono", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("satisfaction", "satisfaccion", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("marriage", "matrimonio", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("truth", "verdad", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("ad", "publicidad", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("weakness", "debilidad", 1, 0, null, 2.5, 0, new Date());
+                carddao.insert(card);
+
+                card = new Card("cool", "guay", 1, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
                 //------Mazo 2(español)
-                card = new Card("Hola", "Hello", new Date(), 2);
+                card = new Card("Hola", "Hello", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Perro", "Dog", new Date(), 2);
+                card = new Card("Perro", "Dog", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Aceituna", "Olive", new Date(), 2);
+                card = new Card("Aceituna", "Olive", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Cebolla", "Onion", new GregorianCalendar(2021, Calendar.FEBRUARY, 11).getTime(), 2);
+                card = new Card("Cebolla", "Onion", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Limon", "Lemon", new GregorianCalendar(2021, Calendar.APRIL, 11).getTime(), 2);
+                card = new Card("Limon", "Lemon", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Huevo", "Egg", new GregorianCalendar(2021, Calendar.APRIL, 12).getTime(), 2);
+                card = new Card("Huevo", "Egg", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
 
-                card = new Card("Patata", "Potato", new GregorianCalendar(2021, Calendar.FEBRUARY, 10).getTime(), 2);
+                card = new Card("Patata", "Potato", 2, 0, null, 2.5, 0, new Date());
                 carddao.insert(card);
             });
         }
@@ -124,11 +167,12 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
     // que hay que indicar de forma explicita.
 
     //No funciona, pero si reinstalas si ¯\_(ツ)_/¯
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    /*static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL(
                     "CREATE TABLE deck_table (DeckId INTEGER NOT NULL, name_text TEXT NOT NULL, PRIMARY KEY(DeckId))");
         }
-    };
+    };*/
+
 }

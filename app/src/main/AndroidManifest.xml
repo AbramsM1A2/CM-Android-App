@@ -9,9 +9,8 @@
         android:roundIcon="@mipmap/itc_launcher_flashcards_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".bottomMenu.cardsTab.AddCardActivity"></activity>
-        <activity android:name=".bottomMenu.cardsTab.AddDeckActivity"/>
-        <activity android:name=".ReviewCardsActivity" />
+
+        <!-- The main/home activity (no tiene ninguna actividad padre) -->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +18,19 @@
             </intent-filter>
         </activity>
 
+        <!-- A child of the main activity -->
+        <activity
+            android:name=".ReviewCardsActivity"
+            android:parentActivityName=".MainActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
+        <!-- Other activities -->
+        <activity android:name=".bottomMenu.cardsTab.AddCardActivity" />
+        <activity android:name=".bottomMenu.cardsTab.AddDeckActivity" />
 
 
     </application>

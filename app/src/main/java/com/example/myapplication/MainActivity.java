@@ -1,22 +1,24 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.myapplication.bottomMenu.cardsTab.CardsTabFragment;
 import com.example.myapplication.bottomMenu.settingsTab.SettingsFragment;
+import com.example.myapplication.database.Card.CardViewModel;
 import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.bottomMenu.homeTab.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.example.myapplication.R.id.home_tab;
 
@@ -62,7 +64,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
 
     /**
      * Maneja la visualizacion de los diferentes fragments del menu
-     * @param frg
+     *
+     * @param frg fragmento seleccionado
      */
     private void showFragment(Fragment frg) {
         getSupportFragmentManager()
@@ -72,15 +75,29 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
                 .commit();
 
     }
+
     /**
      * Inicia el repaso de cartas a partir del mazo seleccionado
-     * @param dataItem
+     *
+     * @param dataItem mazo seleccionado
      */
     @Override
-    public void onListClickListener(Deck dataItem) {
-        Intent intent = new Intent(this, ReviewCardsActivity.class);
-        intent.putExtra("message_key", dataItem.getNameText());
-        startActivity(intent);
+    public void onListClickListener(Deck dataItem) {//TODO el boton al volver a la activity se queda presionado
+        CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
+        AtomicInteger deckSize = new AtomicInteger();
+        mCardViewModel.getAllCardsWithThisId(dataItem.getDeckId()).observe(this, cards -> {
+            deckSize.set(cards.size());
+
+            if (deckSize.get() < 20) {
+                Toast.makeText(this, R.string.minimun_deck_size, Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(this, ReviewCardsActivity.class);
+                intent.putExtra("selected_deck_id", String.valueOf(dataItem.getDeckId()));
+                intent.putExtra("selected_deck_name", dataItem.getNameText());
+                startActivity(intent);
+            }
+        });
+
     }
 
 }

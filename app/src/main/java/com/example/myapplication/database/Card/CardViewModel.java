@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CardViewModel extends AndroidViewModel {
 
-    private Repository mRepository;
+    private final Repository mRepository;
 
     private final LiveData<List<Card>> mAllCards;
 
@@ -22,14 +22,30 @@ public class CardViewModel extends AndroidViewModel {
         mAllCards = mRepository.getAllCards();
     }
 
-    public LiveData<List<Card>> getAllCards() { return mAllCards; }
+    public LiveData<List<Card>> getAllCards() {
+        return mAllCards;
+    }
+
+    public LiveData<List<Card>> getAllOlderCards(Date date, Integer deckID) {
+        return mRepository.getAllOlderCards(date, deckID);
+    }
 
     public LiveData<List<Card>> getAllCardsWithThisId(Integer id){
         return mRepository.getAllCardsWithThisId(id);
     }
 
-    public LiveData<List<Card>> get5OldCards(Date date, Integer idOfDeck){
-        return mRepository.get5OldCards(date,idOfDeck);
+    public LiveData<Card> getCardById(Integer cardId) {
+        return mRepository.getCardById(cardId);
     }
-    public void insert(Card card) { mRepository.insert(card); }
+
+    public void insert(Card card) {
+        mRepository.insert(card);
+    }
+
+    public void updateCard(Integer cardId, Integer repetitions, Integer quality,
+                           Double easiness,
+                           Integer interval,
+                           Date nextPractice) {
+        mRepository.updateCard(cardId, repetitions, quality, easiness, interval, nextPractice);
+    }
 }
