@@ -198,8 +198,6 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         } else if (id == R.id.buttonAgain) {
             Integer quality = 0;
             calculateSuperMemo2Algorithm(card, quality);
-            //TODO añadir al mazo de nuevo?
-            //cardList.add(card);
             viewHandler();
         } else if (id == R.id.buttonHard) { //3 dias
             Integer quality = 2;

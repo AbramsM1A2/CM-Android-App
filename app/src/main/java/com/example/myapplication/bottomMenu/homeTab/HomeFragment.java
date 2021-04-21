@@ -74,6 +74,7 @@ public class HomeFragment extends Fragment {
         //get viewmodel
         DeckViewModel mViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         //bind to Livedata
+        //TODO: mostrar decks que no se han repasado, consulta de fecha en BD
         mViewModel.getAllDecks().observe(this, dataItems -> {
             if (dataItems != null) {
                 setListData(dataItems);
