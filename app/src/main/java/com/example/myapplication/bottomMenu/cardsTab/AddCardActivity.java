@@ -32,6 +32,7 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
     private String deckName;
     //Diccionario con mazos y sus IDs;
     private Map<String, Integer> mDecksByName;
+    //TODO CONSEGUIR QUE SE GUARDE EL ESTADO DE LA CARTA CUANDO LA APLICACION ESTA ON PAUSE
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

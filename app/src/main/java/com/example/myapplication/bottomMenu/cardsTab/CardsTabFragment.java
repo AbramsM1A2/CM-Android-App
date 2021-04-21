@@ -33,7 +33,9 @@ import java.util.List;
 import java.util.Map;
 
 public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-    //TODO AÑADIR FUNCIONALIDADES PARA EDITAR MAZO (EL NOMBRE Y ELIMINARLO) Y OTRO IGUAL PARA LAS CARTAS, FRONT BACK MAZO Y ELIMINAR
+    //TODO AÑADIR FUNCIONALIDADES PARA EDITAR MAZO (EL NOMBRE Y ELIMINARLO) DENTRO DEL FAB
+
+    // TODO Y OTRO IGUAL PARA LAS CARTAS CLICKEANDO EN CADA CARTA, FRONT BACK MAZO Y ELIMINAR
 
     private List<Card> cardList;
     private List<CardItems> cardItemsList;
@@ -105,6 +107,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         mDeckViewModel.getAllDecks().observe(getViewLifecycleOwner(), decks -> {
+            values.clear();
             for (Deck s : decks) {
                 //Podriamos poner solo una estructura de datos
                 mDecksByName.put(s.getNameText(),s.getDeckId());
@@ -222,9 +225,9 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             }
             recyclerView.setAdapter(new CardsRecyclerViewAdapter2(cardList));
         });
+        // POR PREDETERMINADO, SE VA A HACER CLICK SIEMPRE EN ESTE ONITEMSELECTED CADA VEZ QUE SE ABRA LA PESTAÑA CARDS
 
-        Toast.makeText(parent.getContext(), "The deck id is " +
-                deckId, Toast.LENGTH_LONG).show();
+        //Toast.makeText(parent.getContext(), "The deck id is " + deckId, Toast.LENGTH_LONG).show();
     }
 
     @Override
