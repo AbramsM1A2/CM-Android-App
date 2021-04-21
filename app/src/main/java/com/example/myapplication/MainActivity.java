@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
                 startActivity(intent);
             }
         });
-
+//TODO Firebase?
     }
 
 }
