@@ -104,7 +104,7 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
                     Toast.makeText(getApplicationContext(),R.string.msg_toast_card_noText,Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Card card = new Card(Front,Back,new Date(),deckId);
+                    Card card = new Card(Front, Back, deckId,0,null,2.5,0, new Date());
                     mCardViewModel.insert(card);
                     Snackbar.make(v, mMsg_snack_add_card,Snackbar.LENGTH_SHORT).show();
 
