@@ -21,6 +21,7 @@ import com.example.myapplication.database.Deck.DeckViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AddDeckActivity extends AppCompatActivity {
@@ -60,7 +61,7 @@ public class AddDeckActivity extends AppCompatActivity {
                             .setPositiveButton(R.string.btn_confirm, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            Deck deck = new Deck(deckName);
+                                            Deck deck = new Deck(deckName, new Date());
                                             mDeckViewModel.insert(deck);
                                             //Si no funciona la view v poner mejor findViewById(android.R.id.content)
                                             Snackbar.make(v, mMsg_snack_add_deck,Snackbar.LENGTH_LONG).show();

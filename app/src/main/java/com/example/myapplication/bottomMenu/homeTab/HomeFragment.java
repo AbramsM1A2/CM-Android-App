@@ -15,12 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,8 +37,10 @@ public class HomeFragment extends Fragment {
     private HomeCustomAdapter mListAdapter;
 
     private onFragmentInteraction mListener;
+    private boolean dataToDisplay;
 
-
+    private TextView textView;
+    private RecyclerView recyclerView;
 //    private Deck deckName = "";
 
     //the static keyword makes a variable stay throughout all classes, even if the class has been destroyed via garbage collection.
@@ -71,18 +75,29 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //get viewmodel
         DeckViewModel mViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
-        //bind to Livedata
-        //TODO: mostrar decks que no se han repasado, consulta de fecha en BD
-        mViewModel.getAllDecks().observe(this, dataItems -> {
-            if (dataItems != null) {
-                setListData(dataItems);
-            }else{
-                //TODO: textview diciendo que no hay mazos a repasar
-            }
-        });
 
+        List<Deck> decks = mViewModel.getDecksCurrentDate(new Date());
+
+        //TODO control UI para mazo
+        if (decks != null || decks.size() !=0) {
+            setListData(decks);
+            dataToDisplay = true;
+        } else {
+            dataToDisplay = false;
+        }
+
+    }
+
+    private void UIhandler() {
+        //UI control
+        if (dataToDisplay) {
+            textView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            textView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -93,18 +108,21 @@ public class HomeFragment extends Fragment {
 
         Context context = v.getContext();
 
+        textView = v.findViewById(R.id.noDeckFound);
+
         // BEGIN_INCLUDE(initializeRecyclerView)
-        RecyclerView recyclerView = v.findViewById(R.id.recyclerViewHome);
+        recyclerView = v.findViewById(R.id.recyclerViewHome);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         mListAdapter = new HomeCustomAdapter(mListener);
+
 
         if (mDataItemList != null) {
             mListAdapter.setListData(mDataItemList);
         }
         recyclerView.setAdapter(mListAdapter);
 
+        //UIhandler(); //TODO check if works when empty
         // END_INCLUDE(initializeRecyclerView)
-
         return v;
     }
 
@@ -130,9 +148,9 @@ public class HomeFragment extends Fragment {
         mListener = null;
     }
 
-    public interface onFragmentInteraction {
-        void onListClickListener(Deck dataItem);
-    }
+public interface onFragmentInteraction {
+    void onListClickListener(Deck dataItem);
+}
 
 
 }

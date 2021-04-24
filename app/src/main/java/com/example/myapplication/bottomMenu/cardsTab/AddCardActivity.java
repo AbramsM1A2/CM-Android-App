@@ -66,7 +66,7 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
         mDeckViewModel.getAllDecks().observe(this, decks -> {
             for (Deck s : decks) {
                 //Podriamos poner solo una estructura de datos
-                mDecksByName.put(s.getNameText(),s.getDeckId());
+                mDecksByName.put(s.getNameText(),s.getId());
                 adapter.add(s.getNameText());
             }
         });

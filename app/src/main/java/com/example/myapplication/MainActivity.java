@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //Menu inferior
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
                 showFragment(HomeFragment.newInstance());
                 getSupportActionBar().setTitle(up_bar_string);
                 return true;
-            } else if (itemId == R.id.cards_tab){
+            } else if (itemId == R.id.cards_tab) {
                 up_bar_string = getApplicationContext().getString(R.string.cards);
                 showFragment(CardsTabFragment.newInstance(1));
                 getSupportActionBar().setTitle(up_bar_string);
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
             } else if (itemId == R.id.statistics_tab) {
                 up_bar_string = getApplicationContext().getString(R.string.statistics);
                 getSupportActionBar().setTitle(up_bar_string);
-                //TODO
+                //TODO statistics tab
                 return true;
             } else if (itemId == R.id.settings_tab) {
                 up_bar_string = getApplicationContext().getString(R.string.settings);
@@ -85,14 +85,14 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
     public void onListClickListener(Deck dataItem) {//TODO el boton al volver a la activity se queda presionado
         CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         AtomicInteger deckSize = new AtomicInteger();
-        mCardViewModel.getAllCardsWithThisId(dataItem.getDeckId()).observe(this, cards -> {
+        mCardViewModel.getAllCardsWithThisId(dataItem.getId()).observe(this, cards -> {
             deckSize.set(cards.size());
 
             if (deckSize.get() < 20) {
                 Toast.makeText(this, R.string.minimun_deck_size, Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(this, ReviewCardsActivity.class);
-                intent.putExtra("selected_deck_id", String.valueOf(dataItem.getDeckId()));
+                intent.putExtra("selected_deck_id", String.valueOf(dataItem.getId()));
                 intent.putExtra("selected_deck_name", dataItem.getNameText());
                 startActivity(intent);
             }

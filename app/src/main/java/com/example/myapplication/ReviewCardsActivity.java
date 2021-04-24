@@ -2,7 +2,9 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.lifecycle.ViewModelProvider;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.widget.Button;
 
 import com.example.myapplication.database.Card.Card;
 import com.example.myapplication.database.Card.CardViewModel;
+import com.example.myapplication.database.Deck.DeckViewModel;
 
 
 import java.util.ArrayList;
@@ -21,7 +24,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 
 
 public class ReviewCardsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -33,6 +35,9 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
     private Button frontext;
     private Button backtext;
     private int pos;
+    private DeckViewModel mDeckViewModel;
+    private int currentDeckId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +45,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_review_cards);
 
         Intent intent = getIntent();
-        int currentDeckId = Integer.parseInt(intent.getStringExtra("selected_deck_id"));
+        currentDeckId = Integer.parseInt(intent.getStringExtra("selected_deck_id"));
         String currentDeckName = intent.getStringExtra("selected_deck_name");
 
         //Se actualiza el nombre de la barra superior con el mazo actual
@@ -55,6 +60,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         AtomicBoolean initialState = new AtomicBoolean(true);
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
 
+        mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
 
         mCardViewModel.getAllOlderCards(new Date(), currentDeckId).observe(this, cards -> {
 
@@ -80,7 +86,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         // This bundle will be passed to onCreate if the process is
         // killed and restarted.
         savedInstanceState.putInt("Current_position", pos);
-        savedInstanceState.putInt("CardId", card.getCardId());
+        savedInstanceState.putInt("CardId", card.getId());
     }
 
     //TODO: comprobar que funciona
@@ -136,7 +142,8 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         Date nextPractice = setNewDatebyDays(card.getNextPractice(), interval);
 
         // Actualizamos la carta en la BD
-        mCardViewModel.updateCard(card.getCardId(), repetitions, quality, easiness, interval, nextPractice);
+        mCardViewModel.updateCard(card.getId(), repetitions, quality, easiness, interval, nextPractice);
+
 
         //Source: https://www.skoumal.com/en/how-does-the-learning-algorithm-in-the-flashcard-app-vocabulary-miner-work/
         //Source: https://github.com/thyagoluciano/sm2
@@ -152,8 +159,13 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
             card = cardList.get(pos);
             updateCardView(card);
         } else {
+            //TODO: Actualizar la fecha de practia del mazo
+
+            Date date = setNewDatebyDays(new Date(), 1);
+            mDeckViewModel.updateDeckDate(currentDeckId, date);
             //Cierra la activity cuando ya no hay mas cartas
             ReviewCardsActivity.this.finish();
+
         }
     }
 

@@ -107,7 +107,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         mDeckViewModel.getAllDecks().observe(getViewLifecycleOwner(), decks -> {
             for (Deck s : decks) {
                 //Podriamos poner solo una estructura de datos
-                mDecksByName.put(s.getNameText(),s.getDeckId());
+                mDecksByName.put(s.getNameText(),s.getId());
                 adapter.add(s.getNameText());
             }
         });
