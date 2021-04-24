@@ -48,4 +48,16 @@ public class CardViewModel extends AndroidViewModel {
                            Date nextPractice) {
         mRepository.updateCardAlgorithm(cardId, repetitions, quality, easiness, interval, nextPractice);
     }
+
+    public void update(Card card) {
+        mRepository.updateCard(card);
+    }
+
+    public void deleteCard(Card card) {
+        mRepository.deleteCard(card);
+    }
+
+    public void deleteAllCards() {
+        mRepository.deleteAllCards();
+    }
 }

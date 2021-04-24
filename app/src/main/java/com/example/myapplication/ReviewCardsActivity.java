@@ -159,13 +159,10 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
             card = cardList.get(pos);
             updateCardView(card);
         } else {
-            //TODO: Actualizar la fecha de practia del mazo
-
             Date date = setNewDatebyDays(new Date(), 1);
             mDeckViewModel.updateDeckDate(currentDeckId, date);
             //Cierra la activity cuando ya no hay mas cartas
             ReviewCardsActivity.this.finish();
-
         }
     }
 

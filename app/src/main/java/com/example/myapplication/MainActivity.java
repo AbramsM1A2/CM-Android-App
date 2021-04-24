@@ -1,12 +1,17 @@
 package com.example.myapplication;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
 
     }
 
+
     /**
      * Inicia el repaso de cartas a partir del mazo seleccionado
      *
@@ -94,10 +100,20 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
                 Intent intent = new Intent(this, ReviewCardsActivity.class);
                 intent.putExtra("selected_deck_id", String.valueOf(dataItem.getId()));
                 intent.putExtra("selected_deck_name", dataItem.getNameText());
+
                 startActivity(intent);
+
+                //TODO: reload fragment
+                /*
+                android.app.Fragment currentFragment = getFragmentManager().findFragmentByTag("home_tab");
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.detach(currentFragment);
+                fragmentTransaction.attach(currentFragment);
+                fragmentTransaction.commit(); */
             }
         });
 //TODO Firebase?
     }
+
 
 }

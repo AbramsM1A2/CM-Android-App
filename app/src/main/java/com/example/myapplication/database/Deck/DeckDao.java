@@ -33,7 +33,7 @@ public interface DeckDao {
 
     //Custom methods
     @Query("SELECT * FROM deck_table WHERE nextPractice <= :date  ORDER BY nextPractice ASC")
-    List<Deck> getDecksWithCurrentDate(Date date);
+    LiveData<List<Deck>> getDecksWithCurrentDate(Date date);
 
     @Query("UPDATE deck_table SET nextPractice=:date WHERE id=:deckId")
     void updateDeckDate(Integer deckId, Date date);

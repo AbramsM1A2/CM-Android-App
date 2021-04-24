@@ -41,7 +41,7 @@ public class DeckViewModel extends AndroidViewModel {
         mRepository.deleteAllDecks();
     }
 
-    public List<Deck> getDecksCurrentDate(Date date) {
+    public LiveData<List<Deck>> getDecksCurrentDate(Date date) {
         return mRepository.getDecksWithCurrentDate(date);
     }
 

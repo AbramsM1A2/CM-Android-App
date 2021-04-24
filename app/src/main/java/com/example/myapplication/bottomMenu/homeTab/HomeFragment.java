@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -77,16 +78,15 @@ public class HomeFragment extends Fragment {
 
         DeckViewModel mViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
 
-        List<Deck> decks = mViewModel.getDecksCurrentDate(new Date());
-
-        //TODO control UI para mazo
-        if (decks != null || decks.size() !=0) {
-            setListData(decks);
-            dataToDisplay = true;
-        } else {
-            dataToDisplay = false;
-        }
-
+        mViewModel.getDecksCurrentDate(new Date()).observe(this, decks -> {
+            //TODO control UI para mazo
+            if (decks != null || decks.size() !=0) {
+                setListData(decks);
+                dataToDisplay = true;
+            } else {
+                dataToDisplay = false;
+            }
+        });
     }
 
     private void UIhandler() {
@@ -147,6 +147,7 @@ public class HomeFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
 public interface onFragmentInteraction {
     void onListClickListener(Deck dataItem);

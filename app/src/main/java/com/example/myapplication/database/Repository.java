@@ -201,15 +201,8 @@ public class Repository {
     }
 
     //TODO: check if it works
-    public List<Deck> getDecksWithCurrentDate(Date date) {
-        AsyncTask<Date, Void, List<Deck>> l = new getDecksWithCurrentDateAsyncTask(mDeckDao).execute(date);
-        List<Deck> res = new ArrayList<>();
-        try {
-            res = l.get();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return res;
+    public LiveData<List<Deck>> getDecksWithCurrentDate(Date date) {
+        return mDeckDao.getDecksWithCurrentDate(date);
     }
 
     //TODO: check if it works
@@ -285,20 +278,6 @@ public class Repository {
         protected Void doInBackground(Void... voids) {
             deckDao.deleteAll();
             return null;
-        }
-    }
-
-    private static class getDecksWithCurrentDateAsyncTask extends AsyncTask<Date, Void, List<Deck>> {
-
-        private DeckDao deckDao;
-
-        private getDecksWithCurrentDateAsyncTask(DeckDao deckDao) {
-            this.deckDao = deckDao;
-        }
-
-        @Override
-        protected List<Deck> doInBackground(Date... dates) {
-            return deckDao.getDecksWithCurrentDate(dates[0]);
         }
     }
 
