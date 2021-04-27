@@ -37,18 +37,29 @@
     <string name="back_of_card">Respuesta</string>
     <string name="fab_add_card">Añadir carta</string>
     <string name="fab_add_deck">Crear mazo</string>
+    <string name="fab_edit_deck">Editar mazo</string>
     <string name="btn_add">Añadir</string>
     <string name="txt_deck">Mazo</string>
     <string name="txt_deck_name">Nombre del mazo</string>
     <string name="add_deck">Añadir mazo</string>
+    <string name="edit_deck">Editar mazo</string>
+    <string name="delete_deck">Eliminar mazo</string>
     <string name="btn_confirm">Confirmar</string>
+    <string name="btn_edit">Editar</string>
     <string name="btn_cancel">Cancelar</string>
     <string name="msg_add_deck">Está a punto de añadir el mazo llamado</string>
+    <string name="msg_edit_deck">Está a punto de renombrar el mazo llamado</string>
+    <string name="msg_delete_deck">Está a punto de eliminar el mazo llamado</string>
     <string name="msg_snack_add_deck">Mazo añadido correctamente</string>
+    <string name="msg_snack_edit_deck">Mazo editado correctamente</string>
+    <string name="msg_snack_deleted_deck">Mazo eliminado correctamente</string>
     <string name="msg_toast_empty">Por favor, no deje el nombre del mazo en blanco</string>
     <string name="msg_snack_add_card">Carta añadida correctamente a su mazo</string>
     <string name="msg_toast_noMaze">Por favor, cree un mazo antes de añadir cartas</string>
+    <string name="msg_toast_noMaze_to_delete">Por favor, cree un mazo antes de intentar eliminar uno</string>
+    <string name="msg_toast_noMaze_to_changeName">Por favor, cree un mazo antes de intentar editar uno</string>
     <string name="msg_toast_card_noText">Por favor, no deje ni la pregunta ni la respuesta de la carta en blanco</string>
+    <string name="to">" a "</string>
     <!-- Strings para el fragment Home -->
     <string name="minimun_deck_size">Por favor añade 20 cartas al mazo</string>
 </resources>
