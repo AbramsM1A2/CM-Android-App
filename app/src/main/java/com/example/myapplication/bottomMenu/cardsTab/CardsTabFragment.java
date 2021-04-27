@@ -33,12 +33,8 @@ import java.util.List;
 import java.util.Map;
 
 public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-    //TODO AÑADIR FUNCIONALIDADES PARA EDITAR MAZO (EL NOMBRE Y ELIMINARLO) DENTRO DEL FAB
 
     // TODO Y OTRO IGUAL PARA LAS CARTAS CLICKEANDO EN CADA CARTA, FRONT BACK MAZO Y ELIMINAR
-
-    //TODO CUANDO AÑADO CARTA A UN MAZO Y VUELVO A LA ACTIVIDAD, EL NOMBRE DE MAZO ES EL ULTIMO ELEGIDO
-    // PERO LAS CARTAS SON DEL PRIMER MAZO O DE OTRO
 
     private List<Card> cardList;
     private List<CardItems> cardItemsList;
@@ -202,8 +198,8 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
                 Intent i = new Intent(getActivity(),AddCardActivity.class);
                 //Para que se vuelva a cerrar el fab button
                 mMainAddFab.callOnClick();
-
                 startActivity(i);
+                spinner.setSelection(0);
             }
         });
 
@@ -214,8 +210,8 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
                 Intent i = new Intent(getActivity(),AddDeckActivity.class);
                 //Para que se vuelva a cerrar el fab button
                 mMainAddFab.callOnClick();
-
                 startActivity(i);
+                spinner.setSelection(0);
             }
         });
 
@@ -226,8 +222,8 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
                 Intent i = new Intent(getActivity(),EditDeckActivity.class);
                 //Para que se vuelva a cerrar el fab button
                 mMainAddFab.callOnClick();
-
                 startActivity(i);
+                spinner.setSelection(0);
             }
         });
 

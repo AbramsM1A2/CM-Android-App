@@ -142,8 +142,7 @@ public class EditDeckActivity extends AppCompatActivity implements AdapterView.O
                                     AsyncTask.execute(() -> mCardViewModel.deleteAllCardsFromDeckId(deckId));
                                     AsyncTask.execute(() -> mDeckViewModel.deleteDeckGivingDeckId(deckId));
                                     Snackbar.make(v, mMsg_snack_delete_deck,Snackbar.LENGTH_LONG).show();
-                                    mEditTextDeckName.setText(deckName);
-
+                                    spinner.setSelection(0);
                                 }
 
                             })
@@ -155,7 +154,9 @@ public class EditDeckActivity extends AppCompatActivity implements AdapterView.O
                     Toast.makeText(getApplicationContext(),R.string.msg_toast_noMaze_to_delete,Toast.LENGTH_LONG).show();
                 }
             }
+
         });
+
 
 
     }
@@ -170,7 +171,6 @@ public class EditDeckActivity extends AppCompatActivity implements AdapterView.O
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         deckName = parent.getItemAtPosition(position).toString();
         mEditTextDeckName.setText(deckName);
-
 
     }
 

@@ -58,7 +58,7 @@
     <string name="msg_toast_noMaze">Please create a deck before adding cards</string>
     <string name="msg_toast_noMaze_to_delete">Please create a deck before trying to delete one</string>
     <string name="msg_toast_noMaze_to_changeName">Please create a deck before trying to rename one</string>
-    <string name="msg_toast_card_noText">Please don\'t the front or back of the card blank</string>
+    <string name="msg_toast_card_noText">Please don\'t leave the front or back of the card blank</string>
     <string name="to">" to "</string>
     <!-- Strings para el fragment Home -->
     <string name="minimun_deck_size">Please add 20 cards to your deck</string>
