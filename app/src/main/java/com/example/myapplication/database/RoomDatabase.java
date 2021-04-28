@@ -17,8 +17,6 @@ import com.example.myapplication.database.Deck.DeckDao;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Database(entities = {Card.class, Deck.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
@@ -51,8 +49,8 @@ public abstract class RoomDatabase extends androidx.room.RoomDatabase {
     };
 
     private static class PupulateDBAsyncTask extends AsyncTask<Void, Void, Void> {
-        private DeckDao deckDao;
-        private CardDao cardDao;
+        private final DeckDao deckDao;
+        private final CardDao cardDao;
 
         private PupulateDBAsyncTask(RoomDatabase db) {
             deckDao = db.DeckDao();

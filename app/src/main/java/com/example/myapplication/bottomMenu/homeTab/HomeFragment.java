@@ -4,15 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +37,6 @@ public class HomeFragment extends Fragment {
     private HomeCustomAdapter mListAdapter;
 
     private onFragmentInteraction mListener;
-    private boolean dataToDisplay;
 
     private TextView textView;
     private RecyclerView recyclerView;
@@ -82,22 +80,13 @@ public class HomeFragment extends Fragment {
             //TODO control UI para mazo
             if (decks != null || decks.size() !=0) {
                 setListData(decks);
-                dataToDisplay = true;
-            } else {
-                dataToDisplay = false;
+                textView.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+            } else {//TODO check if works when empty
+                textView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
             }
         });
-    }
-
-    private void UIhandler() {
-        //UI control
-        if (dataToDisplay) {
-            textView.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-        } else {
-            textView.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -121,7 +110,6 @@ public class HomeFragment extends Fragment {
         }
         recyclerView.setAdapter(mListAdapter);
 
-        //UIhandler(); //TODO check if works when empty
         // END_INCLUDE(initializeRecyclerView)
         return v;
     }

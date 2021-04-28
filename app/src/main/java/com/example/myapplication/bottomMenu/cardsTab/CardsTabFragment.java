@@ -222,9 +222,6 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             }
             recyclerView.setAdapter(new CardsRecyclerViewAdapter2(cardList));
         });
-
-        Toast.makeText(parent.getContext(), "The deck id is " +
-                deckId, Toast.LENGTH_LONG).show();
     }
 
     @Override

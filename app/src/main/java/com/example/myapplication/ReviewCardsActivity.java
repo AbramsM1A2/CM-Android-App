@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import android.view.View;
@@ -32,11 +34,15 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
 
     private List<Card> cardList;
     private Card card;
-    private Button frontext;
-    private Button backtext;
+    private Button frontText;
+    private Button backText;
     private int pos;
     private DeckViewModel mDeckViewModel;
     private int currentDeckId;
+    private View againButton;
+    private View hardButton;
+    private View goodButton;
+    private View easyButton;
 
 
     @Override
@@ -52,8 +58,17 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setTitle(currentDeckName);
 
         //Se inicializan el anverso y el reverso
-        frontext = findViewById(R.id.buttonFrontText);
-        backtext = findViewById(R.id.buttonBackText);
+        frontText = findViewById(R.id.buttonFrontText);
+        backText = findViewById(R.id.buttonBackText);
+
+        //Se inicializan los botones
+        againButton = findViewById(R.id.buttonAgain);
+        hardButton = findViewById(R.id.buttonHard);
+        goodButton = findViewById(R.id.buttonGood);
+        easyButton = findViewById(R.id.buttonEasy);
+
+        //Se actualiza el color de los botones en base al tema
+        setTheme();
 
         //Se obtienen las cartas de la BD a partir del mazo seleccionado
         cardList = new ArrayList<>();
@@ -65,9 +80,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         mCardViewModel.getAllOlderCards(new Date(), currentDeckId).observe(this, cards -> {
 
             if (initialState.get()) {
-                for (Card c : cards) {
-                    cardList.add(c);
-                }
+                cardList.addAll(cards);
 
                 card = cardList.get(0);
                 pos = 0;
@@ -76,6 +89,32 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
                 initialState.set(false);
             }
         });
+    }
+
+    /**
+     * Cambia el color de los botones en base al tema actual
+     */
+    private void setTheme() {
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode &
+                Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO) {
+            //claro
+            frontText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_700)));
+            backText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            againButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red_700)));
+            hardButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.orange_700)));
+            goodButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.brown_700)));
+            easyButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
+        } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            //oscuro
+            frontText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_200)));
+            backText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            againButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red_200)));
+            hardButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.orange_200)));
+            goodButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.brown_200)));
+            easyButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.green_200)));
+        }
     }
 
     //TODO: comprobar que funciona
@@ -97,9 +136,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         // This bundle has also been passed to onCreate.
         pos = savedInstanceState.getInt("Current_position");
         int cardId = savedInstanceState.getInt("CardId");
-        mCardViewModel.getCardById(cardId).observe(this, c -> {
-            card = c;
-        });
+        mCardViewModel.getCardById(cardId).observe(this, c -> card = c);
     }
 
     /**
@@ -172,8 +209,8 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
      * @param card la carta a actualizar
      */
     private void updateCardView(Card card) {
-        frontext.setText(card.getFrontText());
-        backtext.setText(card.getBackText());
+        frontText.setText(card.getFrontText());
+        backText.setText(card.getBackText());
     }
 
     /**
