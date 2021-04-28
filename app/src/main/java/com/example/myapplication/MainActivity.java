@@ -3,27 +3,23 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 
 import android.os.Bundle;
-import android.widget.Toast;
+
 
 import com.example.myapplication.bottomMenu.cardsTab.CardsTabFragment;
+
 import com.example.myapplication.bottomMenu.settingsTab.SettingsFragment;
-import com.example.myapplication.database.Card.CardViewModel;
-import com.example.myapplication.database.Deck.Deck;
+
 import com.example.myapplication.bottomMenu.homeTab.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import static com.example.myapplication.R.id.home_tab;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.onFragmentInteraction {
+public class MainActivity extends AppCompatActivity  {
     private String up_bar_string;
 
     @Override
@@ -76,39 +72,5 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
                 .commit();
 
     }
-
-
-    /**
-     * Inicia el repaso de cartas a partir del mazo seleccionado
-     *
-     * @param dataItem mazo seleccionado
-     */
-    @Override
-    public void onListClickListener(Deck dataItem) {//TODO el boton al volver a la activity se queda presionado
-        CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
-        AtomicInteger deckSize = new AtomicInteger();
-        mCardViewModel.getAllCardsWithThisId(dataItem.getId()).observe(this, cards -> {
-            deckSize.set(cards.size());
-
-            if (deckSize.get() < 20) {
-                Toast.makeText(this, R.string.minimun_deck_size, Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(this, ReviewCardsActivity.class);
-                intent.putExtra("selected_deck_id", String.valueOf(dataItem.getId()));
-                intent.putExtra("selected_deck_name", dataItem.getNameText());
-
-                startActivity(intent);
-
-                //TODO: reload fragment
-                /*
-                android.app.Fragment currentFragment = getFragmentManager().findFragmentByTag("home_tab");
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.detach(currentFragment);
-                fragmentTransaction.attach(currentFragment);
-                fragmentTransaction.commit(); */
-            }
-        });
-    }
-
 
 }

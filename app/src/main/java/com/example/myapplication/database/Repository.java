@@ -141,7 +141,7 @@ public class Repository {
 
         @Override
         protected Void doInBackground(UpdateCardParams... params) {
-            System.out.println("PARAMS: "+params);
+            System.out.println("PARAMS: " + params);
             cardDao.updateCard(params[0].cardId, params[0].repetitions, params[0].quality, params[0].easiness, params[0].interval, params[0].nextPractice);
             return null;
         }
@@ -200,12 +200,12 @@ public class Repository {
         return mAllDecks;
     }
 
-    //TODO: check if it works
+
     public LiveData<List<Deck>> getDecksWithCurrentDate(Date date) {
         return mDeckDao.getDecksWithCurrentDate(date);
     }
 
-    //TODO: check if it works
+
     public void updateDeckDate(Integer deckId, Date date) {
         new updateDeckDateAsyncTask(mDeckDao).execute(new UpdateDeckParams(deckId, date));
     }

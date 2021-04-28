@@ -117,7 +117,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    //TODO: comprobar que funciona
+    //TODO: comprobar que se guarda el estado del juego cuando pausas en BD
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -128,7 +128,6 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         savedInstanceState.putInt("CardId", card.getId());
     }
 
-    //TODO: comprobar que funciona
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -199,7 +198,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
             Date date = setNewDatebyDays(new Date(), 1);
             mDeckViewModel.updateDeckDate(currentDeckId, date);
             //Cierra la activity cuando ya no hay mas cartas
-            ReviewCardsActivity.this.finish();
+            this.finish();
         }
     }
 

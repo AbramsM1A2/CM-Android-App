@@ -5,13 +5,12 @@
     <string name="cards">Cards</string>
     <string name="statistics">Statistics</string>
     <string name="settings">Settings</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="cards_fragment">Hello card fragment</string>
+
     <string name="review">Review</string>
     <string name="mace_name">mace_name</string>
     <string name="again">Again</string>
     <string name="hard">Hard</string>
-    <string name="good">Normal</string>
+    <string name="good">Good</string>
     <string name="easy">Easy</string>
     <string name="NoDeck">You have no decks yet.</string>
     <string name="element_text">element_text</string>
