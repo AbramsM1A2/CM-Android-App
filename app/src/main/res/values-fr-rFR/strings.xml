@@ -52,4 +52,15 @@
     <string name="msg_toast_noMaze">Veuillez créer un deck avant d\'ajouter des cartes</string>
     <string name="msg_toast_card_noText">Veuillez ne pas laisser le recto ou le verso de la carte vierge</string>
     <string name="minimun_deck_size">" Veuillez ajouter 20 cartes à votre deck"</string>
+    <string name="fab_edit_deck">Modifier deck</string>
+    <string name="edit_deck">Modifier deck</string>
+    <string name="delete_deck">Supprimer deck</string>
+    <string name="btn_edit">Éditer</string>
+    <string name="msg_edit_deck">Vous êtes sur le point de renommer le deck</string>
+    <string name="msg_delete_deck">Vous êtes sur le point de supprimer le deck</string>
+    <string name="msg_snack_edit_deck">Deck modifié avec succès</string>
+    <string name="msg_snack_deleted_deck">Deck supprimé avec succès</string>
+    <string name="msg_toast_noMaze_to_delete">Veuillez créer un deck avant d\'essayer d\'en supprimer un</string>
+    <string name="msg_toast_noMaze_to_changeName">Veuillez créer un deck avant d\'essayer d\'en renommer un</string>
+    <string name="to">à</string>
 </resources>

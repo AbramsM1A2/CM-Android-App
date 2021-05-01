@@ -52,4 +52,15 @@
     <string name="msg_toast_noMaze">Crea un mazzo prima di aggiungere le carte</string>
     <string name="msg_toast_card_noText">" Si prega di non lasciare vuota la domanda o la risposta della lettera"</string>
     <string name="minimun_deck_size">Aggiungi 20 carte al mazzo</string>
+    <string name="edit_deck">Modifica mazzo</string>
+    <string name="delete_deck">Elimina mazzo</string>
+    <string name="btn_edit">Modificare</string>
+    <string name="msg_edit_deck">Stai per rinominare il mazzo</string>
+    <string name="msg_delete_deck">Stai per eliminare il mazzo</string>
+    <string name="msg_snack_edit_deck">Deck modificato con successo</string>
+    <string name="msg_snack_deleted_deck">Mazzo eliminato con successo</string>
+    <string name="msg_toast_noMaze_to_delete">Crea un mazzo prima di provare a eliminarne uno</string>
+    <string name="msg_toast_noMaze_to_changeName">Crea un mazzo prima di provare a rinominarne uno</string>
+    <string name="to">per</string>
+    <string name="fab_edit_deck">Modifica mazzo</string>
 </resources>
