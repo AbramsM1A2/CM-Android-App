@@ -30,7 +30,7 @@ public class CardViewModel extends AndroidViewModel {
         return mRepository.getAllOlderCards(date, deckID);
     }
 
-    public LiveData<List<Card>> getAllCardsWithThisId(Integer id){
+    public LiveData<List<Card>> getAllCardsWithThisId(Integer id) {
         return mRepository.getAllCardsWithThisId(id);
     }
 
@@ -39,14 +39,26 @@ public class CardViewModel extends AndroidViewModel {
     }
 
     public void insert(Card card) {
-        mRepository.insert(card);
+        mRepository.insertCard(card);
     }
 
     public void updateCard(Integer cardId, Integer repetitions, Integer quality,
                            Double easiness,
                            Integer interval,
                            Date nextPractice) {
-        mRepository.updateCard(cardId, repetitions, quality, easiness, interval, nextPractice);
+        mRepository.updateCardAlgorithm(cardId, repetitions, quality, easiness, interval, nextPractice);
+    }
+
+    public void update(Card card) {
+        mRepository.updateCard(card);
+    }
+
+    public void deleteCard(Card card) {
+        mRepository.deleteCard(card);
+    }
+
+    public void deleteAllCards() {
+        mRepository.deleteAllCards();
     }
     public void deleteAllCardsFromDeckId(Integer deckid){
         mRepository.deleteAllCardsFromDeckId(deckid);

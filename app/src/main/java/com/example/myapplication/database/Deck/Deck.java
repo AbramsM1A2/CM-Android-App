@@ -5,42 +5,45 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity(tableName = "deck_table")
 public class Deck {
-    private static final AtomicInteger count = new AtomicInteger(0);
 
-    @PrimaryKey
-    @NonNull
-    private Integer DeckId;
-    @NonNull
-    @ColumnInfo(name = "name_text")
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
+
     private String nameText;
 
-    public Deck(@NonNull String nameText) {
-        count.incrementAndGet(); //DeckId Increment
+    private Date nextPractice;
+
+    public Deck(String nameText, Date nextPractice) {
         this.nameText = nameText;
+        this.nextPractice = nextPractice;
     }
 
-    @NonNull
-    public Integer getDeckId() {
-        return DeckId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDeckId(@NonNull Integer deckId) {
-        this.DeckId = deckId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    @NonNull
     public String getNameText() {
         return nameText;
     }
 
-    public void setNameText(@NonNull String nameText) {
-        this.nameText = nameText;
+    public Date getNextPractice() {
+        return nextPractice;
     }
 
-    //TODO: campo fecha del repaso
-    //TODO: desaparecer cuando ha habido repaso
+    @Override
+    public String toString() {
+        return "Deck{" +
+                "nameText='" + nameText + '\'' +
+                ", nextPractice=" + nextPractice +
+                '}';
+    }
 }

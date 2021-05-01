@@ -18,10 +18,11 @@ import java.util.List;
 public class HomeCustomAdapter extends RecyclerView.Adapter<HomeCustomAdapter.ViewHolder> {
 
     private List<Deck> mDataItemList;
-    private final HomeFragment.onFragmentInteraction mListener;
+    private final onDeckListener deckListener;
 
-    public HomeCustomAdapter(HomeFragment.onFragmentInteraction listener) {
-        mListener = listener;
+    public HomeCustomAdapter(List<Deck> list, onDeckListener deckListener) {
+        this.mDataItemList = list;
+        this.deckListener=deckListener;
     }
 
     public void setListData(List<Deck> dataItemList) {
@@ -42,25 +43,13 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<HomeCustomAdapter.Vi
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.deck_item, parent, false);
 
-        return new ViewHolder(view);
+        return new ViewHolder(view,deckListener);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull HomeCustomAdapter.ViewHolder holder, int position) {
-
-        holder.mItem = mDataItemList.get(position);
         holder.mTextView.setText(mDataItemList.get(position).getNameText()); //Se pilla el nombre
-
-        holder.itemView.setOnClickListener(v -> {
-            if (null != mListener) {
-                // Notify the active callbacks interface (the activity, if the
-                // fragment is attached to one) that an item has been selected.
-                mListener.onListClickListener(holder.mItem);
-
-            }
-        });
-
     }
 
     // Return the size of your dataset (invoked by the layout manager
@@ -78,15 +67,16 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<HomeCustomAdapter.Vi
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView mTextView;
-        private final View mView;
-        private Deck mItem;
+        private final onDeckListener deckListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, onDeckListener listener) {
             super(itemView);
-            mView = itemView;
             mTextView = itemView.findViewById(R.id.deckName);
+            this.deckListener = listener;
+
+            itemView.setOnClickListener(this);
         }
 
         @NonNull
@@ -94,6 +84,15 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<HomeCustomAdapter.Vi
         public String toString() {
             return super.toString() + " '" + mTextView.getText() + "'";
         }
+
+        @Override
+        public void onClick(View view) {
+            deckListener.onListClickListener(getAdapterPosition());
+        }
+    }
+
+    public interface onDeckListener {
+        void onListClickListener(int position);
     }
 
 }

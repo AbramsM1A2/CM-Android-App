@@ -37,6 +37,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
     // TODO Y OTRO IGUAL PARA LAS CARTAS CLICKEANDO EN CADA CARTA, FRONT BACK MAZO Y ELIMINAR
 
     private List<Card> cardList;
+
     private String deckName="";
 
     //RecyclerView
@@ -108,7 +109,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             values.clear();
             for (Deck s : decks) {
                 //Podriamos poner solo una estructura de datos
-                mDecksByName.put(s.getNameText(),s.getDeckId());
+                mDecksByName.put(s.getNameText(),s.getId());
                 adapter.add(s.getNameText());
             }
         });

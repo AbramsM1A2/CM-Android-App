@@ -5,12 +5,11 @@
     <string name="cards">Cartas</string>
     <string name="statistics">Estadísticas</string>
     <string name="settings">Ajustes</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="cards_fragment">Hello card fragment</string>
+
     <string name="review">Repasar</string>
     <string name="mace_name">mace_name</string>
     <string name="again">Otra vez</string>
-    <string name="hard">Dificil</string>
+    <string name="hard">Difícil</string>
     <string name="good">Normal</string>
     <string name="easy">Fácil</string>
     <string name="NoDeck">Aún no tienes ningún mazo</string>
