@@ -30,6 +30,7 @@
         <!-- Other activities -->
         <activity android:name=".bottomMenu.cardsTab.AddCardActivity" />
         <activity android:name=".bottomMenu.cardsTab.AddDeckActivity" />
+        <activity android:name=".bottomMenu.cardsTab.EditDeckActivity" />
 
         <activity android:name=".bottomMenu.settingsTab.AboutUsActivity"/>
         <activity android:name=".bottomMenu.settingsTab.ContactUsActivity"/>

@@ -48,4 +48,7 @@ public class CardViewModel extends AndroidViewModel {
                            Date nextPractice) {
         mRepository.updateCard(cardId, repetitions, quality, easiness, interval, nextPractice);
     }
+    public void deleteAllCardsFromDeckId(Integer deckid){
+        mRepository.deleteAllCardsFromDeckId(deckid);
+    }
 }

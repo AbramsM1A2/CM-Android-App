@@ -71,6 +71,9 @@ public class Repository {
         RoomDatabase.databaseWriteExecutor.execute(() -> mCardDao.updateCard(cardId, repetitions, quality, easiness, interval, nextPractice));
     }
 
+    public void deleteAllCardsFromDeckId(Integer deckid){mCardDao.deleteAllCardsFromDeckId(deckid);
+    }
+
 
     //------------------------------------Deck---------------------------------------------
 
@@ -80,6 +83,14 @@ public class Repository {
 
     public void insert(Deck deck) {
         RoomDatabase.databaseWriteExecutor.execute(() -> mDeckDao.insert(deck));
+    }
+
+    public void updateDeckNameById(String new_name_text,Integer deckID){
+        mDeckDao.updateDeckNameById(new_name_text,deckID);
+    };
+
+    public void deleteDeckGivingDeckId(Integer deckid){
+        mDeckDao.deleteDeckGivingDeckId(deckid);
     }
 
 
