@@ -37,7 +37,6 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
     // TODO Y OTRO IGUAL PARA LAS CARTAS CLICKEANDO EN CADA CARTA, FRONT BACK MAZO Y ELIMINAR
 
     private List<Card> cardList;
-    private List<CardItems> cardItemsList;
     private String deckName="";
 
     //RecyclerView
