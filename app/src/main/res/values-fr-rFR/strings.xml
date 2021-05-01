@@ -63,4 +63,5 @@
     <string name="msg_toast_noMaze_to_delete">Veuillez créer un deck avant d\'essayer d\'en supprimer un</string>
     <string name="msg_toast_noMaze_to_changeName">Veuillez créer un deck avant d\'essayer d\'en renommer un</string>
     <string name="to">à</string>
+    <string name="textview">" Pas de decks à pratiquer"</string>
 </resources>

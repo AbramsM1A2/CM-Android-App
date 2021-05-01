@@ -63,4 +63,5 @@
     <string name="msg_toast_noMaze_to_changeName">Crea un mazzo prima di provare a rinominarne uno</string>
     <string name="to">per</string>
     <string name="fab_edit_deck">Modifica mazzo</string>
+    <string name="textview">Nessun mazzo su cui esercitarsi</string>
 </resources>

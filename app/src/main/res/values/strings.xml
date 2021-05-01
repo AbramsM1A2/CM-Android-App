@@ -78,5 +78,6 @@
     Also, you can see our websites.\n \n <b>iCartas Team</b> </string>
     <string name="aboutus_description">iCartas has been developed by three young students from the course named "Computación Móvil" which is taught at ETSII, the computer engineering school from Seville University. Our goal always has been to create a free, open app that could be as useful as easy to use in terms of learning for the user.
         We hope you enjoy the app, and thank you very much for your support. \n \n <b>iCartas Team</b> </string>
+    <string name="cards_fragment">Hello card fragment</string>
 
 </resources>
