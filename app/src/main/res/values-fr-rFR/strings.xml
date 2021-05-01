@@ -42,4 +42,14 @@
     <string name="contactus_description">Dans cette page, il y a tous les médias possibles par lesquels vous pouvez nous contacter.</string>
     <string name="change_language">Changer de langue</string>
     <string name="aboutus_description">iCartas a été développé par trois jeunes étudiants du cours Computación Móvil qui est enseigné à l\'ETSII, l\'école d\'ingénierie informatique de l\'Université de Séville. Notre objectif a toujours été de créer une application gratuite et ouverte qui pourrait être aussi utile que facile à utiliser en termes d\'apprentissage pour l\'utilisateur.</string>
+    <string name="add_deck">Ajouter un deck</string>
+    <string name="btn_confirm">Confirmer</string>
+    <string name="btn_cancel">Annuler</string>
+    <string name="msg_add_deck">Vous êtes sur le point d\'ajouter le deck nommé</string>
+    <string name="msg_snack_add_deck">Deck ajouté avec succès</string>
+    <string name="msg_toast_empty">Veuillez ne pas laisser le nom du deck vide</string>
+    <string name="msg_snack_add_card">Carte ajoutée avec succès à votre deck</string>
+    <string name="msg_toast_noMaze">Veuillez créer un deck avant d\'ajouter des cartes</string>
+    <string name="msg_toast_card_noText">Veuillez ne pas laisser le recto ou le verso de la carte vierge</string>
+    <string name="minimun_deck_size">" Veuillez ajouter 20 cartes à votre deck"</string>
 </resources>

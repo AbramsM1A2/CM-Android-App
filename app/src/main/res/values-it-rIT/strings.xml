@@ -42,4 +42,14 @@
     <string name="contactus_description">In questa pagina puoi trovare tutti i nostri canali di comunicazione attraverso i quali puoi contattarci.</string>
     <string name="change_language">Cambia lingua</string>
     <string name="aboutus_description">Il gruppo di sviluppatori iCartas è composto da tre giovani studenti della materia Mobile Computing, appartenenti all\'ETSII, facoltà</string>
+    <string name="add_deck">Aggiungi mazzo</string>
+    <string name="btn_confirm">Confermare</string>
+    <string name="btn_cancel">" Annulla"</string>
+    <string name="msg_add_deck">Stai per aggiungere il mazzo denominato</string>
+    <string name="msg_snack_add_deck">Mazzo aggiunto con successo</string>
+    <string name="msg_toast_empty">" Si prega di non lasciare il nome del mazzo vuoto"</string>
+    <string name="msg_snack_add_card">Carta aggiunta con successo al tuo mazzo</string>
+    <string name="msg_toast_noMaze">Crea un mazzo prima di aggiungere le carte</string>
+    <string name="msg_toast_card_noText">" Si prega di non lasciare vuota la domanda o la risposta della lettera"</string>
+    <string name="minimun_deck_size">Aggiungi 20 carte al mazzo</string>
 </resources>
