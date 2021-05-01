@@ -68,7 +68,7 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
             values.clear();
             for (Deck s : decks) {
                 //Podriamos poner solo una estructura de datos
-                mDecksByName.put(s.getNameText(),s.getId());
+                mDecksByName.put(s.getNameText(), s.getId());
                 adapter.add(s.getNameText());
             }
         });
@@ -86,7 +86,6 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
         EditText mEditTextBack = (EditText) findViewById(R.id.editTextAddBack);
 
 
-
         //Listener del boton
         add_card_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,18 +96,16 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
 
                 //El id del deck elegido
                 Integer deckId = mDecksByName.get(deckName);
-                if (deckId == null){
+                if (deckId == null) {
                     //En el caso de que se deje en blanco el nombre del mazo, es decir, que no exista ningun mazo
-                    Toast.makeText(getApplicationContext(),R.string.msg_toast_noMaze,Toast.LENGTH_LONG).show();
-                }
-                else if(Front.isEmpty() || Back.isEmpty()){
+                    Toast.makeText(getApplicationContext(), R.string.msg_toast_noMaze, Toast.LENGTH_LONG).show();
+                } else if (Front.isEmpty() || Back.isEmpty()) {
                     //En el caso de que se deje en blanco el el front o el back de una carta
-                    Toast.makeText(getApplicationContext(),R.string.msg_toast_card_noText,Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Card card = new Card(Front, Back, deckId,0,null,2.5,0, new Date());
+                    Toast.makeText(getApplicationContext(), R.string.msg_toast_card_noText, Toast.LENGTH_LONG).show();
+                } else {
+                    Card card = new Card(Front, Back, deckId, 0, null, 2.5, 0, new Date());
                     mCardViewModel.insert(card);
-                    Snackbar.make(v, mMsg_snack_add_card,Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(v, mMsg_snack_add_card, Snackbar.LENGTH_SHORT).show();
 
                     //Para vaciar los campos despues de añadir la carta
                     mEditTextFront.getText().clear();
@@ -131,6 +128,7 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
     public boolean onSupportNavigateUp() {
         //Metodo para el boton de atras del actionbar
         finish();

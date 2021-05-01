@@ -35,7 +35,7 @@ public class Card {
     //nextPractice - This is the date/time of when the flashcard comes due to review again.
     private Date nextPractice;
 
-    public Card(String frontText, String backText,Integer deckId,  Integer repetitions, Integer quality, Double easiness, Integer interval, Date nextPractice) {
+    public Card(String frontText, String backText, Integer deckId, Integer repetitions, Integer quality, Double easiness, Integer interval, Date nextPractice) {
         this.deckId = deckId;
         this.frontText = frontText;
         this.backText = backText;

@@ -30,11 +30,11 @@ import java.util.Locale;
 
 import static com.example.myapplication.R.id.home_tab;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
     private String up_bar_string;
     private SharedPreferences sharedPreferences;
 
-    public static boolean flag=Boolean.FALSE;
+    public static boolean flag = Boolean.FALSE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +88,12 @@ public class MainActivity extends AppCompatActivity  {
             }
             return false;
         });
-        if(!flag)
-        {
+        if (!flag) {
             navigation.setSelectedItemId(home_tab);
-            flag=true;
-        }else if(sharedPreferences.getBoolean("activar_home", false) == Boolean.TRUE){//CUANDO VUELVE DE ABOUT US O CONTACT US
+            flag = true;
+        } else if (sharedPreferences.getBoolean("activar_home", false) == Boolean.TRUE) {//CUANDO VUELVE DE ABOUT US O CONTACT US
             navigation.setSelectedItemId(home_tab);
-            edit.putBoolean("activar_home",Boolean.FALSE);
+            edit.putBoolean("activar_home", Boolean.FALSE);
             edit.apply();
             this.recreate();
         }

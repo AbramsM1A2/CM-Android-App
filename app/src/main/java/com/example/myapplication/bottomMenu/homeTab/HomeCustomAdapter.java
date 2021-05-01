@@ -22,7 +22,7 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<HomeCustomAdapter.Vi
 
     public HomeCustomAdapter(List<Deck> list, onDeckListener deckListener) {
         this.mDataItemList = list;
-        this.deckListener=deckListener;
+        this.deckListener = deckListener;
     }
 
     public void setListData(List<Deck> dataItemList) {
@@ -43,7 +43,7 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<HomeCustomAdapter.Vi
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.deck_item, parent, false);
 
-        return new ViewHolder(view,deckListener);
+        return new ViewHolder(view, deckListener);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

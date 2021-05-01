@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -44,13 +45,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         languagePref = findPreference("language");
         Locale current = getResources().getConfiguration().locale;
-        if (current.getLanguage().contains("es")){
+        if (current.getLanguage().contains("es")) {
             languagePref.setValue("spanish");
-        }else if(current.getLanguage().contains("en")){
+        } else if (current.getLanguage().contains("en")) {
             languagePref.setValue("english");
-        }else if(current.getLanguage().contains("fr")){
+        } else if (current.getLanguage().contains("fr")) {
             languagePref.setValue("french");
-        }else if(current.getLanguage().contains("it")){
+        } else if (current.getLanguage().contains("it")) {
             languagePref.setValue("italian");
         }
 
@@ -77,7 +78,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(key.equals("theme")) {
+        if (key.equals("theme")) {
             themePref = findPreference(key);
             if (themePref.isChecked()) {
                 int nightModeFlags = getActivity().getResources().getConfiguration().uiMode &
@@ -92,23 +93,23 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             }
         }
 
-        if(key.equals("language")){
+        if (key.equals("language")) {
             languagePref = findPreference(key);
             String language = languagePref.getValue();
             Locale current = getResources().getConfiguration().locale;
-            if (current.getLanguage().contains("es") && language!="spanish"){
+            if (current.getLanguage().contains("es") && language != "spanish") {
                 ShowchangeLang();
-            }else if(current.getLanguage().contains("en") && language!="english"){
+            } else if (current.getLanguage().contains("en") && language != "english") {
                 ShowchangeLang();
-            }else if(current.getLanguage().contains("fr") && language!="french"){
+            } else if (current.getLanguage().contains("fr") && language != "french") {
                 ShowchangeLang();
-            }else if(current.getLanguage().contains("it") && language!="italian"){
+            } else if (current.getLanguage().contains("it") && language != "italian") {
                 ShowchangeLang();
             }
         }
     }
 
-    public void ShowchangeLang(){
+    public void ShowchangeLang() {
         Boolean clickeado = Boolean.FALSE;
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle(R.string.change_language);
@@ -121,21 +122,21 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             }
         });
         alertDialog.show();
-        if(!clickeado){
+        if (!clickeado) {
             setLanguagePref();
         }
     }
 
-    public void setLanguagePref(){
+    public void setLanguagePref() {
         languagePref = findPreference("language");
         Locale current = getResources().getConfiguration().locale;
-        if (current.getLanguage().contains("es")){
+        if (current.getLanguage().contains("es")) {
             languagePref.setValue("spanish");
-        }else if(current.getLanguage().contains("en")){
+        } else if (current.getLanguage().contains("en")) {
             languagePref.setValue("english");
-        }else if(current.getLanguage().contains("fr")){
+        } else if (current.getLanguage().contains("fr")) {
             languagePref.setValue("french");
-        }else if(current.getLanguage().contains("it")){
+        } else if (current.getLanguage().contains("it")) {
             languagePref.setValue("italian");
         }
     }
@@ -145,11 +146,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         super.onResume();
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
+
     @Override
     public void onPause() {
         getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
         super.onPause();
     }
+
     @Override
     public void onDestroy() {
         getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);

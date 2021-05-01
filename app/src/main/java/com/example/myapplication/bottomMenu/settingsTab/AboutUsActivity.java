@@ -31,9 +31,9 @@ public class AboutUsActivity extends AppCompatActivity {
         volver.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                SharedPreferences preferencias = getSharedPreferences("PREFERENCIAS",MODE_PRIVATE);
+                SharedPreferences preferencias = getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
                 SharedPreferences.Editor edit = preferencias.edit();
-                edit.putBoolean("activar_home",Boolean.TRUE);
+                edit.putBoolean("activar_home", Boolean.TRUE);
                 edit.apply();
                 startActivity(i);
             }
@@ -47,7 +47,7 @@ public class AboutUsActivity extends AppCompatActivity {
                 .addGitHub("PRUEBA")
                 .addPlayStore("PRUEBA")
                 .addItem(versionElement)
-                .addItem(new Element(getText(R.string.version)+" " + BuildConfig.VERSION_NAME, R.drawable.baseline_aod_24))
+                .addItem(new Element(getText(R.string.version) + " " + BuildConfig.VERSION_NAME, R.drawable.baseline_aod_24))
                 .addItem(volver)
                 .create();
         setContentView(aboutPage);

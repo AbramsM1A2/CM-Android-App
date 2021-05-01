@@ -27,11 +27,12 @@ public interface DeckDao {
     @Query("DELETE FROM deck_table")
     void deleteAll();
 
-    @Query("DELETE FROM deck_table WHERE DeckId = :deckid")
+    @Query("DELETE FROM deck_table WHERE id = :deckid")
     void deleteDeckGivingDeckId(Integer deckid);
 
-    @Query("SELECT * FROM deck_table ORDER BY DeckId ASC")
+    @Query("SELECT * FROM deck_table ORDER BY id ASC")
     LiveData<List<Deck>> getDecksById();
+
     @Query("SELECT * FROM deck_table ORDER BY id ASC")
     LiveData<List<Deck>> getAllDecks();
 
@@ -43,8 +44,8 @@ public interface DeckDao {
     @Query("UPDATE deck_table SET nextPractice=:date WHERE id=:deckId")
     void updateDeckDate(Integer deckId, Date date);
 
-    @Query("UPDATE deck_table SET name_text =:new_name_text WHERE DeckId =:deckID ")
-    void updateDeckNameById(String new_name_text,Integer deckID);
+    @Query("UPDATE deck_table SET nameText =:new_name_text WHERE id =:deckID ")
+    void updateDeckNameById(String new_name_text, Integer deckID);
 
 
 }

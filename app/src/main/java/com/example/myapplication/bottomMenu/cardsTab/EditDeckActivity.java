@@ -37,6 +37,7 @@ public class EditDeckActivity extends AppCompatActivity implements AdapterView.O
     private Map<String, Integer> mDecksByName;
     //EditTexts
     EditText mEditTextDeckName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,7 @@ public class EditDeckActivity extends AppCompatActivity implements AdapterView.O
             values.clear();
             for (Deck s : decks) {
                 //Podriamos poner solo una estructura de datos
-                mDecksByName.put(s.getNameText(),s.getDeckId());
+                mDecksByName.put(s.getNameText(), s.getId());
                 adapter.add(s.getNameText());
             }
         });
@@ -87,49 +88,49 @@ public class EditDeckActivity extends AppCompatActivity implements AdapterView.O
         final Button delete_deck_button = (Button) findViewById(R.id.buttonDeleteDeck);
         mEditTextDeckName = (EditText) findViewById(R.id.editTextDeckName);
 
-        edit_deck_button.setOnClickListener(new View.OnClickListener(){
+        edit_deck_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 String editTextDeckName = mEditTextDeckName.getText().toString();
                 //Para que no se añadan nombres en blanco
-                if (!deckName.isEmpty()){
+                if (!deckName.isEmpty()) {
 
                     //Msgs to user in alert dialog
-                    String msg_to_user = getApplicationContext().getString(R.string.msg_edit_deck) + " "+ deckName +getApplicationContext().getString(R.string.to) +editTextDeckName;
+                    String msg_to_user = getApplicationContext().getString(R.string.msg_edit_deck) + " " + deckName + getApplicationContext().getString(R.string.to) + editTextDeckName;
                     String title_to_user = getApplicationContext().getString(R.string.edit_deck) + "?";
 
                     new AlertDialog.Builder(v.getContext())
                             .setTitle(title_to_user)
                             .setMessage(msg_to_user)
                             .setPositiveButton(R.string.btn_confirm, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            //Si no funciona la view v poner mejor findViewById(android.R.id.content)
-                                            //El id del deck elegido
-                                            Integer deckId = mDecksByName.get(deckName);
-                                            //Estas son las opciones disponibles: https://stackoverflow.com/questions/59607324/error-cannot-access-database-on-the-main-thread-since-it-may-potentially-lock-t
-                                            AsyncTask.execute(() -> mDeckViewModel.updateDeckNameById(editTextDeckName,deckId));
-                                            Snackbar.make(v, mMsg_snack_edit_deck,Snackbar.LENGTH_LONG).show();
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //Si no funciona la view v poner mejor findViewById(android.R.id.content)
+                                    //El id del deck elegido
+                                    Integer deckId = mDecksByName.get(deckName);
+                                    //Estas son las opciones disponibles: https://stackoverflow.com/questions/59607324/error-cannot-access-database-on-the-main-thread-since-it-may-potentially-lock-t
+                                    AsyncTask.execute(() -> mDeckViewModel.updateDeckNameById(editTextDeckName, deckId));
+                                    Snackbar.make(v, mMsg_snack_edit_deck, Snackbar.LENGTH_LONG).show();
 
-                                        }
-                                    })
-                            .setNegativeButton(R.string.btn_cancel,null)
+                                }
+                            })
+                            .setNegativeButton(R.string.btn_cancel, null)
                             .show();
 
-                }else{
+                } else {
                     //En el caso de que se deje en blanco el nombre del mazo
-                    Toast.makeText(getApplicationContext(),R.string.msg_toast_empty,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.msg_toast_empty, Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        delete_deck_button.setOnClickListener(new View.OnClickListener(){
+        delete_deck_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if (!deckName.isEmpty()){
+                if (!deckName.isEmpty()) {
 
                     //Msgs to user in alert dialog
-                    String msg_to_user = getApplicationContext().getString(R.string.msg_delete_deck) + " "+ deckName;
+                    String msg_to_user = getApplicationContext().getString(R.string.msg_delete_deck) + " " + deckName;
                     String title_to_user = getApplicationContext().getString(R.string.delete_deck) + "?";
 
                     new AlertDialog.Builder(v.getContext())
@@ -141,22 +142,21 @@ public class EditDeckActivity extends AppCompatActivity implements AdapterView.O
                                     Integer deckId = mDecksByName.get(deckName);
                                     AsyncTask.execute(() -> mCardViewModel.deleteAllCardsFromDeckId(deckId));
                                     AsyncTask.execute(() -> mDeckViewModel.deleteDeckGivingDeckId(deckId));
-                                    Snackbar.make(v, mMsg_snack_delete_deck,Snackbar.LENGTH_LONG).show();
+                                    Snackbar.make(v, mMsg_snack_delete_deck, Snackbar.LENGTH_LONG).show();
                                     spinner.setSelection(0);
                                 }
 
                             })
-                            .setNegativeButton(R.string.btn_cancel,null)
+                            .setNegativeButton(R.string.btn_cancel, null)
                             .show();
 
-                }else{
+                } else {
                     //En el caso de que se deje en blanco el nombre del mazo
-                    Toast.makeText(getApplicationContext(),R.string.msg_toast_noMaze_to_delete,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.msg_toast_noMaze_to_delete, Toast.LENGTH_LONG).show();
                 }
             }
 
         });
-
 
 
     }

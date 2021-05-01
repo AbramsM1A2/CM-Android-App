@@ -60,7 +60,8 @@ public class CardViewModel extends AndroidViewModel {
     public void deleteAllCards() {
         mRepository.deleteAllCards();
     }
-    public void deleteAllCardsFromDeckId(Integer deckid){
+
+    public void deleteAllCardsFromDeckId(Integer deckid) {
         mRepository.deleteAllCardsFromDeckId(deckid);
     }
 }

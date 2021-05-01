@@ -27,11 +27,10 @@ public interface CardDao {
     @Delete
     void delete(Card card);
 
-    @Query("SELECT * FROM card_table ORDER BY id ASC")
     @Query("DELETE FROM card_table WHERE deckId = :deckid")
     void deleteAllCardsFromDeckId(Integer deckid);
 
-    @Query("SELECT * FROM card_table ORDER BY cardId ASC")
+    @Query("SELECT * FROM card_table ORDER BY id ASC")
     LiveData<List<Card>> getAllCards();
 
     @Query("SELECT * FROM card_table WHERE id=:cardId")

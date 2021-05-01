@@ -30,14 +30,15 @@ public class DeckViewModel extends AndroidViewModel {
         mRepository.insertDeck(deck);
     }
 
-    public void update(Deck deck){
+    public void update(Deck deck) {
         mRepository.updateDeck(deck);
     }
 
-    public void delete(Deck deck){
+    public void delete(Deck deck) {
         mRepository.deleteDeck(deck);
     }
-    public void deleteAll(){
+
+    public void deleteAll() {
         mRepository.deleteAllDecks();
     }
 
@@ -48,12 +49,13 @@ public class DeckViewModel extends AndroidViewModel {
     public void updateDeckDate(Integer deckId, Date date) {
         mRepository.updateDeckDate(deckId, date);
     }
-    public void insert(Deck deck) { mRepository.insert(deck); }
 
-    public void updateDeckNameById(String new_name_text,Integer deckID){
-        mRepository.updateDeckNameById(new_name_text,deckID);
+
+    public void updateDeckNameById(String new_name_text, Integer deckID) {
+        mRepository.updateDeckNameById(new_name_text, deckID);
     }
-    public void deleteDeckGivingDeckId(Integer deckid){
+
+    public void deleteDeckGivingDeckId(Integer deckid) {
         mRepository.deleteDeckGivingDeckId(deckid);
     }
 }

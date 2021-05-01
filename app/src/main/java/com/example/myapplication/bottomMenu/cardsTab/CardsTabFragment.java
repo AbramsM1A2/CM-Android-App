@@ -38,7 +38,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
 
     private List<Card> cardList;
 
-    private String deckName="";
+    private String deckName = "";
 
     //RecyclerView
     private RecyclerView recyclerView;
@@ -51,10 +51,10 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
     private Map<String, Integer> mDecksByName;
 
     //fabs
-    private FloatingActionButton mMainAddFab, mAddCardFab, mAddDeckFab,mEditDeckFab;
+    private FloatingActionButton mMainAddFab, mAddCardFab, mAddDeckFab, mEditDeckFab;
     private TextView mAddCardText, mAddDeckText, mEditDeckText;
     private boolean isOpen;
-    private Animation mRotateOpen,mRotateClose,mFromBottom,mToBottom;
+    private Animation mRotateOpen, mRotateClose, mFromBottom, mToBottom;
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
@@ -109,7 +109,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             values.clear();
             for (Deck s : decks) {
                 //Podriamos poner solo una estructura de datos
-                mDecksByName.put(s.getNameText(),s.getId());
+                mDecksByName.put(s.getNameText(), s.getId());
                 adapter.add(s.getNameText());
             }
         });
@@ -127,7 +127,6 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
 
-
         //FABS
 
         mMainAddFab = view.findViewById(R.id.floating_action_button);
@@ -139,17 +138,17 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         mAddDeckText = view.findViewById(R.id.textView_add_deck);
         mEditDeckText = view.findViewById(R.id.textView_edit_deck);
 
-        mRotateOpen = AnimationUtils.loadAnimation(context,R.anim.rotate_open_anim);
-        mRotateClose = AnimationUtils.loadAnimation(context,R.anim.rotate_close_anim);
-        mFromBottom = AnimationUtils.loadAnimation(context,R.anim.from_bottom_anim);
-        mToBottom = AnimationUtils.loadAnimation(context,R.anim.to_bottom_anim);
+        mRotateOpen = AnimationUtils.loadAnimation(context, R.anim.rotate_open_anim);
+        mRotateClose = AnimationUtils.loadAnimation(context, R.anim.rotate_close_anim);
+        mFromBottom = AnimationUtils.loadAnimation(context, R.anim.from_bottom_anim);
+        mToBottom = AnimationUtils.loadAnimation(context, R.anim.to_bottom_anim);
 
         isOpen = false;
 
         mMainAddFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isOpen){
+                if (isOpen) {
                     //Animaciones
                     mMainAddFab.startAnimation(mRotateClose);
 
@@ -168,8 +167,8 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
                     mAddDeckText.setVisibility(View.INVISIBLE);
                     mEditDeckText.setVisibility(View.INVISIBLE);
 
-                    isOpen= false;
-                }else{
+                    isOpen = false;
+                } else {
                     //Animaciones
                     mMainAddFab.startAnimation(mRotateOpen);
                     mAddCardFab.startAnimation(mFromBottom);
@@ -195,7 +194,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             @Override
             public void onClick(View v) {
                 //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos una carta a un mazo elegido
-                Intent i = new Intent(getActivity(),AddCardActivity.class);
+                Intent i = new Intent(getActivity(), AddCardActivity.class);
                 //Para que se vuelva a cerrar el fab button
                 mMainAddFab.callOnClick();
                 startActivity(i);
@@ -207,7 +206,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             @Override
             public void onClick(View v) {
                 //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos un mazo
-                Intent i = new Intent(getActivity(),AddDeckActivity.class);
+                Intent i = new Intent(getActivity(), AddDeckActivity.class);
                 //Para que se vuelva a cerrar el fab button
                 mMainAddFab.callOnClick();
                 startActivity(i);
@@ -219,7 +218,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             @Override
             public void onClick(View v) {
                 //Aqui tengo que hacer que comience la actividad en la que se edita un mazo de la base de datos
-                Intent i = new Intent(getActivity(),EditDeckActivity.class);
+                Intent i = new Intent(getActivity(), EditDeckActivity.class);
                 //Para que se vuelva a cerrar el fab button
                 mMainAddFab.callOnClick();
                 startActivity(i);
@@ -242,7 +241,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         mCardViewModel.getAllCardsWithThisId(deckId).observe(getViewLifecycleOwner(), cards -> {
             //SE PUEDE HACER UN CLEAR O CREAR UNA NUEVA LISTA, MIRAR CUAL SERIA LA MEJOR OPCION
             cardList.clear();
-            for (Card c : cards){
+            for (Card c : cards) {
                 cardList.add(c);
             }
             recyclerView.setAdapter(new CardsRecyclerViewAdapter2(cardList));

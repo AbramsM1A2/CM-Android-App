@@ -35,7 +35,7 @@ public class CardsRecyclerViewAdapter2 extends RecyclerView.Adapter<CardsRecycle
         holder.mItem = mCardList.get(position);
         holder.mFrontView.setText(mCardList.get(position).getFrontText());
         holder.mBackView.setText(mCardList.get(position).getBackText());
-        holder.mId = mCardList.get(position).getCardId();
+        holder.mId = mCardList.get(position).getId();
     }
 
     @Override
@@ -60,10 +60,10 @@ public class CardsRecyclerViewAdapter2 extends RecyclerView.Adapter<CardsRecycle
                 @Override
                 public void onClick(View v) {
                     //TODO QUITAR ESTOS PRINTS Y LLAMAR A LA CREACION DE UNA ACTIVITY QUE MODIFIQUE Y PERMITA AL USUARIO ELIMINAR LA CARTA
-                    System.out.println("posicion"+getAdapterPosition());
-                    System.out.println("front:"+mFrontView.getText().toString());
-                    System.out.println("back:"+mBackView.getText().toString());
-                    System.out.println("id:"+mId);
+                    System.out.println("posicion" + getAdapterPosition());
+                    System.out.println("front:" + mFrontView.getText().toString());
+                    System.out.println("back:" + mBackView.getText().toString());
+                    System.out.println("id:" + mId);
                 }
             });
 

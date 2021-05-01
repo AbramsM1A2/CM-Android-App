@@ -27,6 +27,7 @@ import java.util.List;
 public class AddDeckActivity extends AppCompatActivity {
     private DeckViewModel mDeckViewModel;
     private String mMsg_snack_add_deck;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,38 +44,38 @@ public class AddDeckActivity extends AppCompatActivity {
         //Botones y UI
         final Button add_deck_button = (Button) findViewById(R.id.buttonAddDeck);
         EditText mEditTextDeckName = (EditText) findViewById(R.id.editTextDeckName);
-        add_deck_button.setOnClickListener(new View.OnClickListener(){
+        add_deck_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 String deckName = mEditTextDeckName.getText().toString();
                 //Para que no se añadan nombres en blanco
 
-                if (!deckName.isEmpty()){
+                if (!deckName.isEmpty()) {
 
                     //Msgs to user in alert dialog
-                    String msg_to_user = getApplicationContext().getString(R.string.msg_add_deck) + " "+ deckName;
+                    String msg_to_user = getApplicationContext().getString(R.string.msg_add_deck) + " " + deckName;
                     String title_to_user = getApplicationContext().getString(R.string.add_deck) + "?";
 
                     new AlertDialog.Builder(v.getContext())
                             .setTitle(title_to_user)
                             .setMessage(msg_to_user)
                             .setPositiveButton(R.string.btn_confirm, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Deck deck = new Deck(deckName, new Date());
-                                            mDeckViewModel.insert(deck);
-                                            //Si no funciona la view v poner mejor findViewById(android.R.id.content)
-                                            Snackbar.make(v, mMsg_snack_add_deck,Snackbar.LENGTH_LONG).show();
-                                            //Para vaciar el campo despues de añadir el mazo
-                                            mEditTextDeckName.getText().clear();
-                                        }
-                                    })
-                            .setNegativeButton(R.string.btn_cancel,null)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Deck deck = new Deck(deckName, new Date());
+                                    mDeckViewModel.insert(deck);
+                                    //Si no funciona la view v poner mejor findViewById(android.R.id.content)
+                                    Snackbar.make(v, mMsg_snack_add_deck, Snackbar.LENGTH_LONG).show();
+                                    //Para vaciar el campo despues de añadir el mazo
+                                    mEditTextDeckName.getText().clear();
+                                }
+                            })
+                            .setNegativeButton(R.string.btn_cancel, null)
                             .show();
 
-                }else{
+                } else {
                     //En el caso de que se deje en blanco el nombre del mazo
-                    Toast.makeText(getApplicationContext(),R.string.msg_toast_empty,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.msg_toast_empty, Toast.LENGTH_LONG).show();
                 }
             }
         });

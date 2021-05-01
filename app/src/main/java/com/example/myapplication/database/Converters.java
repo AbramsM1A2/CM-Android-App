@@ -18,6 +18,7 @@ public class Converters {
 
     /**
      * Almacena la fecha en BD
+     *
      * @param date
      * @return fecha
      */

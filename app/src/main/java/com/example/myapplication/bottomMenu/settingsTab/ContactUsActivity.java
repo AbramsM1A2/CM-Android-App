@@ -12,6 +12,7 @@ import com.example.myapplication.R;
 
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
+
 public class ContactUsActivity extends AppCompatActivity {
 
     @Override
@@ -26,9 +27,9 @@ public class ContactUsActivity extends AppCompatActivity {
         volver.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                SharedPreferences preferencias = getSharedPreferences("PREFERENCIAS",MODE_PRIVATE);
+                SharedPreferences preferencias = getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
                 SharedPreferences.Editor edit = preferencias.edit();
-                edit.putBoolean("activar_home",Boolean.TRUE);
+                edit.putBoolean("activar_home", Boolean.TRUE);
                 edit.apply();
                 startActivity(i);
             }
