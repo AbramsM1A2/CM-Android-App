@@ -18,20 +18,20 @@
     <!-- Preference Titles -->
     <string name="cards_header"><b>Cards</b></string>
     <string name="interface_header"><b>Interface</b></string>
-    <string name="account_header"><b>Account</b></string>
+    <string name="account_header"><b>User</b></string>
     <string name="help_header"><b>Help center</b></string>
     <!-- Cards Preferences -->
     <string name="number_title">Daily cards</string>
     <!-- Interface Preferences -->
     <string name="theme">Switch theme</string>
     <string name="theme_summary">Turn on to change app theme</string>
-    <string name="language">Language</string>
+    <string name="language">Supported languages</string>
     <!-- Account Preferences -->
     <string name="alias">Alias</string>
     <string name="defaultAlias">Set your alias</string>
     <!-- Account Help Center -->
     <string name="aboutus_title">About us</string>
-    <string name="contact_title">Contact</string>
+    <string name="contact_title">Contact with us</string>
     <!-- Strings para el fragment card -->
     <string name="front_of_card">Front</string>
     <string name="back_of_card">Back</string>
@@ -40,4 +40,21 @@
     <string name="btn_add">Add</string>
     <string name="txt_deck">Deck</string>
     <string name="txt_deck_name">Deck name</string>
+
+    <string name="version">Current version: </string>
+    <string name="versiontitle"><i>Version</i></string>
+    <string name="backHome">GO BACK HOME</string>
+
+    <string name="connect">Connect with us</string>
+    <string name="find_us">Find our app</string>
+
+    <string name="change_language">Change language</string>
+    <string name="change_language2">You might be trying to change app language. Open language settings?</string>
+
+
+    <string name="contactus_description">In this page there are all posible medias you can contact us by. \n
+    In case you notice a bug, wish to propose an improvement or want to give feedback, you can choose one of these in order to leave a comment.
+    Also, you can see our websites.\n \n <b>iCartas Team</b> </string>
+    <string name="aboutus_description">iCartas has been developed by three young students from the course named "Computación Móvil" which is taught at ETSII, the computer engineering school from Seville University. Our goal always has been to create a free, open app that could be as useful as easy to use in terms of learning for the user.
+        We hope you enjoy the app, and thank you very much for your support. \n \n <b>iCartas Team</b> </string>
 </resources>

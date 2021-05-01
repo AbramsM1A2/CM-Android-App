@@ -5,22 +5,26 @@
         <item>10</item>
         <item>15</item>
         <item>20</item>
+        <item>25</item>
     </string-array>
     <string-array name="cardsNumber_values">
         <item>5</item>
         <item>10</item>
         <item>15</item>
         <item>20</item>
+        <item>25</item>
     </string-array>
 
     <string-array name="language_entries">
-        <item>Default</item>
         <item>Español</item>
         <item>English</item>
+        <item>Française</item>
+        <item>Italiano</item>
     </string-array>
     <string-array name="language_values">
-        <item>automatic</item>
         <item>spanish</item>
         <item>english</item>
+        <item>french</item>
+        <item>italian</item>
     </string-array>
 </resources>

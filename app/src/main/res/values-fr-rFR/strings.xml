@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iCartas</string>
+    <string name="home">Principale</string>
+    <string name="cards">Cartes</string>
+    <string name="statistics">statistiques</string>
+    <string name="settings">configuration</string>
+    <string name="review">revoir</string>
+    <string name="mace_name">mace_name</string>
+    <string name="again">De nouveau</string>
+    <string name="hard">Difficile</string>
+    <string name="good">Normale</string>
+    <string name="easy">Facile</string>
+    <string name="NoDeck">Vous n\'avez pas encore de maillets</string>
+    <string name="element_text">element_text</string>
+    <string name="cards_fragment">Hello card fragment</string>
+    <string name="cards_header"><b>Cartes</b></string>
+    <string name="interface_header"><b>Interface</b></string>
+    <string name="account_header"><b>Usager</b></string>
+    <string name="help_header"><b>Centre d\'aide</b></string>
+    <string name="number_title">Cartes quotidiennes</string>
+    <string name="theme">Changer de thème</string>
+    <string name="theme_summary">Activer pour changer le thème de l\'application</string>
+    <string name="language">Langues prises en charge</string>
+    <string name="alias">Alias</string>
+    <string name="defaultAlias">"Définissez votre alias "</string>
+    <string name="aboutus_title">" À propos de nous"</string>
+    <string name="contact_title">" En contact avec nous"</string>
+    <string name="find_us">Trouvez notre app</string>
+    <string name="back_of_card">Dos</string>
+    <string name="front_of_card">De face</string>
+    <string name="fab_add_card">Ajouter une carte</string>
+    <string name="fab_add_deck">Nouveau deck</string>
+    <string name="btn_add">Ajouter</string>
+    <string name="txt_deck">Maillet</string>
+    <string name="txt_deck_name">Nom du maillet</string>
+    <string name="change_language2">Vous essayez peut-être de changer la langue de l\'application. Ouvrir les paramètres de langue?</string>
+    <string name="version">Version actuelle</string>
+    <string name="versiontitle"><i>Version</i></string>
+    <string name="backHome">RETOUR AU PRINCIPALE</string>
+    <string name="connect">Connecte-toi avec nous</string>
+    <string name="contactus_description">Dans cette page, il y a tous les médias possibles par lesquels vous pouvez nous contacter.</string>
+    <string name="change_language">Changer de langue</string>
+    <string name="aboutus_description">iCartas a été développé par trois jeunes étudiants du cours Computación Móvil qui est enseigné à l\'ETSII, l\'école d\'ingénierie informatique de l\'Université de Séville. Notre objectif a toujours été de créer une application gratuite et ouverte qui pourrait être aussi utile que facile à utiliser en termes d\'apprentissage pour l\'utilisateur.</string>
+</resources>

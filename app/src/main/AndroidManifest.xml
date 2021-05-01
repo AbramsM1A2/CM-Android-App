@@ -9,10 +9,14 @@
         android:roundIcon="@mipmap/itc_launcher_flashcards_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".bottomMenu.cardsTab.AddCardActivity"></activity>
+        <activity android:name=".bottomMenu.cardsTab.AddCardActivity" />
         <activity android:name=".bottomMenu.cardsTab.AddDeckActivity" />
         <activity android:name=".ReviewCardsActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".bottomMenu.settingsTab.AboutUsActivity"/>
+        <activity android:name=".bottomMenu.settingsTab.ContactUsActivity"/>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="locale">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

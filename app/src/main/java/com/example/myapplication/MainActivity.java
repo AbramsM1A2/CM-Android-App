@@ -1,15 +1,19 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.myapplication.bottomMenu.cardsTab.CardsTabFragment;
 import com.example.myapplication.bottomMenu.settingsTab.SettingsFragment;
@@ -17,22 +21,42 @@ import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.bottomMenu.homeTab.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Locale;
 
 import static com.example.myapplication.R.id.home_tab;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.onFragmentInteraction {
+    private SharedPreferences sharedPreferences;
+
+    public static boolean flag=Boolean.FALSE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //Menu inferior
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
+        //PREFERENCIAS
+        sharedPreferences = this.getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
+        //tema
+        SharedPreferences.Editor edit = sharedPreferences.edit();//PARA EDITAR LAS PREFERENCIAS
+        if (sharedPreferences.getBoolean("theme", false) == Boolean.FALSE) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);//SEGUIR EL TEMA DEL SISTEMA
+        } else {
+            if (!flag) {//SI ES LA PRIMERA VEZ QUE SE INICIA Y EL BOTÓN ESTÁ ACTIVADO, SE INVIERTE EL TEMA
+                int nightModeFlags = this.getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+                if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        }
         navigation.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
-            if (itemId == home_tab) {
+            if (itemId == R.id.home_tab) {
                 showFragment(HomeFragment.newInstance());
                 return true;
             } else if (itemId == R.id.cards_tab){
@@ -47,9 +71,17 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
             }
             return false;
         });
-        navigation.setSelectedItemId(home_tab);
+        if(!flag)
+        {
+            navigation.setSelectedItemId(home_tab);
+            flag=true;
+        }else if(sharedPreferences.getBoolean("activar_home", false) == Boolean.TRUE){//CUANDO VUELVE DE ABOUT US O CONTACT US
+            navigation.setSelectedItemId(home_tab);
+            edit.putBoolean("activar_home",Boolean.FALSE);
+            edit.apply();
+            this.recreate();
+        }
     }
-
     /**
      * Maneja la visualizacion de los diferentes fragments del menu
      * @param frg
@@ -71,5 +103,4 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.onFr
         intent.putExtra("message_key", dataItem.getNameText());
         startActivity(intent);
     }
-
 }

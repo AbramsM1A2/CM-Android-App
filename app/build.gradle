@@ -50,6 +50,8 @@ dependencies {
     // Room components
     implementation "androidx.room:room-runtime:2.2.6"
     implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+    implementation 'androidx.navigation:navigation-ui:2.2.2'
     annotationProcessor "androidx.room:room-compiler:2.2.6"
     androidTestImplementation "androidx.room:room-testing:2.2.6"
 
@@ -67,6 +69,17 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Testing
+
+    //ABOUT US
+    apply plugin: 'com.android.application'
+
+    buildscript {
+        repositories {
+            jcenter()
+        }
+    }
+    implementation 'com.github.medyo:android-about-page:1.2.5'
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iCartas</string>
+    <string name="home">Inizio</string>
+    <string name="cards">Carte</string>
+    <string name="statistics">Statistiche</string>
+    <string name="settings">Impostazioni</string>
+    <string name="cards_fragment">Hello card fragment</string>
+    <string name="review">Revisione</string>
+    <string name="mace_name">mace_name</string>
+    <string name="again">Ancora</string>
+    <string name="good">Normale</string>
+    <string name="hard">Difficile</string>
+    <string name="easy">Facile</string>
+    <string name="NoDeck">Non hai ancora un mazzo</string>
+    <string name="element_text">element_text</string>
+    <string name="cards_header"><b> Lettere </b></string>
+    <string name="interface_header"><b> Interfaccia </b></string>
+    <string name="help_header"><b> Centro assistenza </b></string>
+    <string name="account_header"><b> Utente </b></string>
+    <string name="number_title">Lettere giornaliere</string>
+    <string name="theme">Cambia tema</string>
+    <string name="theme_summary">Attiva questa opzione per cambiare il tema dell\'app</string>
+    <string name="language">Lingue supportate</string>
+    <string name="alias">Alias</string>
+    <string name="defaultAlias">Aggiungi il tuo nickname</string>
+    <string name="aboutus_title">Chi siamo</string>
+    <string name="contact_title">Contattaci</string>
+    <string name="find_us">Trova la nostra app</string>
+    <string name="front_of_card">Domanda</string>
+    <string name="back_of_card">Risposta</string>
+    <string name="fab_add_card">Aggiungi lettera</string>
+    <string name="fab_add_deck">Crea mazzo</string>
+    <string name="btn_add">Inserisci</string>
+    <string name="txt_deck">Maglio</string>
+    <string name="txt_deck_name">Nome del mazzo</string>
+    <string name="change_language2">Potresti voler cambiare la lingua. Aprire le impostazioni della lingua?</string>
+    <string name="version">Versione corrente:</string>
+    <string name="versiontitle"><i>Versione</i></string>
+    <string name="backHome">TORNA AL INIZIO</string>
+    <string name="connect">Mettiti in comunicazione con noi</string>
+    <string name="contactus_description">In questa pagina puoi trovare tutti i nostri canali di comunicazione attraverso i quali puoi contattarci.</string>
+    <string name="change_language">Cambia lingua</string>
+    <string name="aboutus_description">Il gruppo di sviluppatori iCartas è composto da tre giovani studenti della materia Mobile Computing, appartenenti all\'ETSII, facoltà</string>
+</resources>
