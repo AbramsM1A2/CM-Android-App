@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="edit_card">Editar carta</string>
+    <string name="msg_snack_edit_card">"Carta editada y guardada correctamente "</string>
+    <string name="msg_toast_noSelectedMaze">Por favor, seleccione un mazo</string>
+    <string name="delete_card">Eliminar carta</string>
+    <string name="msg_delete_card">Está a punto de eliminar la carta</string>
+</resources>

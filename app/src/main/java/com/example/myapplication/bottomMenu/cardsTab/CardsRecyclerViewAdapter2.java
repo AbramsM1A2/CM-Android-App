@@ -1,5 +1,6 @@
 package com.example.myapplication.bottomMenu.cardsTab;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,11 @@ import java.util.List;
 public class CardsRecyclerViewAdapter2 extends RecyclerView.Adapter<CardsRecyclerViewAdapter2.ViewHolder> {
 
     private final List<Card> mCardList;
+    private OnCardListener mOnCardListener;
 
-    public CardsRecyclerViewAdapter2(List<Card> items) {
+    public CardsRecyclerViewAdapter2(List<Card> items, OnCardListener onCardListener) {
         mCardList = items;
+        this.mOnCardListener = onCardListener;
     }
 
     @Override
@@ -26,7 +29,7 @@ public class CardsRecyclerViewAdapter2 extends RecyclerView.Adapter<CardsRecycle
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_card, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnCardListener);
     }
 
     @Override
@@ -43,29 +46,28 @@ public class CardsRecyclerViewAdapter2 extends RecyclerView.Adapter<CardsRecycle
         return mCardList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final View mView;
         public final TextView mFrontView;
         public final TextView mBackView;
         public Integer mId;
         public Card mItem;
+        OnCardListener onCardListener;
 
-        public ViewHolder(View view) {
+        public ViewHolder(View view, OnCardListener onCardListener) {
             super(view);
             mView = view;
             mFrontView = (TextView) view.findViewById(R.id.front_content);
             mBackView = (TextView) view.findViewById(R.id.back_content);
+            this.onCardListener = onCardListener;
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO QUITAR ESTOS PRINTS Y LLAMAR A LA CREACION DE UNA ACTIVITY QUE MODIFIQUE Y PERMITA AL USUARIO ELIMINAR LA CARTA
-                    System.out.println("posicion" + getAdapterPosition());
-                    System.out.println("front:" + mFrontView.getText().toString());
-                    System.out.println("back:" + mBackView.getText().toString());
-                    System.out.println("id:" + mId);
-                }
-            });
+            view.setOnClickListener(this);
+
+        }
+        @Override
+        public void onClick(View v) {
+            //TODO QUITAR ESTOS PRINTS Y LLAMAR A LA CREACION DE UNA ACTIVITY QUE MODIFIQUE Y PERMITA AL USUARIO ELIMINAR LA CARTA
+            onCardListener.onCardClick(getAdapterPosition());
 
         }
 
@@ -73,5 +75,10 @@ public class CardsRecyclerViewAdapter2 extends RecyclerView.Adapter<CardsRecycle
         public String toString() {
             return super.toString() + " '" + mFrontView.getText() + "'";
         }
+
+
     }
+        public interface OnCardListener{
+            void onCardClick(int position);
+        }
 }

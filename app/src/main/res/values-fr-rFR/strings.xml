@@ -63,4 +63,9 @@
     <string name="msg_toast_noMaze_to_delete">Veuillez créer un deck avant d\'essayer d\'en supprimer un</string>
     <string name="msg_toast_noMaze_to_changeName">Veuillez créer un deck avant d\'essayer d\'en renommer un</string>
     <string name="to">à</string>
+    <string name="edit_card">Modifier carte</string>
+    <string name="msg_snack_edit_card">Carte modifiée et enregistrée avec succès dans votre deck</string>
+    <string name="msg_toast_noSelectedMaze">Veuillez sélectionner un deck</string>
+    <string name="delete_card">"Supprimer carte "</string>
+    <string name="msg_delete_card">Vous êtes sur le point de supprimer la carte</string>
 </resources>
