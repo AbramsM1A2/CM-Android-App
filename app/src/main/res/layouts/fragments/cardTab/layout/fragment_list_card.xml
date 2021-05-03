@@ -79,7 +79,7 @@
                 app:fabSize="mini"
                 app:layout_constraintBottom_toTopOf="@+id/floating_action_button"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:backgroundTint="@color/design_default_color_primary_variant"/>
+                />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floating_add_deck_button"
@@ -93,7 +93,7 @@
                 app:fabSize="mini"
                 app:layout_constraintBottom_toTopOf="@+id/floating_add_card_button"
                 app:layout_constraintEnd_toEndOf="@+id/floating_add_card_button"
-                android:backgroundTint="@color/design_default_color_primary_variant"/>
+                />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floating_edit_deck_button"
@@ -107,7 +107,7 @@
                 app:fabSize="mini"
                 app:layout_constraintBottom_toTopOf="@+id/floating_add_deck_button"
                 app:layout_constraintEnd_toEndOf="@+id/floating_add_deck_button"
-                android:backgroundTint="@color/design_default_color_primary_variant"/>
+                />
 
             <TextView
                 android:id="@+id/textView_add_card"
@@ -119,7 +119,6 @@
                 android:paddingRight="8dp"
                 android:paddingBottom="4dp"
                 android:text="@string/fab_add_card"
-                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/floating_add_card_button"
@@ -136,7 +135,6 @@
                 android:paddingRight="8dp"
                 android:paddingBottom="4dp"
                 android:text="@string/fab_add_deck"
-                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/floating_add_deck_button"
@@ -153,7 +151,6 @@
                 android:paddingRight="8dp"
                 android:paddingBottom="4dp"
                 android:text="@string/fab_edit_deck"
-                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/floating_edit_deck_button"

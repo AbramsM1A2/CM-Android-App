@@ -1,5 +1,8 @@
 package com.example.myapplication.database.Card;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -10,7 +13,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity(tableName = "card_table")
-public class Card {
+public class Card implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private Integer id;
 
@@ -45,6 +48,53 @@ public class Card {
         this.interval = interval;
         this.nextPractice = nextPractice;
     }
+
+    protected Card(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            deckId = null;
+        } else {
+            deckId = in.readInt();
+        }
+        frontText = in.readString();
+        backText = in.readString();
+        if (in.readByte() == 0) {
+            repetitions = null;
+        } else {
+            repetitions = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            quality = null;
+        } else {
+            quality = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            easiness = null;
+        } else {
+            easiness = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            interval = null;
+        } else {
+            interval = in.readInt();
+        }
+    }
+
+    public static final Creator<Card> CREATOR = new Creator<Card>() {
+        @Override
+        public Card createFromParcel(Parcel in) {
+            return new Card(in);
+        }
+
+        @Override
+        public Card[] newArray(int size) {
+            return new Card[size];
+        }
+    };
 
     public void setId(Integer id) {
         this.id = id;
@@ -105,5 +155,52 @@ public class Card {
                 "Id=" + id +
                 ", frontText='" + frontText + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(id);
+        }
+        if (deckId == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(deckId);
+        }
+        dest.writeString(frontText);
+        dest.writeString(backText);
+        if (repetitions == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(repetitions);
+        }
+        if (quality == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(quality);
+        }
+        if (easiness == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(easiness);
+        }
+        if (interval == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(interval);
+        }
     }
 }

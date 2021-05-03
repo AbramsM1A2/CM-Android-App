@@ -64,4 +64,9 @@
     <string name="to">per</string>
     <string name="fab_edit_deck">Modifica mazzo</string>
     <string name="textview">Nessun mazzo su cui esercitarsi</string>
+    <string name="edit_card">Modifica carta</string>
+    <string name="msg_snack_edit_card">Carta modificata e salvata con successo nel tuo mazzo</string>
+    <string name="msg_toast_noSelectedMaze">"Seleziona un mazzo "</string>
+    <string name="delete_card">"Elimina carta "</string>
+    <string name="msg_delete_card">Stai per eliminare la carta</string>
 </resources>

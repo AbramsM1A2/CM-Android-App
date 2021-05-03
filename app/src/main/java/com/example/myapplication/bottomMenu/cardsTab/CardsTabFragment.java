@@ -2,6 +2,8 @@ package com.example.myapplication.bottomMenu.cardsTab;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,14 +34,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-
-    // TODO Y OTRO IGUAL PARA LAS CARTAS CLICKEANDO EN CADA CARTA, FRONT BACK MAZO Y ELIMINAR
+public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener, CardsRecyclerViewAdapter2.OnCardListener  {
 
     private List<Card> cardList;
 
     private String deckName = "";
+    //
+    int positionSelectedInSpinner;
 
+    //Spinner con su adapter
+    private Spinner spinner;
+    private ArrayAdapter<String> adapter;
     //RecyclerView
     private RecyclerView recyclerView;
 
@@ -91,16 +96,17 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         //Tomamos el view del archivo .xml
         View view = inflater.inflate(R.layout.fragment_list_card, container, false);
         //-----------Spinner-----------------------
-        Spinner spinner = (Spinner) view.findViewById(R.id.cards_tab_mace_selector_spinner);
+        spinner = (Spinner) view.findViewById(R.id.cards_tab_mace_selector_spinner);
         spinner.setOnItemSelectedListener(this);
 
         //Data for the Spinner
         List<String> values = new ArrayList<>();
 
         // Create an ArrayAdapter using the string and a default spinner layout
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
+        adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
         //Iniciar el diccionario
         mDecksByName = new HashMap<String, Integer>();
+
 
         //DB
         mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
@@ -112,6 +118,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
                 mDecksByName.put(s.getNameText(), s.getId());
                 adapter.add(s.getNameText());
             }
+
         });
         cardList = new ArrayList<Card>();
 
@@ -125,6 +132,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         recyclerView = (RecyclerView) view.findViewById(R.id.List_of_Cards);
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
 
 
         //FABS
@@ -193,6 +201,9 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         mAddCardFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Para saber que mazo estaba seleccionado
+                positionSelectedInSpinner = spinner.getSelectedItemPosition();
+
                 //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos una carta a un mazo elegido
                 Intent i = new Intent(getActivity(), AddCardActivity.class);
                 //Para que se vuelva a cerrar el fab button
@@ -205,6 +216,8 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         mAddDeckFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Para saber que mazo estaba seleccionado
+                //positionSelectedInSpinner = spinner.getSelectedItemPosition();
                 //Aqui tengo que hacer que comience la actividad en la que se añade a la base de datos un mazo
                 Intent i = new Intent(getActivity(), AddDeckActivity.class);
                 //Para que se vuelva a cerrar el fab button
@@ -217,6 +230,8 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         mEditDeckFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Para saber que mazo estaba seleccionado
+                //positionSelectedInSpinner = spinner.getSelectedItemPosition();
                 //Aqui tengo que hacer que comience la actividad en la que se edita un mazo de la base de datos
                 Intent i = new Intent(getActivity(), EditDeckActivity.class);
                 //Para que se vuelva a cerrar el fab button
@@ -226,7 +241,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             }
         });
 
-
+        setTheme();
         return view;
 
     }
@@ -234,9 +249,13 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //TODO EL PROBLEMA QUE HAY QUE ARREGLAR ES QUE ONITEMSELECTED NO VUELVE A SER EJECUTADO CUANDO VUELVE
+        // DE UNA ACTIVIDAD POR LO TANTO SE GUARDA LA POSICION DEL SPINNER QUE HABIA ANTES.
+        // SI POR EJEMPLO CAMBIAMOS EL LIVE DATA A UNA LISTA NO ESTOY SEGURO DE QUE FUNCIONE PERO SEGURAMENTE SI QUE
+        // LO HAGA ARREGLANDO LOS LIFECYCLE Y TAL
+
         deckName = parent.getItemAtPosition(position).toString();
         Integer deckId = mDecksByName.get(deckName);
-
 
         mCardViewModel.getAllCardsWithThisId(deckId).observe(getViewLifecycleOwner(), cards -> {
             //SE PUEDE HACER UN CLEAR O CREAR UNA NUEVA LISTA, MIRAR CUAL SERIA LA MEJOR OPCION
@@ -244,8 +263,12 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             for (Card c : cards) {
                 cardList.add(c);
             }
-            recyclerView.setAdapter(new CardsRecyclerViewAdapter2(cardList));
+            //Intento de arreglo fallido
+            //positionSelectedInSpinner = spinner.getSelectedItemPosition();
+            //spinner.setSelection(positionSelectedInSpinner);
+            recyclerView.setAdapter(new CardsRecyclerViewAdapter2(cardList,this));
         });
+
         // POR PREDETERMINADO, SE VA A HACER CLICK SIEMPRE EN ESTE ONITEMSELECTED CADA VEZ QUE SE ABRA LA PESTAÑA CARDS
 
         //Toast.makeText(parent.getContext(), "The deck id is " + deckId, Toast.LENGTH_LONG).show();
@@ -254,5 +277,49 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onCardClick(int position) {
+        //Para saber que mazo estaba seleccionado
+        positionSelectedInSpinner = adapter.getPosition(deckName);
+        Intent intent  = new Intent(getActivity(),EditCardActivity.class);
+        intent.putExtra("selected_card",cardList.get(position));
+        startActivity(intent);
+        spinner.setSelection(positionSelectedInSpinner);
+
+    }
+    private void setTheme() {
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode &
+                Configuration.UI_MODE_NIGHT_MASK;
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO) {
+            //claro
+            mMainAddFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_700)));
+            mAddCardFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mAddDeckFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mEditDeckFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mAddCardText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mAddCardText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            mAddDeckText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mAddDeckText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            mEditDeckText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mEditDeckText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+
+        } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            //oscuro
+            mMainAddFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_200)));
+            mAddCardFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mAddDeckFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mEditDeckFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mAddCardText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mAddCardText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.black)));
+            mAddDeckText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mAddDeckText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.black)));
+            mEditDeckText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mEditDeckText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.black)));
+
+        }
     }
 }

@@ -180,6 +180,9 @@ public class Repository {
     public void deleteAllCardsFromDeckId(Integer deckid) {
         mCardDao.deleteAllCardsFromDeckId(deckid);
     }
+    public void updateCardTextsAndDeck(Integer cardID,String frontTEXT, String backTEXT,Integer deckID){
+        mCardDao.updateCardTextsAndDeck(cardID,frontTEXT, backTEXT,deckID);
+    }
 
 
     //------------------------------------Deck---------------------------------------------
@@ -304,8 +307,6 @@ public class Repository {
     public void updateDeckNameById(String new_name_text, Integer deckID) {
         mDeckDao.updateDeckNameById(new_name_text, deckID);
     }
-
-    ;
 
     public void deleteDeckGivingDeckId(Integer deckid) {
         mDeckDao.deleteDeckGivingDeckId(deckid);

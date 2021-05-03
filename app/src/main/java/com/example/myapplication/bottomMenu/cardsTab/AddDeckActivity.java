@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +30,7 @@ import java.util.List;
 public class AddDeckActivity extends AppCompatActivity {
     private DeckViewModel mDeckViewModel;
     private String mMsg_snack_add_deck;
+    private Button add_deck_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,7 @@ public class AddDeckActivity extends AppCompatActivity {
         mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
 
         //Botones y UI
-        final Button add_deck_button = (Button) findViewById(R.id.buttonAddDeck);
+        add_deck_button = (Button) findViewById(R.id.buttonAddDeck);
         EditText mEditTextDeckName = (EditText) findViewById(R.id.editTextDeckName);
         add_deck_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -79,11 +83,32 @@ public class AddDeckActivity extends AppCompatActivity {
                 }
             }
         });
+        setTheme();
     }
 
     public boolean onSupportNavigateUp() {
         //Metodo para el boton de atras del actionbar
         finish();
         return true;
+    }
+
+    private void setTheme() {
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode &
+                Configuration.UI_MODE_NIGHT_MASK;
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO) {
+            //claro
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cp_light_blue_700)));
+            add_deck_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_700)));
+
+
+        } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            //oscuro
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cp_light_blue_200)));
+            add_deck_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_200)));
+
+
+        }
     }
 }

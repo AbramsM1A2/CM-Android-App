@@ -11,9 +11,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.Toast;
 import android.util.Log;
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //Color del navigation bar
+        setTheme();
         //Menu inferior
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
@@ -97,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             edit.apply();
             this.recreate();
         }
+
     }
 
     /**
@@ -111,6 +116,24 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.container, frg)
                 .commit();
 
+    }
+
+    private void setTheme() {
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode &
+                Configuration.UI_MODE_NIGHT_MASK;
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO) {
+            //claro
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_700)));
+
+
+        } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            //oscuro
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_200)));
+
+
+        }
     }
 
 }

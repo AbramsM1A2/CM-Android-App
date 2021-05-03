@@ -48,5 +48,10 @@ public interface CardDao {
     //Query para obtener el id de un mazo pasandole su nombre
     @Query("SELECT * FROM card_table WHERE deckId = :deckid ORDER BY frontText ASC")
     LiveData<List<Card>> getCardsWithId(Integer deckid);
+
+    @Query("UPDATE card_table SET deckId =:deckID, frontText=:frontTEXT, backText=:backTEXT WHERE id=:cardID")
+    void updateCardTextsAndDeck(Integer cardID,String frontTEXT, String backTEXT,Integer deckID);
+
+
 }
 
