@@ -17,6 +17,7 @@ import android.content.res.Resources;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.Toast;
 import android.util.Log;
 
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         navigation.setOnNavigationItemSelectedListener(item -> {
+
             int itemId = item.getItemId();
             if (itemId == home_tab) {
                 System.out.println(R.string.app_name);
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(up_bar_string);
                 return true;
             }
+
             return false;
         });
         if (!flag) {
@@ -126,11 +129,12 @@ public class MainActivity extends AppCompatActivity {
         if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO) {
             //claro
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_700)));
-
+            //getSupportActionBar().setTitle(Html.fromHtml("<font color=\"white\">" + up_bar_string + "</font>"));
 
         } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
             //oscuro
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_200)));
+            //getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + up_bar_string + "</font>"));
 
 
         }
