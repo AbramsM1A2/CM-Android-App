@@ -64,4 +64,9 @@
     <string name="minimun_deck_size">Por favor, adicione 20 cartas ao malho</string>
     <string name="textview">Sem decks para praticar</string>
     <string name="cards_fragment">Hello card fragment</string>
+    <string name="edit_card">Editar cartão</string>
+    <string name="delete_card">Apagar cartão</string>
+    <string name="msg_delete_card">Você está prestes a deletar o cartão</string>
+    <string name="msg_snack_edit_card">Carta editada com sucesso e salva em seu baralho</string>
+    <string name="msg_toast_noSelectedMaze">"Selecione um deck "</string>
 </resources>
