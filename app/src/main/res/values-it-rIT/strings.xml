@@ -69,4 +69,5 @@
     <string name="msg_toast_noSelectedMaze">"Seleziona un mazzo "</string>
     <string name="delete_card">"Elimina carta "</string>
     <string name="msg_delete_card">Stai per eliminare la carta</string>
+
 </resources>

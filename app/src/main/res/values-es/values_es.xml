@@ -78,4 +78,12 @@
     <string name="to">" a "</string>
     <!-- Strings para el fragment Home -->
     <string name="minimun_deck_size">Por favor añade 20 cartas al mazo</string>
+
+    <string name="cards_fragment">Hello card fragment</string>
+    <string name="textview">Sin mazos para practicar</string>
+    <string name="edit_card">Editar carta</string>
+    <string name="msg_snack_edit_card">"Carta editada y guardada correctamente "</string>
+    <string name="msg_toast_noSelectedMaze">Por favor, seleccione un mazo</string>
+    <string name="delete_card">Eliminar carta</string>
+    <string name="msg_delete_card">Está a punto de eliminar la carta</string>
 </resources>
