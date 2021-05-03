@@ -3,6 +3,10 @@ package com.example.myapplication.bottomMenu.cardsTab;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +36,7 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
     private String deckName;
     //Diccionario con mazos y sus IDs;
     private Map<String, Integer> mDecksByName;
+    private Button add_card_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +83,7 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
         spinner.setAdapter(adapter);
 
         //Boton
-        final Button add_card_button = (Button) findViewById(R.id.buttonAddCard);
+        add_card_button = (Button) findViewById(R.id.buttonAddCard);
 
         //Buscamos los EditText
         EditText mEditTextFront = (EditText) findViewById(R.id.editTextAddFront);
@@ -114,7 +119,7 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
 
             }
         });
-
+        setTheme();
     }
 
 
@@ -132,5 +137,25 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
         //Metodo para el boton de atras del actionbar
         finish();
         return true;
+    }
+
+    private void setTheme() {
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode &
+                Configuration.UI_MODE_NIGHT_MASK;
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO) {
+            //claro
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cp_light_blue_700)));
+            add_card_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_700)));
+
+
+        } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            //oscuro
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cp_light_blue_200)));
+            add_card_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_200)));
+
+
+        }
     }
 }

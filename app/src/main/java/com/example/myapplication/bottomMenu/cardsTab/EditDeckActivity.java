@@ -2,6 +2,9 @@ package com.example.myapplication.bottomMenu.cardsTab;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -37,6 +40,9 @@ public class EditDeckActivity extends AppCompatActivity implements AdapterView.O
     private Map<String, Integer> mDecksByName;
     //EditTexts
     EditText mEditTextDeckName;
+    //Botones
+    private Button edit_deck_button ;
+    private Button delete_deck_button ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +90,8 @@ public class EditDeckActivity extends AppCompatActivity implements AdapterView.O
         spinner.setAdapter(adapter);
 
         //Botones y UI
-        final Button edit_deck_button = (Button) findViewById(R.id.buttonEditDeck);
-        final Button delete_deck_button = (Button) findViewById(R.id.buttonDeleteDeck);
+        edit_deck_button = (Button) findViewById(R.id.buttonEditDeck);
+        delete_deck_button = (Button) findViewById(R.id.buttonDeleteDeck);
         mEditTextDeckName = (EditText) findViewById(R.id.editTextDeckName);
 
         edit_deck_button.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +163,7 @@ public class EditDeckActivity extends AppCompatActivity implements AdapterView.O
             }
 
         });
-
+        setTheme();
 
     }
 
@@ -177,5 +183,25 @@ public class EditDeckActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void setTheme() {
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode &
+                Configuration.UI_MODE_NIGHT_MASK;
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO) {
+            //claro
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cp_light_blue_700)));
+            edit_deck_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_700)));
+            delete_deck_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red_700)));
+
+        } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            //oscuro
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cp_light_blue_200)));
+            edit_deck_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_200)));
+            delete_deck_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red_200)));
+
+        }
     }
 }

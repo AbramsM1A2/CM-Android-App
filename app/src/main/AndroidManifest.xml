@@ -34,7 +34,7 @@
 
         <activity android:name=".bottomMenu.settingsTab.AboutUsActivity"/>
         <activity android:name=".bottomMenu.settingsTab.ContactUsActivity"/>
-        <activity android:name=".bottomMenu.cardsTab.EditCardActivity" />
+        <activity android:name=".bottomMenu.cardsTab.EditCardActivity"/>
 
 
     </application>

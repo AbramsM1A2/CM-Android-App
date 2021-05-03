@@ -2,6 +2,9 @@ package com.example.myapplication.bottomMenu.cardsTab;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -41,6 +44,9 @@ public class EditCardActivity extends AppCompatActivity implements AdapterView.O
     private Map<String, Integer> mDecksByName;
     private Map<Integer, String> mDecksById;
 
+    private Button edit_card_button;
+    private Button delete_card_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +66,7 @@ public class EditCardActivity extends AppCompatActivity implements AdapterView.O
         //Para tener el boton de hacia atras
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         //Msg to the user when he edits the card
         mMsg_snack_edit_card = getApplicationContext().getString(R.string.msg_snack_edit_card);
@@ -102,8 +109,8 @@ public class EditCardActivity extends AppCompatActivity implements AdapterView.O
         spinner.setAdapter(adapter);
 
         //Boton
-        final Button edit_card_button = (Button) findViewById(R.id.buttonEditCard);
-        final Button delete_card_button = (Button) findViewById(R.id.buttonDeleteCard);
+        edit_card_button = (Button) findViewById(R.id.buttonEditCard);
+        delete_card_button = (Button) findViewById(R.id.buttonDeleteCard);
 
         //Buscamos los EditText
         EditText mEditTextFront = (EditText) findViewById(R.id.editTextEditFront);
@@ -161,8 +168,11 @@ public class EditCardActivity extends AppCompatActivity implements AdapterView.O
                         })
                         .setNegativeButton(R.string.btn_cancel, null)
                         .show();
+
             }
         });
+
+        setTheme();
 
     }
 
@@ -181,5 +191,24 @@ public class EditCardActivity extends AppCompatActivity implements AdapterView.O
         //Metodo para el boton de atras del actionbar
         finish();
         return true;
+    }
+    private void setTheme() {
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode &
+                Configuration.UI_MODE_NIGHT_MASK;
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO) {
+            //claro
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cp_light_blue_700)));
+            edit_card_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_700)));
+            delete_card_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red_700)));
+
+        } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            //oscuro
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cp_light_blue_200)));
+            edit_card_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_200)));
+            delete_card_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red_200)));
+
+        }
     }
 }

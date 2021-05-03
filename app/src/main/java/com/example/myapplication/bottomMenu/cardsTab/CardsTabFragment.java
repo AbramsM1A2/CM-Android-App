@@ -2,6 +2,8 @@ package com.example.myapplication.bottomMenu.cardsTab;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -241,7 +243,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             }
         });
 
-
+        setTheme();
         return view;
 
     }
@@ -288,5 +290,38 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         startActivity(intent);
         spinner.setSelection(positionSelectedInSpinner);
 
+    }
+    private void setTheme() {
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode &
+                Configuration.UI_MODE_NIGHT_MASK;
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO) {
+            //claro
+            mMainAddFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_700)));
+            mAddCardFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mAddDeckFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mEditDeckFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mAddCardText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mAddCardText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            mAddDeckText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mAddDeckText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            mEditDeckText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_700)));
+            mEditDeckText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+
+        } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            //oscuro
+            mMainAddFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_200)));
+            mAddCardFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mAddDeckFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mEditDeckFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mAddCardText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mAddCardText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.black)));
+            mAddDeckText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mAddDeckText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.black)));
+            mEditDeckText.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.cp_light_blue_200)));
+            mEditDeckText.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.black)));
+
+        }
     }
 }
