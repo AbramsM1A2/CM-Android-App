@@ -138,7 +138,6 @@ public class EditCardActivity extends AppCompatActivity implements AdapterView.O
                     //En el caso de que se deje en blanco el el front o el back de una carta
                     Toast.makeText(getApplicationContext(), R.string.msg_toast_card_noText, Toast.LENGTH_LONG).show();
                 } else {
-                    //TODO METODOS DE LA BASE DE DATOS PARA ACTUALIZAR LA CARTA
                     AsyncTask.execute(() -> mCardViewModel.updateCardTextsAndDeck(mCardId,Front,Back,deckId));
                     finish();
                     Snackbar.make(v, mMsg_snack_edit_card, Snackbar.LENGTH_SHORT).show();

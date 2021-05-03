@@ -36,8 +36,6 @@ import java.util.Map;
 
 public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener, CardsRecyclerViewAdapter2.OnCardListener  {
 
-    // TODO Y OTRO IGUAL PARA LAS CARTAS CLICKEANDO EN CADA CARTA, FRONT BACK MAZO Y ELIMINAR
-
     private List<Card> cardList;
 
     private String deckName = "";

@@ -66,7 +66,6 @@ public class CardsRecyclerViewAdapter2 extends RecyclerView.Adapter<CardsRecycle
         }
         @Override
         public void onClick(View v) {
-            //TODO QUITAR ESTOS PRINTS Y LLAMAR A LA CREACION DE UNA ACTIVITY QUE MODIFIQUE Y PERMITA AL USUARIO ELIMINAR LA CARTA
             onCardListener.onCardClick(getAdapterPosition());
 
         }
