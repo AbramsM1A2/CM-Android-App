@@ -35,6 +35,8 @@ import static com.example.myapplication.R.id.home_tab;
 public class MainActivity extends AppCompatActivity {
     private String up_bar_string;
     private SharedPreferences sharedPreferences;
+    private Integer currentSelection;
+    private BottomNavigationView navigation;
 
     public static boolean flag = Boolean.FALSE;
 
@@ -47,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
         //Color del navigation bar
         setTheme();
         //Menu inferior
-        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
+        navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
+        currentSelection= home_tab;
         //PREFERENCIAS
         sharedPreferences = this.getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
         //tema
@@ -66,26 +69,31 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+
         navigation.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == home_tab) {
+                currentSelection=itemId;
                 System.out.println(R.string.app_name);
                 up_bar_string = getApplicationContext().getString(R.string.app_name);
                 showFragment(HomeFragment.newInstance());
                 getSupportActionBar().setTitle(up_bar_string);
                 return true;
             } else if (itemId == R.id.cards_tab) {
+                currentSelection=itemId;
                 up_bar_string = getApplicationContext().getString(R.string.cards);
                 showFragment(CardsTabFragment.newInstance(1));
                 getSupportActionBar().setTitle(up_bar_string);
                 return true;
             } else if (itemId == R.id.statistics_tab) {
+                currentSelection=itemId;
                 up_bar_string = getApplicationContext().getString(R.string.statistics);
                 getSupportActionBar().setTitle(up_bar_string);
                 //TODO statistics tab
                 return true;
             } else if (itemId == R.id.settings_tab) {
                 up_bar_string = getApplicationContext().getString(R.string.settings);
+                currentSelection=itemId;
                 showFragment(new SettingsFragment());
                 getSupportActionBar().setTitle(up_bar_string);
                 return true;
@@ -136,4 +144,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        navigation.setSelectedItemId(currentSelection);
+        System.out.println("ACITIVTY ONRESUME");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        System.out.println("ACITIVTY ONPAUSE");
+    }
 }

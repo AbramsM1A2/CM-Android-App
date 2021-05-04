@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-
 import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -18,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.ReviewCardsActivity;
@@ -30,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +38,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class HomeFragment extends Fragment implements HomeCustomAdapter.onDeckListener {
 //https://www.codeproject.com/Articles/1277308/Work-with-Database-using-Room-and-recyclerview-in
 
-    private List<Deck> mDataItemList;
+    ArrayList<Deck> mDataItemList;
     private HomeCustomAdapter mListAdapter;
 
     private HomeCustomAdapter.onDeckListener mListener;
@@ -89,10 +88,13 @@ public class HomeFragment extends Fragment implements HomeCustomAdapter.onDeckLi
                 textView.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
             } else {
+                setListData(new ArrayList<>());
                 textView.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
             }
         });
+
+
     }
 
     @Override
@@ -121,22 +123,26 @@ public class HomeFragment extends Fragment implements HomeCustomAdapter.onDeckLi
     }
 
 
+
     @Override
     public void onListClickListener(int position) {
         CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         AtomicInteger deckSize = new AtomicInteger();
+        AtomicReference<Integer> flag = new AtomicReference<>(0);
         Deck dataItem = mDataItemList.get(position);
         mCardViewModel.getAllCardsWithThisId(dataItem.getId()).observe(this, cards -> {
             deckSize.set(cards.size());
+            if (flag.get() ==0) {
+                if (deckSize.get() < 20) {
+                    Toast.makeText(getContext(), R.string.minimun_deck_size, Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(getContext(), ReviewCardsActivity.class);
+                    intent.putExtra("selected_deck_id", String.valueOf(dataItem.getId()));
+                    intent.putExtra("selected_deck_name", dataItem.getNameText());
 
-            if (deckSize.get() < 20) {
-                Toast.makeText(getContext(), R.string.minimun_deck_size, Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(getContext(), ReviewCardsActivity.class);
-                intent.putExtra("selected_deck_id", String.valueOf(dataItem.getId()));
-                intent.putExtra("selected_deck_name", dataItem.getNameText());
-
-                startActivity(intent);
+                    startActivity(intent);
+                }
+                flag.set(1);
             }
         });
     }
