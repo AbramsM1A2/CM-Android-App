@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -37,9 +39,8 @@ import java.util.Map;
 public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener, CardsRecyclerViewAdapter2.OnCardListener  {
 
     private List<Card> cardList;
-
     private String deckName = "";
-    //
+
     int positionSelectedInSpinner;
 
     //Spinner con su adapter
@@ -121,11 +122,14 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
 
         });
         cardList = new ArrayList<Card>();
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        spinner.setSelected(false);
+        spinner.setSelection(0,true);
+        spinner.setOnItemSelectedListener(this);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 
 
         //Accedemos al recyclerView contenido en el view del .xml
@@ -209,7 +213,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
                 //Para que se vuelva a cerrar el fab button
                 mMainAddFab.callOnClick();
                 startActivity(i);
-                spinner.setSelection(0);
+
             }
         });
 
@@ -223,7 +227,6 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
                 //Para que se vuelva a cerrar el fab button
                 mMainAddFab.callOnClick();
                 startActivity(i);
-                spinner.setSelection(0);
             }
         });
 
@@ -237,7 +240,6 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
                 //Para que se vuelva a cerrar el fab button
                 mMainAddFab.callOnClick();
                 startActivity(i);
-                spinner.setSelection(0);
             }
         });
 
@@ -249,29 +251,21 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //TODO EL PROBLEMA QUE HAY QUE ARREGLAR ES QUE ONITEMSELECTED NO VUELVE A SER EJECUTADO CUANDO VUELVE
-        // DE UNA ACTIVIDAD POR LO TANTO SE GUARDA LA POSICION DEL SPINNER QUE HABIA ANTES.
-        // SI POR EJEMPLO CAMBIAMOS EL LIVE DATA A UNA LISTA NO ESTOY SEGURO DE QUE FUNCIONE PERO SEGURAMENTE SI QUE
-        // LO HAGA ARREGLANDO LOS LIFECYCLE Y TAL
+        if(view != null) {
+            deckName = parent.getItemAtPosition(position).toString();
+            Integer deckId = mDecksByName.get(deckName);
+            System.out.println(position);
+            mCardViewModel.getAllCardsWithThisId(deckId).observe(getViewLifecycleOwner(), cards -> {
+                //TODO comentarle al profesor como podriamos solucionar esto
 
-        deckName = parent.getItemAtPosition(position).toString();
-        Integer deckId = mDecksByName.get(deckName);
-
-        mCardViewModel.getAllCardsWithThisId(deckId).observe(getViewLifecycleOwner(), cards -> {
-            //SE PUEDE HACER UN CLEAR O CREAR UNA NUEVA LISTA, MIRAR CUAL SERIA LA MEJOR OPCION
-            cardList.clear();
-            for (Card c : cards) {
-                cardList.add(c);
-            }
-            //Intento de arreglo fallido
-            //positionSelectedInSpinner = spinner.getSelectedItemPosition();
-            //spinner.setSelection(positionSelectedInSpinner);
-            recyclerView.setAdapter(new CardsRecyclerViewAdapter2(cardList,this));
-        });
-
-        // POR PREDETERMINADO, SE VA A HACER CLICK SIEMPRE EN ESTE ONITEMSELECTED CADA VEZ QUE SE ABRA LA PESTAÑA CARDS
-
-        //Toast.makeText(parent.getContext(), "The deck id is " + deckId, Toast.LENGTH_LONG).show();
+                cardList.clear();
+                for (Card c : cards) {
+                    cardList.add(c);
+                }
+                recyclerView.setAdapter(new CardsRecyclerViewAdapter2(cardList, this));
+                spinner.setSelection(position);
+            });
+        }
     }
 
     @Override
@@ -281,12 +275,9 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
 
     @Override
     public void onCardClick(int position) {
-        //Para saber que mazo estaba seleccionado
-        positionSelectedInSpinner = adapter.getPosition(deckName);
         Intent intent  = new Intent(getActivity(),EditCardActivity.class);
         intent.putExtra("selected_card",cardList.get(position));
         startActivity(intent);
-        spinner.setSelection(positionSelectedInSpinner);
 
     }
     private void setTheme() {
@@ -322,4 +313,5 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
 
         }
     }
+
 }
