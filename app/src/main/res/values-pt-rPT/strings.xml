@@ -69,5 +69,7 @@
     <string name="msg_delete_card">Você está prestes a deletar o cartão</string>
     <string name="msg_snack_edit_card">Carta editada com sucesso e salva em seu baralho</string>
     <string name="msg_toast_noSelectedMaze">"Selecione um deck "</string>
+    <string name="statisticsCardsByDeck">cartas por baralho</string>
+    <string name="statisticsDataSetName">Baralhos</string>
 
 </resources>

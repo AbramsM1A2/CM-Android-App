@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,9 +28,17 @@ import com.example.myapplication.bottomMenu.settingsTab.SettingsFragment;
 
 import com.example.myapplication.bottomMenu.homeTab.HomeFragment;
 import com.example.myapplication.bottomMenu.statisticTab.StatisticsFragment;
+import com.example.myapplication.database.Card.Card;
+import com.example.myapplication.database.Card.CardViewModel;
+import com.example.myapplication.database.Deck.Deck;
+import com.example.myapplication.database.Deck.DeckViewModel;
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.example.myapplication.R.id.home_tab;
 
@@ -71,6 +80,26 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //Statistics data chart
+        ArrayList<PieEntry> valueSet = new ArrayList<>();
+        DeckViewModel mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
+        CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
+
+        mDeckViewModel.getAllDecks().observe(this,decks -> {
+            for (Deck d:decks) {
+                AtomicReference<Float> count= new AtomicReference<>(0f);
+                mCardViewModel.getAllCards().observe(this, cards -> {
+                    for (Card c: cards) {
+                        if (d.getId().equals(c.getDeckId())){
+                            count.getAndSet((float) (count.get() + 1));
+                        }
+                    }
+                    valueSet.add(new PieEntry(count.get(), d.getNameText()));
+                });
+            }
+
+        });
+
         navigation.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == home_tab) {
@@ -91,7 +120,11 @@ public class MainActivity extends AppCompatActivity {
                 currentSelection=itemId;
                 up_bar_string = getApplicationContext().getString(R.string.statistics);
                 getSupportActionBar().setTitle(up_bar_string);
-                showFragment(StatisticsFragment.newInstance());
+                StatisticsFragment fragment = new StatisticsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("valuesSet",valueSet);
+                fragment.setArguments(bundle);
+                showFragment(fragment);
                 return true;
             } else if (itemId == R.id.settings_tab) {
                 up_bar_string = getApplicationContext().getString(R.string.settings);
@@ -111,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
             edit.apply();
             this.recreate();
         }
+
+
 
     }
 

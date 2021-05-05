@@ -52,6 +52,5 @@ public interface CardDao {
     @Query("UPDATE card_table SET deckId =:deckID, frontText=:frontTEXT, backText=:backTEXT WHERE id=:cardID")
     void updateCardTextsAndDeck(Integer cardID,String frontTEXT, String backTEXT,Integer deckID);
 
-
 }
 
