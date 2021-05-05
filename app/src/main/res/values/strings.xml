@@ -86,4 +86,8 @@
     <string name="cards_fragment">Hello card fragment</string>
     <string name="textview">No decks to practice</string>
 
+<!--    statistics-->
+    <string name="statisticsCardsByDeck">Cards by deck</string>Cards by deck />
+    <string name="statisticsDataSetName">Decks</string>Decks/>
+
 </resources>

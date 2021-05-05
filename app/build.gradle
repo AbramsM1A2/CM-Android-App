@@ -4,7 +4,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.example.myapplication"
@@ -78,14 +78,20 @@ dependencies {
             jcenter()
         }
     }
+    //Preferences
     implementation 'com.github.medyo:android-about-page:1.2.5'
+    //Charts
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.3.0", {
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
