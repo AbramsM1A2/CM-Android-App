@@ -2,9 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/cards_header" app:icon="@drawable/baseline_style_24">
+    <PreferenceCategory
+        android:title="@string/cards_header"
+        android:layout="@layout/preferences_category">
         <ListPreference
             android:id="@+id/daily_cards"
+            android:icon="@drawable/baseline_style_24"
             app:defaultValue="20"
             app:entries="@array/cardsNumber_entries"
             app:entryValues="@array/cardsNumber_values"
@@ -13,9 +16,12 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/interface_header" app:icon="@drawable/baseline_aod_24">
+    <PreferenceCategory
+        android:title="@string/interface_header"
+        android:layout="@layout/preferences_category">
         <SwitchPreferenceCompat
             android:id="@+id/theme"
+            android:icon="@drawable/baseline_aod_24"
             app:defaultValue="false"
             app:key="theme"
             app:summary="@string/theme_summary"
@@ -23,6 +29,7 @@
 
         <DropDownPreference
             android:id="@+id/language"
+            android:icon="@drawable/baseline_language_24"
             app:entries="@array/language_entries"
             app:entryValues="@array/language_values"
             app:key="language"
@@ -31,22 +38,30 @@
             />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/account_header" app:icon="@drawable/baseline_account_circle_24">
+    <PreferenceCategory
+        android:title="@string/account_header"
+
+        android:layout="@layout/preferences_category">
         <EditTextPreference
             android:id="@+id/alias"
+            android:icon="@drawable/baseline_account_circle_24"
             app:key="alias"
             app:title="@string/alias"
             app:useSimpleSummaryProvider="true"
             app:defaultValue="@string/defaultAlias" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/help_header" app:icon="@drawable/baseline_help_center_24">
+    <PreferenceCategory
+        android:title="@string/help_header"
+        android:layout="@layout/preferences_category">
         <Preference
             android:id="@+id/about_us"
+            android:icon="@drawable/baseline_help_center_24"
             app:key="about_us"
             app:title="@string/aboutus_title"/>
         <Preference
             android:id="@+id/contact_us"
+            android:icon="@drawable/baseline_alternate_email_24"
             app:key="contact"
             app:title="@string/contact_title" />
     </PreferenceCategory>

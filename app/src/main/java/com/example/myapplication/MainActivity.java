@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
             return false;
         });
+
         if (!flag) {
             navigation.setSelectedItemId(home_tab);
             flag = true;
@@ -147,6 +148,13 @@ public class MainActivity extends AppCompatActivity {
             edit.putBoolean("activar_home", Boolean.FALSE);
             edit.apply();
             this.recreate();
+        }else if(sharedPreferences.getBoolean("ajustes",Boolean.FALSE)==Boolean.TRUE){
+            navigation.setSelectedItemId(R.id.settings_tab);
+            //up_bar_string=sharedPreferences.getString("UP_BAR_STRING", "");
+            sharedPreferences = this.getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("ajustes", Boolean.FALSE);
+            editor.apply();
         }
 
 
@@ -182,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
             //getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + up_bar_string + "</font>"));
 
 
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_500)));
         }
     }
 
