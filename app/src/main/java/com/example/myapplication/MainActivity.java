@@ -84,8 +84,9 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<PieEntry> valueSet = new ArrayList<>();
         DeckViewModel mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
-
+        //TODO revisar bug del chart aqui
         mDeckViewModel.getAllDecks().observe(this,decks -> {
+            valueSet.clear();
             for (Deck d:decks) {
                 AtomicReference<Float> count= new AtomicReference<>(0f);
                 mCardViewModel.getAllCards().observe(this, cards -> {
