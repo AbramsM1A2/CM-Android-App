@@ -36,7 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener, CardsRecyclerViewAdapter2.OnCardListener  {
+public class CardsTabFragment extends Fragment implements AdapterView.OnItemSelectedListener, CardsRecyclerViewAdapter2.OnCardListener {
 
     private List<Card> cardList;
     private String deckName = "";
@@ -125,18 +125,16 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setSelected(false);
-        spinner.setSelection(0,true);
+        spinner.setSelection(0, true);
         spinner.setOnItemSelectedListener(this);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
 
 
         //Accedemos al recyclerView contenido en el view del .xml
         recyclerView = (RecyclerView) view.findViewById(R.id.List_of_Cards);
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
 
 
         //FABS
@@ -251,7 +249,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(view != null) {
+        if (view != null) {
             deckName = parent.getItemAtPosition(position).toString();
             Integer deckId = mDecksByName.get(deckName);
             System.out.println(position);
@@ -275,11 +273,12 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
 
     @Override
     public void onCardClick(int position) {
-        Intent intent  = new Intent(getActivity(),EditCardActivity.class);
-        intent.putExtra("selected_card",cardList.get(position));
+        Intent intent = new Intent(getActivity(), EditCardActivity.class);
+        intent.putExtra("selected_card", cardList.get(position));
         startActivity(intent);
 
     }
+
     private void setTheme() {
 
         int nightModeFlags = this.getResources().getConfiguration().uiMode &

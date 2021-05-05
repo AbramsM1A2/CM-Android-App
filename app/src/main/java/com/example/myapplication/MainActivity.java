@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         //Menu inferior
         navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
-        currentSelection= home_tab;
+        currentSelection = home_tab;
         //PREFERENCIAS
         sharedPreferences = this.getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
         //tema
@@ -86,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
         DeckViewModel mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         //TODO revisar bug del chart aqui
-        mDeckViewModel.getAllDecks().observe(this,decks -> {
+        mDeckViewModel.getAllDecks().observe(this, decks -> {
             valueSet.clear();
-            for (Deck d:decks) {
-                AtomicReference<Float> count= new AtomicReference<>(0f);
+            for (Deck d : decks) {
+                AtomicReference<Float> count = new AtomicReference<>(0f);
                 mCardViewModel.getAllCards().observe(this, cards -> {
-                    for (Card c: cards) {
-                        if (d.getId().equals(c.getDeckId())){
+                    for (Card c : cards) {
+                        if (d.getId().equals(c.getDeckId())) {
                             count.getAndSet((float) (count.get() + 1));
                         }
                     }
@@ -106,32 +106,32 @@ public class MainActivity extends AppCompatActivity {
 
             int itemId = item.getItemId();
             if (itemId == home_tab) {
-                currentSelection=itemId;
+                currentSelection = itemId;
                 System.out.println(R.string.app_name);
                 up_bar_string = getApplicationContext().getString(R.string.app_name);
                 showFragment(HomeFragment.newInstance());
                 getSupportActionBar().setTitle(up_bar_string);
                 return true;
             } else if (itemId == R.id.cards_tab) {
-                currentSelection=itemId;
+                currentSelection = itemId;
                 up_bar_string = getApplicationContext().getString(R.string.cards);
                 showFragment(CardsTabFragment.newInstance(1));
                 getSupportActionBar().setTitle(up_bar_string);
                 return true;
             } else if (itemId == R.id.statistics_tab) {
                 //TODO statistics tab
-                currentSelection=itemId;
+                currentSelection = itemId;
                 up_bar_string = getApplicationContext().getString(R.string.statistics);
                 getSupportActionBar().setTitle(up_bar_string);
                 StatisticsFragment fragment = new StatisticsFragment();
                 Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("valuesSet",valueSet);
+                bundle.putParcelableArrayList("valuesSet", valueSet);
                 fragment.setArguments(bundle);
                 showFragment(fragment);
                 return true;
             } else if (itemId == R.id.settings_tab) {
                 up_bar_string = getApplicationContext().getString(R.string.settings);
-                currentSelection=itemId;
+                currentSelection = itemId;
                 showFragment(new SettingsFragment());
                 getSupportActionBar().setTitle(up_bar_string);
                 return true;
@@ -148,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
             edit.apply();
             this.recreate();
         }
-
 
 
     }
