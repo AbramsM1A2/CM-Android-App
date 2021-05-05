@@ -33,7 +33,7 @@ import java.util.Locale;
 import static com.example.myapplication.R.id.home_tab;
 
 public class MainActivity extends AppCompatActivity {
-    private String up_bar_string;
+    String up_bar_string;
     private SharedPreferences sharedPreferences;
 
     public static boolean flag = Boolean.FALSE;
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
         if (!flag) {
             navigation.setSelectedItemId(home_tab);
             flag = true;
@@ -99,7 +100,15 @@ public class MainActivity extends AppCompatActivity {
             navigation.setSelectedItemId(home_tab);
             edit.putBoolean("activar_home", Boolean.FALSE);
             edit.apply();
+
             this.recreate();
+        }else if(sharedPreferences.getBoolean("ajustes",Boolean.FALSE)==Boolean.TRUE){
+            navigation.setSelectedItemId(R.id.settings_tab);
+            //up_bar_string=sharedPreferences.getString("UP_BAR_STRING", "");
+            sharedPreferences = this.getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("ajustes", Boolean.FALSE);
+            editor.apply();
         }
 
     }
@@ -130,9 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
             //oscuro
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_200)));
-
-
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_500)));
         }
     }
 

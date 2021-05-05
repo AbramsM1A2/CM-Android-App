@@ -1,6 +1,7 @@
 package com.example.myapplication.bottomMenu.settingsTab;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -107,6 +108,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 ShowchangeLang();
             }
         }
+        SharedPreferences prefs = getActivity().getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = prefs.edit();
+        prefEditor.putBoolean("ajustes", Boolean.TRUE);
+        prefEditor.apply();
     }
 
     public void ShowchangeLang() {
