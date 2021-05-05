@@ -26,6 +26,7 @@ import com.example.myapplication.bottomMenu.cardsTab.CardsTabFragment;
 import com.example.myapplication.bottomMenu.settingsTab.SettingsFragment;
 
 import com.example.myapplication.bottomMenu.homeTab.HomeFragment;
+import com.example.myapplication.bottomMenu.statisticTab.StatisticsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Locale;
@@ -86,10 +87,11 @@ public class MainActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(up_bar_string);
                 return true;
             } else if (itemId == R.id.statistics_tab) {
+                //TODO statistics tab
                 currentSelection=itemId;
                 up_bar_string = getApplicationContext().getString(R.string.statistics);
                 getSupportActionBar().setTitle(up_bar_string);
-                //TODO statistics tab
+                showFragment(StatisticsFragment.newInstance());
                 return true;
             } else if (itemId == R.id.settings_tab) {
                 up_bar_string = getApplicationContext().getString(R.string.settings);
