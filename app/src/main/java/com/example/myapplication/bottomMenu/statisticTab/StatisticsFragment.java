@@ -5,7 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +14,7 @@ import android.view.ViewGroup;
 import com.example.myapplication.R;
 
 
-import com.example.myapplication.database.Card.Card;
-import com.example.myapplication.database.Card.CardViewModel;
-import com.example.myapplication.database.Deck.Deck;
-import com.example.myapplication.database.Deck.DeckViewModel;
+
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 
@@ -28,31 +25,16 @@ import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link StatisticsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class StatisticsFragment extends Fragment {
 
-
     private PieData data;
-    private PieDataSet pieDataSet;
-    private PieChart chart;
-
 
     public StatisticsFragment() {
         // Required empty public constructor
     }
 
-
-    public static StatisticsFragment newInstance() {
-        StatisticsFragment fragment = new StatisticsFragment();
-        Bundle args = new Bundle();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +42,7 @@ public class StatisticsFragment extends Fragment {
 
         List<PieEntry> valueSet = getArguments().getParcelableArrayList("valuesSet");
         System.out.println("values: "+valueSet);
-        pieDataSet = new PieDataSet(valueSet, this.getResources().getString(R.string.statisticsDataSetName));
+        PieDataSet pieDataSet = new PieDataSet(valueSet, this.getResources().getString(R.string.statisticsDataSetName));
 
         pieDataSet.setColors(setThemeColors().get(1));
         pieDataSet.setValueTextSize(60f); //value text size
@@ -111,7 +93,7 @@ public class StatisticsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_statistics, container, false);
 
-        chart = (PieChart) v.findViewById(R.id.chart);
+        PieChart chart = (PieChart) v.findViewById(R.id.chart);
 
         Description desc = new Description();
         desc.setText(this.getResources().getString(R.string.statisticsCardsByDeck));
