@@ -1,33 +1,20 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.text.Html;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.content.res.ColorStateList;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.text.Html;
-import android.widget.Toast;
-import android.util.Log;
-
-
 import com.example.myapplication.bottomMenu.cardsTab.CardsTabFragment;
-
-import com.example.myapplication.bottomMenu.settingsTab.SettingsFragment;
-
 import com.example.myapplication.bottomMenu.homeTab.HomeFragment;
+import com.example.myapplication.bottomMenu.settingsTab.SettingsFragment;
 import com.example.myapplication.bottomMenu.statisticTab.StatisticsFragment;
 import com.example.myapplication.database.Card.Card;
 import com.example.myapplication.database.Card.CardViewModel;
@@ -37,10 +24,9 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.example.myapplication.R.id.bottom;
 import static com.example.myapplication.R.id.home_tab;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navigation;
 
     public static boolean flag = Boolean.FALSE;
+    private ArrayList<PieEntry> valueSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Statistics data chart
-        ArrayList<PieEntry> valueSet = new ArrayList<>();
+        valueSet = new ArrayList<>();
         DeckViewModel mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         //TODO revisar bug del chart aqui
@@ -94,15 +81,12 @@ public class MainActivity extends AppCompatActivity {
                             count.getAndSet((float) (count.get() + 1));
                         }
                     }
-                    if(count.get() !=0) {
-                        valueSet.add(new PieEntry(count.get(), d.getNameText()));
-                        for (PieEntry p:valueSet
-                             ) {
-                            if(p.getLabel().equals(p))
-                            
-                        }
-                    }
+                    System.out.println("--------------------------");
+                    System.out.println("VALUES SET: " + valueSet.size());
+                    System.out.println("NAME: " + d.getNameText());
 
+                    PieEntry p = new PieEntry(count.get(), d.getNameText());
+                    insertPieEData(p);
                 });
             }
 
@@ -157,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             edit.putBoolean("activar_home", Boolean.FALSE);
             edit.apply();
             this.recreate();
-        }else if(sharedPreferences.getBoolean("ajustes",Boolean.FALSE)==Boolean.TRUE){
+        } else if (sharedPreferences.getBoolean("ajustes", Boolean.FALSE) == Boolean.TRUE) {
             navigation.setSelectedItemId(R.id.settings_tab);
             //up_bar_string=sharedPreferences.getString("UP_BAR_STRING", "");
             sharedPreferences = this.getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
@@ -167,6 +151,44 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    /**
+     * Inserta aquellos elementos nuevos o modificados
+     *
+     * @param p PieEntry
+     */
+    //TODO
+    private void insertPieEData(PieEntry p) {
+        boolean fullMatch = false;
+        boolean partialMatch = false;
+        Integer matchPosition = null;
+        for (int i = 0; i < valueSet.size(); i++) {
+            PieEntry value = valueSet.get(i);
+            if (value.getLabel().equals(p.getLabel())) {
+                System.out.println("Son iguales en nombre");
+                System.out.println("V: " + value.getLabel());
+                System.out.println("P: " + p.getLabel());
+                partialMatch = true;
+                matchPosition = i;
+                if (value.getValue() == p.getValue()) {
+                    System.out.println("Son iguales en todo");
+                    System.out.println("V: " + value.getLabel() + "-" + value.getValue());
+                    System.out.println("P: " + p.getLabel() + "-" + p.getValue());
+                    fullMatch = true;
+                }
+            }
+        }
+
+        if (!fullMatch && partialMatch) {
+            if (p.getValue() == 0) {
+                valueSet.remove(matchPosition);
+            }else{
+                valueSet.set(matchPosition, p);
+            }
+        } else {
+            valueSet.add(p);
+        }
     }
 
     /**
