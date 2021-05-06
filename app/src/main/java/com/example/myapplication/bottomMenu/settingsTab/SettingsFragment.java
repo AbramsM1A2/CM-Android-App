@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +99,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             languagePref = findPreference(key);
             String language = languagePref.getValue();
             Locale current = getResources().getConfiguration().locale;
+            Log.i("language:_    ",current.getLanguage());
             if (current.getLanguage().contains("es") && language != "spanish") {
                 ShowchangeLang();
             } else if (current.getLanguage().contains("en") && language != "english") {
@@ -105,6 +107,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             } else if (current.getLanguage().contains("fr") && language != "french") {
                 ShowchangeLang();
             } else if (current.getLanguage().contains("it") && language != "italian") {
+                ShowchangeLang();
+            }else if (current.getLanguage().startsWith("pt") && language != "portuguese") {
                 ShowchangeLang();
             }
         }
