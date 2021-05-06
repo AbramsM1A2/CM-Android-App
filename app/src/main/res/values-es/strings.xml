@@ -2,4 +2,5 @@
 <resources>
     <string name="statisticsDataSetName">Mazos</string>
     <string name="statisticsCardsByDeck">Cartas por mazo</string>
+    <string name="chartData">No se han encontrado datos</string>
 </resources>
