@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param p PieEntry
      */
-    //TODO
+    //TODO funciona a medias
     private void insertPieEData(PieEntry p) {
         boolean fullMatch = false;
         boolean partialMatch = false;

@@ -77,7 +77,7 @@ public class StatisticsFragment extends Fragment {
             //oscuro
 
             int[] pieTextColor = new int[]{getResources().getColor(R.color.black)};
-            int[] pieColors = new int[]{
+            int[] pieColors = new int[]{//TODO: Por cada mazo debe haber un color
                     getResources().getColor(R.color.red_200),
                     getResources().getColor(R.color.orange_200),
                     getResources().getColor(R.color.brown_200),
