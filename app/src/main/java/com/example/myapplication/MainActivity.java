@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //Color del navigation bar
-        setTheme();
         //Menu inferior
         navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
@@ -107,33 +106,36 @@ public class MainActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == home_tab) {
                 currentSelection = itemId;
-                System.out.println(R.string.app_name);
                 up_bar_string = getApplicationContext().getString(R.string.app_name);
                 showFragment(HomeFragment.newInstance());
-                getSupportActionBar().setTitle(up_bar_string);
+                setTheme();
+
                 return true;
             } else if (itemId == R.id.cards_tab) {
                 currentSelection = itemId;
                 up_bar_string = getApplicationContext().getString(R.string.cards);
                 showFragment(CardsTabFragment.newInstance(1));
-                getSupportActionBar().setTitle(up_bar_string);
+                setTheme();
+
                 return true;
             } else if (itemId == R.id.statistics_tab) {
                 //TODO statistics tab
                 currentSelection = itemId;
                 up_bar_string = getApplicationContext().getString(R.string.statistics);
-                getSupportActionBar().setTitle(up_bar_string);
+
                 StatisticsFragment fragment = new StatisticsFragment();
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("valuesSet", valueSet);
                 fragment.setArguments(bundle);
                 showFragment(fragment);
+                setTheme();
                 return true;
             } else if (itemId == R.id.settings_tab) {
                 up_bar_string = getApplicationContext().getString(R.string.settings);
                 currentSelection = itemId;
                 showFragment(new SettingsFragment());
-                getSupportActionBar().setTitle(up_bar_string);
+                setTheme();
+
                 return true;
             }
 
@@ -182,15 +184,15 @@ public class MainActivity extends AppCompatActivity {
         if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO) {
             //claro
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_700)));
-            //getSupportActionBar().setTitle(Html.fromHtml("<font color=\"white\">" + up_bar_string + "</font>"));
+            getSupportActionBar().setTitle(Html.fromHtml("<font color=\"white\">" + up_bar_string + "</font>"));
 
         } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
             //oscuro
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_200)));
-            //getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + up_bar_string + "</font>"));
+            //getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + "caca"+"</font>"));
+            getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + up_bar_string + "</font>"));
 
-
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_500)));
+            //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_500)));
         }
     }
 
