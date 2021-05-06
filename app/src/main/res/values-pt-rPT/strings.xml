@@ -71,5 +71,6 @@
     <string name="msg_toast_noSelectedMaze">"Selecione um deck "</string>
     <string name="statisticsCardsByDeck">cartas por baralho</string>
     <string name="statisticsDataSetName">Baralhos</string>
+    <string name="chartData">Não foram encontrados dados</string>
 
 </resources>

@@ -71,4 +71,5 @@
     <string name="msg_delete_card">Vous êtes sur le point de supprimer la carte</string>
     <string name="statisticsCardsByDeck">cartes par jeu</string>
     <string name="statisticsDataSetName">Jeux</string>
+    <string name="chartData">Aucune donnée trouvée</string>
 </resources>

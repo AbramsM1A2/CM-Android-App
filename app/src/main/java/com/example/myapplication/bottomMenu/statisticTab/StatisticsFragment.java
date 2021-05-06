@@ -18,6 +18,7 @@ import com.example.myapplication.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -45,8 +46,9 @@ public class StatisticsFragment extends Fragment {
         PieDataSet pieDataSet = new PieDataSet(valueSet, this.getResources().getString(R.string.statisticsDataSetName));
 
         pieDataSet.setColors(setThemeColors().get(1));
-        pieDataSet.setValueTextSize(60f); //value text size
-        pieDataSet.setValueTextColor(setThemeColors().get(0)[0]);
+        //pieDataSet.setValueTextSize(60f); //value text size
+        //pieDataSet.setValueTextColor(setThemeColors().get(0)[0]);
+        pieDataSet.setDrawValues(false);
         data = new PieData(pieDataSet);
 //TODO controlar que cuando no hay cartas en el mazo / no hay mazos, la vista muestre algo util
 
@@ -66,8 +68,10 @@ public class StatisticsFragment extends Fragment {
                     getResources().getColor(R.color.brown_700),
                     getResources().getColor(R.color.green_700)
             };
+            int[] themeColor = new int[]{getResources().getColor(R.color.black)};
             res.add(pieTextColor);
             res.add(pieColors);
+            res.add(themeColor);
 
         } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
             //oscuro
@@ -79,8 +83,10 @@ public class StatisticsFragment extends Fragment {
                     getResources().getColor(R.color.brown_200),
                     getResources().getColor(R.color.green_200)
             };
+            int[] themeColor = new int[]{getResources().getColor(R.color.white)};
             res.add(pieTextColor);
             res.add(pieColors);
+            res.add(themeColor);
         }
 
         return res;
@@ -97,15 +103,29 @@ public class StatisticsFragment extends Fragment {
 
         Description desc = new Description();
         desc.setText(this.getResources().getString(R.string.statisticsCardsByDeck));
+        desc.setTextColor(setThemeColors().get(2)[0]);
 
         chart.setData(data);
-        chart.setEntryLabelTextSize(16f);
         chart.setDescription(desc);
-        chart.setDrawEntryLabels(true); //etiquetas
+
+        chart.setNoDataTextColor(setThemeColors().get(0)[0]);
+        chart.setNoDataText(this.getResources().getString(R.string.chartData));
+
+        Legend legend = chart.getLegend();
+        legend.setTextColor(setThemeColors().get(2)[0]);
+        chart.setHoleColor(setThemeColors().get(0)[0]);
+
+        //etiquetas
+        chart.setEntryLabelTextSize(16f);
+        chart.setDrawEntryLabels(true);
+        chart.setEntryLabelColor(setThemeColors().get(0)[0]);
+
+
         //chart.setUsePercentValues(true); //transforma los valores en porcentajes
         chart.animateXY(700, 700);
         chart.invalidate(); // recarga el grafico
         chart.notifyDataSetChanged(); //TODO datos dinamicos funciona?
+
         return v;
 
     }

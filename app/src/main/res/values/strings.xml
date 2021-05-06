@@ -89,5 +89,6 @@
 <!--    statistics-->
     <string name="statisticsCardsByDeck">Cards by deck</string>Cards by deck />
     <string name="statisticsDataSetName">Decks</string>Decks/>
+    <string name="chartData">No data found</string>
 
 </resources>
