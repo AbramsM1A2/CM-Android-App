@@ -5,23 +5,91 @@
     android:layout_height="match_parent"
     tools:context=".bottomMenu.statisticTab.StatisticsFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:paddingLeft="@dimen/fragment_horizontal_margin"
-        android:paddingTop="@dimen/fragment_vertical_margin"
-        android:paddingRight="@dimen/fragment_horizontal_margin"
-        android:paddingBottom="@dimen/fragment_vertical_margin">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/chart"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:onClick="onClickPieChart"
+                android:text="PIE" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:onClick="onClickBarChart"
+                android:text="BAR" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/pieChartLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="@dimen/fragment_horizontal_margin"
+                android:paddingTop="@dimen/fragment_vertical_margin"
+                android:paddingRight="@dimen/fragment_horizontal_margin"
+                android:paddingBottom="@dimen/fragment_vertical_margin"
+                android:visibility="visible">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                </com.github.mikephil.charting.charts.PieChart>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/barChartLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="@dimen/fragment_horizontal_margin"
+                android:paddingTop="@dimen/fragment_vertical_margin"
+                android:paddingRight="@dimen/fragment_horizontal_margin"
+                android:paddingBottom="@dimen/fragment_vertical_margin"
+                android:visibility="gone">
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </com.github.mikephil.charting.charts.BarChart>
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
 
 </FrameLayout>

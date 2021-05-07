@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -20,13 +21,13 @@ import com.example.myapplication.database.Card.Card;
 import com.example.myapplication.database.Card.CardViewModel;
 import com.example.myapplication.database.Deck.Deck;
 import com.example.myapplication.database.Deck.DeckViewModel;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.example.myapplication.R.id.bottom;
 import static com.example.myapplication.R.id.home_tab;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navigation;
 
     public static boolean flag = Boolean.FALSE;
-    private ArrayList<PieEntry> valueSet;
+    private ArrayList<PieEntry> pieChartValueSet;
+    private ArrayList<BarEntry> barChartValueSet;
+    private StatisticsFragment statisticsfragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Statistics data chart
-        valueSet = new ArrayList<>();
+        pieChartValueSet = new ArrayList<>();
+        barChartValueSet = new ArrayList<>();
         DeckViewModel mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         //TODO revisar bug del chart aqui
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     System.out.println("--------------------------");
-                    System.out.println("VALUES SET: " + valueSet.size());
+                    System.out.println("VALUES SET: " + pieChartValueSet.size());
                     System.out.println("NAME: " + d.getNameText());
 
                     PieEntry p = new PieEntry(count.get(), d.getNameText());
@@ -114,11 +118,22 @@ public class MainActivity extends AppCompatActivity {
                 currentSelection = itemId;
                 up_bar_string = getApplicationContext().getString(R.string.statistics);
 
-                StatisticsFragment fragment = new StatisticsFragment();
+                statisticsfragment = new StatisticsFragment();
+
+                barChartValueSet.add(new BarEntry(0f, 30f));
+                barChartValueSet.add(new BarEntry(1f, 80f));
+                barChartValueSet.add(new BarEntry(2f, 60f));
+                barChartValueSet.add(new BarEntry(3f, 50f));
+                // gap of 2f
+                barChartValueSet.add(new BarEntry(5f, 70f));
+                barChartValueSet.add(new BarEntry(6f, 60f));
+
+
                 Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("valuesSet", valueSet);
-                fragment.setArguments(bundle);
-                showFragment(fragment);
+                bundle.putParcelableArrayList("pieChartData", pieChartValueSet);
+                bundle.putParcelableArrayList("barChartData", barChartValueSet);
+                statisticsfragment.setArguments(bundle);
+                showFragment(statisticsfragment);
                 setTheme();
                 return true;
             } else if (itemId == R.id.settings_tab) {
@@ -163,8 +178,8 @@ public class MainActivity extends AppCompatActivity {
         boolean fullMatch = false;
         boolean partialMatch = false;
         Integer matchPosition = null;
-        for (int i = 0; i < valueSet.size(); i++) {
-            PieEntry value = valueSet.get(i);
+        for (int i = 0; i < pieChartValueSet.size(); i++) {
+            PieEntry value = pieChartValueSet.get(i);
             if (value.getLabel().equals(p.getLabel())) {
                 System.out.println("Son iguales en nombre");
                 System.out.println("V: " + value.getLabel());
@@ -182,12 +197,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (!fullMatch && partialMatch) {
             if (p.getValue() == 0) {
-                valueSet.remove(matchPosition);
+                pieChartValueSet.remove(matchPosition);
             }else{
-                valueSet.set(matchPosition, p);
+                pieChartValueSet.set(matchPosition, p);
             }
         } else {
-            valueSet.add(p);
+            pieChartValueSet.add(p);
         }
     }
 
@@ -237,5 +252,14 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
 
         System.out.println("ACITIVTY ONPAUSE");
+    }
+
+    //TODO intercambio de vistas
+    public void onClickPieChart(View view){
+        statisticsfragment.changeChart(0);
+    }
+
+    public void onClickBarChart(View view) {
+        statisticsfragment.changeChart(1);
     }
 }
