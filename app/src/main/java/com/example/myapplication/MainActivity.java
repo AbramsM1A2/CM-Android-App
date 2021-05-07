@@ -26,6 +26,8 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.example.myapplication.R.id.home_tab;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<PieEntry> pieChartValueSet;
     private ArrayList<BarEntry> barChartValueSet;
     private StatisticsFragment statisticsfragment;
+    private ArrayList<Deck> deckOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,27 +76,45 @@ public class MainActivity extends AppCompatActivity {
         //Statistics data chart
         pieChartValueSet = new ArrayList<>();
         barChartValueSet = new ArrayList<>();
+        deckOrder = new ArrayList<>();
         DeckViewModel mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         //TODO revisar bug del chart aqui
         mDeckViewModel.getAllDecks().observe(this, decks -> {
+            HashMap<Integer, Integer> countRepetitions = new HashMap<>();
             for (Deck d : decks) {
                 AtomicReference<Float> count = new AtomicReference<>(0f);
                 mCardViewModel.getAllCards().observe(this, cards -> {
                     for (Card c : cards) {
                         if (d.getId().equals(c.getDeckId())) {
-                            count.getAndSet((float) (count.get() + 1));
+                            count.getAndSet(count.get() + 1);
+
+                            //TODO count for every deck how many repetitions cards have
+                            Integer i = countRepetitions.get(c.getRepetitions());
+                            if (i == null) countRepetitions.put(c.getRepetitions(), 1);
+                            else countRepetitions.put(c.getRepetitions(), i + 1);
                         }
+
                     }
                     System.out.println("--------------------------");
                     System.out.println("VALUES SET: " + pieChartValueSet.size());
                     System.out.println("NAME: " + d.getNameText());
+                    System.out.println("COUNT REPETITIONS: " + countRepetitions);
 
+                    //PieChart
                     PieEntry p = new PieEntry(count.get(), d.getNameText());
                     insertPieEData(p);
+                    //BarChart
+                    for (Map.Entry<Integer, Integer> k : countRepetitions.entrySet()
+                    ) {
+                        BarEntry b = new BarEntry(d.getId(), k.getValue());
+                        barChartValueSet.add(b);
+                    }
+                    deckOrder.add(d);
                 });
-            }
 
+            }
+            System.out.println("COUNT REPETITIONS FINAL: " + countRepetitions);
         });
 
         navigation.setOnNavigationItemSelectedListener(item -> {
@@ -114,24 +135,15 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             } else if (itemId == R.id.statistics_tab) {
-                //TODO statistics tab
                 currentSelection = itemId;
                 up_bar_string = getApplicationContext().getString(R.string.statistics);
 
                 statisticsfragment = new StatisticsFragment();
 
-                barChartValueSet.add(new BarEntry(0f, 30f));
-                barChartValueSet.add(new BarEntry(1f, 80f));
-                barChartValueSet.add(new BarEntry(2f, 60f));
-                barChartValueSet.add(new BarEntry(3f, 50f));
-                // gap of 2f
-                barChartValueSet.add(new BarEntry(5f, 70f));
-                barChartValueSet.add(new BarEntry(6f, 60f));
-
-
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("pieChartData", pieChartValueSet);
                 bundle.putParcelableArrayList("barChartData", barChartValueSet);
+                bundle.putParcelableArrayList("decksOrder", deckOrder);
                 statisticsfragment.setArguments(bundle);
                 showFragment(statisticsfragment);
                 setTheme();
@@ -181,15 +193,15 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < pieChartValueSet.size(); i++) {
             PieEntry value = pieChartValueSet.get(i);
             if (value.getLabel().equals(p.getLabel())) {
-                System.out.println("Son iguales en nombre");
+          /*      System.out.println("Son iguales en nombre");
                 System.out.println("V: " + value.getLabel());
-                System.out.println("P: " + p.getLabel());
+                System.out.println("P: " + p.getLabel());*/
                 partialMatch = true;
                 matchPosition = i;
                 if (value.getValue() == p.getValue()) {
-                    System.out.println("Son iguales en todo");
+                  /*  System.out.println("Son iguales en todo");
                     System.out.println("V: " + value.getLabel() + "-" + value.getValue());
-                    System.out.println("P: " + p.getLabel() + "-" + p.getValue());
+                    System.out.println("P: " + p.getLabel() + "-" + p.getValue());*/
                     fullMatch = true;
                 }
             }
@@ -198,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         if (!fullMatch && partialMatch) {
             if (p.getValue() == 0) {
                 pieChartValueSet.remove(matchPosition);
-            }else{
+            } else {
                 pieChartValueSet.set(matchPosition, p);
             }
         } else {
@@ -255,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO intercambio de vistas
-    public void onClickPieChart(View view){
+    public void onClickPieChart(View view) {
         statisticsfragment.changeChart(0);
     }
 

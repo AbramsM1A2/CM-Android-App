@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.example.myapplication.R;
 
 
+import com.example.myapplication.database.Deck.Deck;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -57,10 +58,13 @@ public class StatisticsFragment extends Fragment {
     private void getBarData() {
         assert getArguments() != null;
         List<BarEntry> barChartValueSet = getArguments().getParcelableArrayList("barChartData");
-        BarDataSet barDataSet = new BarDataSet(barChartValueSet, "Usage"); //TODO poner como r string
+        List<Deck> barDecksOrder = getArguments().getParcelableArrayList("decksOrder");
+
+        BarDataSet barDataSet = new BarDataSet(barChartValueSet, "Repetitions by decks"); //TODO poner como r string
         System.out.println("values BARCHART: " + barChartValueSet);
+        barDataSet.setColors(setThemeColors().get(1));
         barData = new BarData(barDataSet);
-        barData.setBarWidth(0.9f); // set custom bar width
+        barData.setBarWidth(0.7f); // set custom bar width
     }
 
     @Override
@@ -69,6 +73,7 @@ public class StatisticsFragment extends Fragment {
 
         //TODO controlar que cuando no hay cartas en el mazo / no hay mazos, la vista muestre algo util
         getPieData();
+        //TODO tal vez mejor usar Grouped BarChart: https://weeklycoding.com/mpandroidchart-documentation/setting-data/
         getBarData();
 
     }
@@ -161,13 +166,13 @@ public class StatisticsFragment extends Fragment {
 
     }
 
-    public void changeChart(int i){
+    public void changeChart(int i) {
         RelativeLayout pieChartLayout = v.findViewById(R.id.pieChartLayout);
         RelativeLayout barChartLayout = v.findViewById(R.id.barChartLayout);
-        if (i==0){
+        if (i == 0) {
             barChartLayout.setVisibility(View.GONE);
             pieChartLayout.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             barChartLayout.setVisibility(View.VISIBLE);
             pieChartLayout.setVisibility(View.GONE);
         }
