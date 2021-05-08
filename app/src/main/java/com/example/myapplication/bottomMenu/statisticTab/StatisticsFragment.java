@@ -21,6 +21,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -57,14 +58,17 @@ public class StatisticsFragment extends Fragment {
 
     private void getBarData() {
         assert getArguments() != null;
-        List<BarEntry> barChartValueSet = getArguments().getParcelableArrayList("barChartData");
+        int barChartSize = getArguments().getInt("barChartData");
         List<Deck> barDecksOrder = getArguments().getParcelableArrayList("decksOrder");
 
-        BarDataSet barDataSet = new BarDataSet(barChartValueSet, "Repetitions by decks"); //TODO poner como r string
-        System.out.println("values BARCHART: " + barChartValueSet);
-        barDataSet.setColors(setThemeColors().get(1));
-        barData = new BarData(barDataSet);
-        barData.setBarWidth(0.7f); // set custom bar width
+        barData = new BarData();
+        for (int i = 0; i <barChartSize ; i++) {
+            List<BarEntry> data = getArguments().getParcelableArrayList("barChartData"+i);
+            BarDataSet barDataSet = new BarDataSet(data, barDecksOrder.get(i).getNameText());
+            barDataSet.setColors(setThemeColors().get(1));
+            barData.addDataSet(barDataSet);
+        }
+
     }
 
     @Override
@@ -117,8 +121,18 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void setBarChart(BarChart chart) {
+        float barWidth = 0.40f; // x2 dataset
+        float groupSpace = 0.01f;
+        float barSpace = 0.02f; // x2 dataset
+        // (0.02 + 0.45) * 2 + 0.06 = 1.00 -> interval per "group"
+
+        barData.setBarWidth(barWidth); // set custom bar width
+
         chart.setData(barData);
+        chart.groupBars(0f, groupSpace, barSpace); // perform the "explicit" grouping
         chart.setFitBars(true); // make the x-axis fit exactly all bars
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setCenterAxisLabels(true);
         chart.invalidate(); // refresh
     }
 

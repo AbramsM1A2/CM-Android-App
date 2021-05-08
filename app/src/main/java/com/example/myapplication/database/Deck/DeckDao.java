@@ -27,15 +27,11 @@ public interface DeckDao {
     @Query("DELETE FROM deck_table")
     void deleteAll();
 
-    @Query("DELETE FROM deck_table WHERE id = :deckid")
-    void deleteDeckGivingDeckId(Integer deckid);
-
-    @Query("SELECT * FROM deck_table ORDER BY id ASC")
-    LiveData<List<Deck>> getDecksById();
+    @Query("DELETE FROM deck_table WHERE id = :deckId")
+    void deleteDeckGivingDeckId(Integer deckId);
 
     @Query("SELECT * FROM deck_table ORDER BY id ASC")
     LiveData<List<Deck>> getAllDecks();
-
 
     //Custom methods
     @Query("SELECT * FROM deck_table WHERE nextPractice <= :date  ORDER BY nextPractice ASC")

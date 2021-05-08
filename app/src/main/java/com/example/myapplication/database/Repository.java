@@ -46,8 +46,8 @@ public class Repository {
         return mCardDao.getCardsWithId(idOfDeck);
     }
 
-    public LiveData<List<Card>> getAllOlderCards(Date date, Integer deckID) {
-        return mCardDao.getOlderCards(date, deckID);
+    public LiveData<List<Card>> getAllOlderCards(Date date, Integer deckID, Integer userLimit) {
+        return mCardDao.getOlderCards(date, deckID, userLimit);
     }
 
     public LiveData<Card> getCardById(Integer cardId) {
@@ -180,8 +180,9 @@ public class Repository {
     public void deleteAllCardsFromDeckId(Integer deckid) {
         mCardDao.deleteAllCardsFromDeckId(deckid);
     }
-    public void updateCardTextsAndDeck(Integer cardID,String frontTEXT, String backTEXT,Integer deckID){
-        mCardDao.updateCardTextsAndDeck(cardID,frontTEXT, backTEXT,deckID);
+
+    public void updateCardTextsAndDeck(Integer cardID, String frontTEXT, String backTEXT, Integer deckID) {
+        mCardDao.updateCardTextsAndDeck(cardID, frontTEXT, backTEXT, deckID);
     }
 
 
