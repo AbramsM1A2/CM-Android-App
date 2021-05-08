@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("----------------------------DECKVIDEMODEL START-------------------------------");
             for (Deck d : decks) {
                 mCardViewModel.getAllCards().observe(this, cards -> {
+
                     System.out.println("FOR DECK: "+d.getNameText());
                     AtomicReference<Float> count = new AtomicReference<>(0f);
                     ArrayList<BarEntry> barChartValueSet = new ArrayList<>();
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     for (Card c : cards) {
                         System.out.println("FOR CARD "+c.getDeckId());
                         if (d.getId().equals(c.getDeckId())) {
-                            count.getAndSet(count.get() + 1);
+                            count.getAndSet(count.get() + 1f);
 
                             Integer i = countRepetitions.get(c.getRepetitions());
                             if (i == null) countRepetitions.put(c.getRepetitions(), 1);
@@ -122,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         BarEntry b = new BarEntry(k.getKey(), k.getValue());
                         barChartValueSet.add(b);
                     }
+
                     deckOrder.add(d);
                     System.out.println("deck order"+deckOrder);
                     System.out.println("BARCHARTVALUE SET: "+barChartValueSet);

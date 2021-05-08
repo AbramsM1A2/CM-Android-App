@@ -72,5 +72,6 @@
     <string name="statisticsCardsByDeck">cartas por baralho</string>
     <string name="statisticsDataSetName">Baralhos</string>
     <string name="chartData">Não foram encontrados dados</string>
+    <string name="statisticsRepetitionsByDeck">Nº de vezes que se vê uma carta por baralho</string>
 
 </resources>

@@ -2,11 +2,13 @@ package com.example.myapplication.bottomMenu.statisticTab;
 
 
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +18,14 @@ import com.example.myapplication.R;
 
 
 import com.example.myapplication.database.Deck.Deck;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -31,6 +35,7 @@ import com.github.mikephil.charting.data.PieEntry;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -39,6 +44,7 @@ public class StatisticsFragment extends Fragment {
     private PieData pieData;
     private BarData barData;
     private View v;
+    private ArrayList<Deck> barDecksOrder;
 
     public StatisticsFragment() {
         // Required empty public constructor
@@ -59,12 +65,13 @@ public class StatisticsFragment extends Fragment {
     private void getBarData() {
         assert getArguments() != null;
         int barChartSize = getArguments().getInt("barChartData");
-        List<Deck> barDecksOrder = getArguments().getParcelableArrayList("decksOrder");
+        barDecksOrder = getArguments().getParcelableArrayList("decksOrder");
 
         barData = new BarData();
         for (int i = 0; i <barChartSize ; i++) {
             List<BarEntry> data = getArguments().getParcelableArrayList("barChartData"+i);
             BarDataSet barDataSet = new BarDataSet(data, barDecksOrder.get(i).getNameText());
+            barDataSet.setDrawValues(false);
             barDataSet.setColors(setThemeColors().get(1));
             barData.addDataSet(barDataSet);
         }
@@ -121,22 +128,53 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void setBarChart(BarChart chart) {
-        float barWidth = 0.40f; // x2 dataset
+        if (!chart.isEmpty()){
+            chart.clearValues();
+        }
+        float barWidth = 0.20f; // x2 dataset
         float groupSpace = 0.01f;
         float barSpace = 0.02f; // x2 dataset
         // (0.02 + 0.45) * 2 + 0.06 = 1.00 -> interval per "group"
 
-        barData.setBarWidth(barWidth); // set custom bar width
+        Description desc = new Description();
+        desc.setText(this.getResources().getString(R.string.statisticsRepetitionsByDeck));
+        desc.setTextColor(setThemeColors().get(2)[0]);
 
+        Legend legend = chart.getLegend();
+        legend.setTextColor(setThemeColors().get(2)[0]);
+
+
+        barData.setBarWidth(barWidth); // set custom bar width
+        chart.setDescription(desc);
         chart.setData(barData);
+        chart.animateXY(700,700, Easing.EaseOutBounce);
+        chart.setScaleEnabled(true);
+
+        chart.setTouchEnabled(true);
+        chart.setDrawGridBackground(true);
+        chart.setDoubleTapToZoomEnabled(false);
+        chart.setPinchZoom(true);
         chart.groupBars(0f, groupSpace, barSpace); // perform the "explicit" grouping
-        chart.setFitBars(true); // make the x-axis fit exactly all bars
+        //chart.setFitBars(true); // make the x-axis fit exactly all bars
+        chart.setHorizontalScrollBarEnabled(true);
+        chart.notifyDataSetChanged();
         XAxis xAxis = chart.getXAxis();
-        xAxis.setCenterAxisLabels(true);
+        xAxis.setAxisMinimum(0f);
+        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawLabels(false);
+        xAxis.setAxisMaximum(barDecksOrder.size());
+
+        System.out.println("BARCHART STATISTICS FRAGMENT=============="+Arrays.toString(chart.getXAxis().mEntries));
+
         chart.invalidate(); // refresh
     }
 
     private void setPieChart(PieChart chart) {
+        if (!chart.isEmpty()){
+            chart.clearValues();
+        }
+
+
         Description desc = new Description();
         desc.setText(this.getResources().getString(R.string.statisticsCardsByDeck));
         desc.setTextColor(setThemeColors().get(2)[0]);
@@ -158,7 +196,7 @@ public class StatisticsFragment extends Fragment {
 
 
         //chart.setUsePercentValues(true); //transforma los valores en porcentajes
-        chart.animateXY(700, 700);
+        chart.animateXY(2000, 2000, Easing.EaseOutElastic);
         chart.invalidate(); // recarga el grafico
         chart.notifyDataSetChanged(); //TODO datos dinamicos funciona?
     }
