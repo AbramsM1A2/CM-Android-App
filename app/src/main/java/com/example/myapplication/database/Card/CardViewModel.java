@@ -26,8 +26,8 @@ public class CardViewModel extends AndroidViewModel {
         return mAllCards;
     }
 
-    public LiveData<List<Card>> getAllOlderCards(Date date, Integer deckID) {
-        return mRepository.getAllOlderCards(date, deckID);
+    public LiveData<List<Card>> getAllOlderCards(Date date, Integer deckID, Integer userLimit) {
+        return mRepository.getAllOlderCards(date, deckID, userLimit);
     }
 
     public LiveData<List<Card>> getAllCardsWithThisId(Integer id) {

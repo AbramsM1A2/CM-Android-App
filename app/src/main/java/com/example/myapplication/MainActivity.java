@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Html;
 import android.view.View;
 
@@ -27,6 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -40,9 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static boolean flag = Boolean.FALSE;
     private ArrayList<PieEntry> pieChartValueSet;
-    private ArrayList<BarEntry> barChartValueSet;
+
     private StatisticsFragment statisticsfragment;
     private ArrayList<Deck> deckOrder;
+    private ArrayList<ArrayList<BarEntry>> groupedBarEntries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,45 +78,64 @@ public class MainActivity extends AppCompatActivity {
 
         //Statistics data chart
         pieChartValueSet = new ArrayList<>();
-        barChartValueSet = new ArrayList<>();
+        groupedBarEntries = new ArrayList<>();
         deckOrder = new ArrayList<>();
+
         DeckViewModel mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         //TODO revisar bug del chart aqui
-        mDeckViewModel.getAllDecks().observe(this, decks -> {
-            HashMap<Integer, Integer> countRepetitions = new HashMap<>();
-            for (Deck d : decks) {
-                AtomicReference<Float> count = new AtomicReference<>(0f);
-                mCardViewModel.getAllCards().observe(this, cards -> {
-                    for (Card c : cards) {
-                        if (d.getId().equals(c.getDeckId())) {
-                            count.getAndSet(count.get() + 1);
 
-                            //TODO count for every deck how many repetitions cards have
+        mDeckViewModel.getAllDecks().observe(this, decks -> {
+
+            System.out.println("----------------------------DECKVIDEMODEL START-------------------------------");
+            for (Deck d : decks) {
+                mCardViewModel.getAllCards().observe(this, cards -> {
+
+                    System.out.println("FOR DECK: "+d.getNameText());
+                    AtomicReference<Float> count = new AtomicReference<>(0f);
+                    ArrayList<BarEntry> barChartValueSet = new ArrayList<>();
+                    HashMap<Integer, Integer> countRepetitions = new HashMap<>();
+                    System.out.println("-------------CARDVIEWMODEL START--------------");
+                    for (Card c : cards) {
+                        System.out.println("FOR CARD "+c.getDeckId());
+                        if (d.getId().equals(c.getDeckId())) {
+                            count.getAndSet(count.get() + 1f);
+
                             Integer i = countRepetitions.get(c.getRepetitions());
                             if (i == null) countRepetitions.put(c.getRepetitions(), 1);
                             else countRepetitions.put(c.getRepetitions(), i + 1);
                         }
 
+
                     }
-                    System.out.println("--------------------------");
-                    System.out.println("VALUES SET: " + pieChartValueSet.size());
-                    System.out.println("NAME: " + d.getNameText());
+                    System.out.println("CARD COUNT: "+count.get());
                     System.out.println("COUNT REPETITIONS: " + countRepetitions);
+
 
                     //PieChart
                     PieEntry p = new PieEntry(count.get(), d.getNameText());
                     insertPieEData(p);
+
                     //BarChart
+                    System.out.println("--BAR CHART OPERATIONS--");
                     for (Map.Entry<Integer, Integer> k : countRepetitions.entrySet()
                     ) {
-                        BarEntry b = new BarEntry(d.getId(), k.getValue());
+                        BarEntry b = new BarEntry(k.getKey(), k.getValue());
                         barChartValueSet.add(b);
                     }
+
                     deckOrder.add(d);
+                    System.out.println("deck order"+deckOrder);
+                    System.out.println("BARCHARTVALUE SET: "+barChartValueSet);
+                    groupedBarEntries.add(barChartValueSet);
+                    System.out.println("GROUPEDBARENTRIES: "+groupedBarEntries);
+
+                    System.out.println("--BAR CHART END OPERATIONS--");
+
+                    System.out.println("-------------CARDVIEWMODEL END--------------");
                 });
             }
-            System.out.println("COUNT REPETITIONS FINAL: " + countRepetitions);
+            System.out.println("----------------------------DECKVIDEMODEL END-------------------------------");
         });
 
         navigation.setOnNavigationItemSelectedListener(item -> {
@@ -140,12 +162,23 @@ public class MainActivity extends AppCompatActivity {
                 statisticsfragment = new StatisticsFragment();
 
                 Bundle bundle = new Bundle();
+                System.out.println("---------------STATISTICS BUNDLE START----------");
                 bundle.putParcelableArrayList("pieChartData", pieChartValueSet);
-                bundle.putParcelableArrayList("barChartData", barChartValueSet);
+
+                System.out.println("DECK ORDER: "+deckOrder);
+                System.out.println("GROUPED Entries: "+groupedBarEntries);
+                for (int i = 0; i < groupedBarEntries.size(); i++) {
+                    bundle.putParcelableArrayList("barChartData"+i, (groupedBarEntries.get(i)));
+                }
+                bundle.putInt("barChartData", groupedBarEntries.size());
+
                 bundle.putParcelableArrayList("decksOrder", deckOrder);
                 statisticsfragment.setArguments(bundle);
                 showFragment(statisticsfragment);
                 setTheme();
+
+                System.out.println("---------------STATISTICS BUNDLE END----------");
+
                 return true;
             } else if (itemId == R.id.settings_tab) {
                 up_bar_string = getApplicationContext().getString(R.string.settings);

@@ -42,8 +42,8 @@ public interface CardDao {
                     Integer interval,
                     Date nextPractice);
 
-    @Query("SELECT * FROM card_Table WHERE nextPractice <= :date AND deckId =:deckID ORDER BY nextPractice ASC LIMIT 20")
-    LiveData<List<Card>> getOlderCards(Date date, Integer deckID);
+    @Query("SELECT * FROM card_Table WHERE nextPractice <= :date AND deckId =:deckID ORDER BY nextPractice ASC LIMIT :userLimit")
+    LiveData<List<Card>> getOlderCards(Date date, Integer deckID, Integer userLimit);
 
     //Query para obtener el id de un mazo pasandole su nombre
     @Query("SELECT * FROM card_table WHERE deckId = :deckid ORDER BY frontText ASC")

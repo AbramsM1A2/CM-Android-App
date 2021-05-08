@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ReviewCardsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private CardViewModel mCardViewModel;
-
+    private SharedPreferences sharedPreferences;
     private List<Card> cardList;
     private Card card;
     private Button frontText;
@@ -77,7 +78,31 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
 
         mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
 
-        mCardViewModel.getAllOlderCards(new Date(), currentDeckId).observe(this, cards -> {
+
+        sharedPreferences = this.getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
+
+        String userLimitPref = sharedPreferences.getString("daily_cards","20"); //TODO definir por el sharedpreference
+        int userLimit = 20;
+
+        switch (userLimitPref) {
+            case "5":
+                userLimit = 5;
+                break;
+            case "10":
+                userLimit = 10;
+                break;
+            case "15":
+                userLimit = 15;
+                break;
+            case "20":
+                userLimit = 20;
+                break;
+            case "25":
+                userLimit = 25;
+                break;
+        }
+
+        mCardViewModel.getAllOlderCards(new Date(), currentDeckId, userLimit).observe(this, cards -> {
 
             if (initialState.get()) {
                 cardList.addAll(cards);

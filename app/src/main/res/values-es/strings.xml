@@ -3,4 +3,5 @@
     <string name="statisticsDataSetName">Mazos</string>
     <string name="statisticsCardsByDeck">Cartas por mazo</string>
     <string name="chartData">No se han encontrado datos</string>
+    <string name="statisticsRepetitionsByDeck">Nº de veces que se ve una carta por baraja</string>
 </resources>
