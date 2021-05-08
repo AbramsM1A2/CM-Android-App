@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     deckOrder.add(d);
                 });
-
             }
             System.out.println("COUNT REPETITIONS FINAL: " + countRepetitions);
         });

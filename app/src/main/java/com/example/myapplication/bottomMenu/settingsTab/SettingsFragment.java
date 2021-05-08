@@ -8,11 +8,9 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -31,7 +29,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private static final String PREF_FILE_NAME = "PREFERENCIAS";
     private SwitchPreferenceCompat themePref;
     private DropDownPreference languagePref;
-
     private Preference aboutusButton;
     private Preference contactButton;
 
@@ -44,7 +41,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         languagePref = findPreference("language");
         Locale current = getResources().getConfiguration().locale;
         if (current.getLanguage().contains("es")) {
@@ -55,6 +51,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             languagePref.setValue("french");
         } else if (current.getLanguage().contains("it")) {
             languagePref.setValue("italian");
+        } else if (current.getLanguage().contains("pt")) {
+            languagePref.setValue("portuguese");
         }
 
         aboutusButton = findPreference("about_us");
@@ -99,7 +97,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             languagePref = findPreference(key);
             String language = languagePref.getValue();
             Locale current = getResources().getConfiguration().locale;
-            Log.i("language:_    ",current.getLanguage());
             if (current.getLanguage().contains("es") && language != "spanish") {
                 ShowchangeLang();
             } else if (current.getLanguage().contains("en") && language != "english") {
@@ -135,7 +132,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             setLanguagePref();
         }
     }
-
     public void setLanguagePref() {
         languagePref = findPreference("language");
         Locale current = getResources().getConfiguration().locale;
@@ -147,6 +143,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             languagePref.setValue("french");
         } else if (current.getLanguage().contains("it")) {
             languagePref.setValue("italian");
+        }else if (current.getLanguage().contains("pt")) {
+            languagePref.setValue("portuguese");
         }
     }
 

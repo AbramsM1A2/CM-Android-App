@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
-
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
 
@@ -34,19 +31,18 @@ public class ContactUsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
                 .setImage(R.drawable.contact_us_image)
                 .setDescription(getText(R.string.contactus_description))
                 .addGroup(getString(R.string.connect))
                 .addEmail("rdelmar00@gmail.com")
-                .addFacebook("PRUEBA")
-                .addTwitter("PRUEBA")
-                .addYoutube("PRUEBA")
-                .addPlayStore("PRUEBA")
-                .addInstagram("PRUEBA")
-                .addGitHub("PRUEBA")
+                .addFacebook("Google España")
+                .addTwitter("GoogleES")
+                .addYoutube("Android Developers")
+                .addPlayStore("Goat Simulator")
+                .addInstagram("android")
+                .addGitHub("CM-Android-App")
                 .addItem(volver)
                 .create();
         setContentView(aboutPage);
