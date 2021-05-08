@@ -42,7 +42,7 @@ public class ContactUsActivity extends AppCompatActivity {
                 .addYoutube("Android Developers")
                 .addPlayStore("Goat Simulator")
                 .addInstagram("android")
-                .addGitHub("CM-Android-App")
+                .addGitHub("AbramsM1A2/CM-Android-App")
                 .addItem(volver)
                 .create();
         setContentView(aboutPage);

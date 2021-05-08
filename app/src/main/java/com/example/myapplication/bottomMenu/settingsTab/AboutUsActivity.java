@@ -37,7 +37,7 @@ public class AboutUsActivity extends AppCompatActivity {
                 .setImage(R.mipmap.itc_launcher_flashcards)
                 .setDescription(getText(R.string.aboutus_description))
                 .addGroup(getString(R.string.find_us))
-                .addGitHub("CM-Android-App")
+                .addGitHub("AbramsM1A2/CM-Android-App")
                 .addPlayStore("Goat Simulator")
                 .addItem(versionElement)
                 .addItem(new Element(getText(R.string.version) + " " + BuildConfig.VERSION_NAME, R.drawable.baseline_aod_24))
