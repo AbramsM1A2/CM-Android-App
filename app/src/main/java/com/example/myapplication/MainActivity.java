@@ -111,10 +111,13 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("CARD COUNT: "+count.get());
                     System.out.println("COUNT REPETITIONS: " + countRepetitions);
 
+                    if(count.get() != 0){
+                        //PieChart
+                        PieEntry p = new PieEntry(count.get(), d.getNameText());
+                        insertPieEData(p);
 
-                    //PieChart
-                    PieEntry p = new PieEntry(count.get(), d.getNameText());
-                    insertPieEData(p);
+                    }
+
 
                     //BarChart
                     System.out.println("--BAR CHART OPERATIONS--");
