@@ -4,4 +4,6 @@
     <string name="statisticsCardsByDeck">Cartas por mazo</string>
     <string name="chartData">No se han encontrado datos</string>
     <string name="statisticsRepetitionsByDeck">Nº de veces que se ve una carta por baraja</string>
+    <string name="messageToAliasPart1">Buenas</string>
+    <string name="messageToAliasPart2">esta es la lista de mazos a repasar para hoy</string>
 </resources>

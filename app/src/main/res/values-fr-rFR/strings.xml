@@ -73,4 +73,6 @@
     <string name="statisticsDataSetName">Jeux</string>
     <string name="chartData">Aucune donnée trouvée</string>
     <string name="statisticsRepetitionsByDeck">Nº de fois que vous voyez une carte par paquet</string>
+    <string name="messageToAliasPart1">"Salut! "</string>
+    <string name="messageToAliasPart2">voici la liste des decks que vous pouvez consulter aujourd\'hui:</string>
 </resources>

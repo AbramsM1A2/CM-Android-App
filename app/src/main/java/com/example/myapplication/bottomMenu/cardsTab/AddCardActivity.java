@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,7 +43,7 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
-        getSupportActionBar().setTitle(getApplicationContext().getString(R.string.fab_add_card));
+
         //Para tener el boton de hacia atras
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -148,12 +149,15 @@ public class AddCardActivity extends AppCompatActivity implements AdapterView.On
             //claro
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cp_light_blue_700)));
             add_card_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_700)));
+            getSupportActionBar().setTitle(Html.fromHtml("<font color=\"white\">" + getApplicationContext().getString(R.string.fab_add_card) + "</font>"));
+
 
 
         } else if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
             //oscuro
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cp_light_blue_200)));
             add_card_button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue_200)));
+            getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + getApplicationContext().getString(R.string.fab_add_card) + "</font>"));
 
 
         }

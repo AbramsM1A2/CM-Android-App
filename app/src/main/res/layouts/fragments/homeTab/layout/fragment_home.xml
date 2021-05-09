@@ -8,6 +8,18 @@
     android:orientation="vertical"
     tools:context=".bottomMenu.homeTab.HomeFragment">
 
+
+    <TextView
+        android:id="@+id/messageToAlias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text=""
+        android:textSize="20sp" />
+
     <TextView
         android:id="@+id/noDeckFound"
         android:layout_width="wrap_content"

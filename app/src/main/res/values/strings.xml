@@ -92,4 +92,7 @@
     <string name="chartData">No data found</string>
     <string name="statisticsRepetitionsByDeck">Nº of times you see a card by Deck</string>
 
+    <string name="messageToAliasPart1">Hello</string>
+    <string name="messageToAliasPart2">this is the list of decks for you to review today</string>
+
 </resources>

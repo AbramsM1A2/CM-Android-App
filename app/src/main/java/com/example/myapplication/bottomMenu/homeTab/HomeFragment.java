@@ -2,6 +2,7 @@ package com.example.myapplication.bottomMenu.homeTab;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -46,6 +49,11 @@ public class HomeFragment extends Fragment implements HomeCustomAdapter.onDeckLi
     private TextView textView;
     private RecyclerView recyclerView;
 
+    private SharedPreferences sharedPreferences;
+    private TextView mMessageToAlias;
+    private String mUserAlias;
+    private String mHelloToAlias1;
+    private String mHelloToAlias2;
 
     //the static keyword makes a variable stay throughout all classes, even if the class has been destroyed via garbage collection.
 
@@ -78,6 +86,10 @@ public class HomeFragment extends Fragment implements HomeCustomAdapter.onDeckLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getActivity().getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
+        mUserAlias = sharedPreferences.getString("alias","Set your alias");
+        mHelloToAlias1 = getContext().getString(R.string.messageToAliasPart1);
+        mHelloToAlias2 = getContext().getString(R.string.messageToAliasPart2);
 
         DeckViewModel mViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
 
@@ -104,6 +116,12 @@ public class HomeFragment extends Fragment implements HomeCustomAdapter.onDeckLi
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         Context context = v.getContext();
+        if(!(mUserAlias.equals("Set your alias"))){
+            mMessageToAlias = v.findViewById(R.id.messageToAlias);
+            mMessageToAlias.setText(mHelloToAlias1+" "+mUserAlias+", "+mHelloToAlias2);
+
+        }
+
 
         textView = v.findViewById(R.id.noDeckFound);
 
