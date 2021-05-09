@@ -53,27 +53,30 @@ public class StatisticsFragment extends Fragment {
     private void getPieData() {
         assert getArguments() != null;
         List<PieEntry> pieChartValueSet = getArguments().getParcelableArrayList("pieChartData");
-        PieDataSet pieDataSet = new PieDataSet(pieChartValueSet, this.getResources().getString(R.string.statisticsDataSetName));
-        pieDataSet.setColors(setThemeColors().get(1));
-        pieDataSet.setDrawValues(false);
-        //pieDataSet.setValueTextSize(60f); //value text size
-        //pieDataSet.setValueTextColor(setThemeColors().get(0)[0]);
-        System.out.println("values PIECHART: " + pieChartValueSet);
-        pieData = new PieData(pieDataSet);
+        if (!pieChartValueSet.isEmpty()) {
+            PieDataSet pieDataSet = new PieDataSet(pieChartValueSet, this.getResources().getString(R.string.statisticsDataSetName));
+            pieDataSet.setColors(setThemeColors().get(1));
+            pieDataSet.setDrawValues(false);
+            //pieDataSet.setValueTextSize(60f); //value text size
+            //pieDataSet.setValueTextColor(setThemeColors().get(0)[0]);
+            System.out.println("values PIECHART: " + pieChartValueSet);
+            pieData = new PieData(pieDataSet);
+        }
     }
 
     private void getBarData() {
         assert getArguments() != null;
         int barChartSize = getArguments().getInt("barChartData");
         barDecksOrder = getArguments().getParcelableArrayList("decksOrder");
-
-        barData = new BarData();
-        for (int i = 0; i <barChartSize ; i++) {
-            List<BarEntry> data = getArguments().getParcelableArrayList("barChartData"+i);
-            BarDataSet barDataSet = new BarDataSet(data, barDecksOrder.get(i).getNameText());
-            barDataSet.setDrawValues(false);
-            barDataSet.setColors(setThemeColors().get(1));
-            barData.addDataSet(barDataSet);
+        if (!barDecksOrder.isEmpty()) {
+            barData = new BarData();
+            for (int i = 0; i < barChartSize; i++) {
+                List<BarEntry> data = getArguments().getParcelableArrayList("barChartData" + i);
+                BarDataSet barDataSet = new BarDataSet(data, barDecksOrder.get(i).getNameText());
+                barDataSet.setDrawValues(false);
+                barDataSet.setColors(setThemeColors().get(1));
+                barData.addDataSet(barDataSet);
+            }
         }
 
     }
