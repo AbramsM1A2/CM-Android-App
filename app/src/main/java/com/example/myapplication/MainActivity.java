@@ -176,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
                 statisticsfragment.setArguments(bundle);
                 showFragment(statisticsfragment);
                 setTheme();
+                groupedBarEntries = new ArrayList<>();
+                pieChartValueSet = new ArrayList<>();
+                deckOrder = new ArrayList<>();
 
                 System.out.println("---------------STATISTICS BUNDLE END----------");
 
