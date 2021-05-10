@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment implements HomeCustomAdapter.onDeckLi
         DeckViewModel mViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
 
         mViewModel.getDecksCurrentDate(new Date()).observe(this, decks -> {
-            //TODO revisar control de la UI para el mazo
+
             if (decks != null || decks.size() != 0) {
                 setListData(decks);
                 textView.setVisibility(View.GONE);

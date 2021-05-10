@@ -75,4 +75,6 @@
     <string name="statisticsRepetitionsByDeck">Nº de fois que vous voyez une carte par paquet</string>
     <string name="messageToAliasPart1">"Salut! "</string>
     <string name="messageToAliasPart2">voici la liste des decks que vous pouvez consulter aujourd\'hui:</string>
+    <string name="buttonPieChart">TARTE</string>
+    <string name="buttonBarChart">BAR</string>
 </resources>

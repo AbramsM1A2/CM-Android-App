@@ -95,4 +95,7 @@
     <string name="messageToAliasPart1">Hello</string>
     <string name="messageToAliasPart2">this is the list of decks for you to review today</string>
 
+    <string name="buttonPieChart">PIE</string>
+    <string name="buttonBarChart">BAR</string>
+
 </resources>

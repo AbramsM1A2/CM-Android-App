@@ -85,9 +85,7 @@ public class StatisticsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO controlar que cuando no hay cartas en el mazo / no hay mazos, la vista muestre algo util
         getPieData();
-        //TODO tal vez mejor usar Grouped BarChart: https://weeklycoding.com/mpandroidchart-documentation/setting-data/
         getBarData();
 
     }
@@ -115,7 +113,7 @@ public class StatisticsFragment extends Fragment {
             //oscuro
 
             int[] pieTextColor = new int[]{getResources().getColor(R.color.black)};
-            int[] pieColors = new int[]{//TODO: Por cada mazo debe haber un color
+            int[] pieColors = new int[]{
                     getResources().getColor(R.color.red_200),
                     getResources().getColor(R.color.orange_200),
                     getResources().getColor(R.color.brown_200),
@@ -201,7 +199,7 @@ public class StatisticsFragment extends Fragment {
         //chart.setUsePercentValues(true); //transforma los valores en porcentajes
         chart.animateXY(2000, 2000, Easing.EaseOutElastic);
         chart.invalidate(); // recarga el grafico
-        chart.notifyDataSetChanged(); //TODO datos dinamicos funciona?
+        chart.notifyDataSetChanged();
     }
 
     @Override
@@ -216,7 +214,7 @@ public class StatisticsFragment extends Fragment {
 
         BarChart barChart = v.findViewById(R.id.barChart);
         setBarChart(barChart);
-        //TODO cambiar el nombre de los botones del layout
+
         return v;
 
     }

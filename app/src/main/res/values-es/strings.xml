@@ -6,4 +6,6 @@
     <string name="statisticsRepetitionsByDeck">Nº de veces que se ve una carta por baraja</string>
     <string name="messageToAliasPart1">Buenas</string>
     <string name="messageToAliasPart2">esta es la lista de mazos a repasar para hoy</string>
+    <string name="buttonPieChart">CIRCULAR</string>
+    <string name="buttonBarChart">BARRAS</string>
 </resources>

@@ -81,7 +81,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
 
         sharedPreferences = this.getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
 
-        String userLimitPref = sharedPreferences.getString("daily_cards","20"); //TODO definir por el sharedpreference
+        String userLimitPref = sharedPreferences.getString("daily_cards","20");
         int userLimit = 20;
 
         switch (userLimitPref) {
@@ -142,7 +142,7 @@ public class ReviewCardsActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    //TODO: comprobar que se guarda el estado del juego cuando pausas en BD
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);

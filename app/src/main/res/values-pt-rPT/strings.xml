@@ -75,5 +75,7 @@
     <string name="statisticsRepetitionsByDeck">Nº de vezes que se vê uma carta por baralho</string>
     <string name="messageToAliasPart2">esta é a lista de decks para você revisar hoje:</string>
     <string name="messageToAliasPart1">Olá</string>
+    <string name="buttonPieChart">TORTA</string>
+    <string name="buttonBarChart">BAR</string>
 
 </resources>

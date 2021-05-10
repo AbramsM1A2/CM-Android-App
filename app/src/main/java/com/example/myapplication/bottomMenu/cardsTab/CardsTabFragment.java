@@ -254,7 +254,7 @@ public class CardsTabFragment extends Fragment implements AdapterView.OnItemSele
             Integer deckId = mDecksByName.get(deckName);
             System.out.println(position);
             mCardViewModel.getAllCardsWithThisId(deckId).observe(getViewLifecycleOwner(), cards -> {
-                //TODO comentarle al profesor como podriamos solucionar esto
+
 
                 cardList.clear();
                 for (Card c : cards) {

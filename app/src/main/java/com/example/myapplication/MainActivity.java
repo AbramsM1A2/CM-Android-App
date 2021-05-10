@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         DeckViewModel mDeckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
         CardViewModel mCardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
-        //TODO revisar bug del chart aqui
+
 
         mDeckViewModel.getAllDecks().observe(this, decks -> {
 
@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param p PieEntry
      */
-    //TODO funciona a medias
+
     private void insertPieEData(PieEntry p) {
         boolean fullMatch = false;
         boolean partialMatch = false;
@@ -228,15 +228,9 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < pieChartValueSet.size(); i++) {
             PieEntry value = pieChartValueSet.get(i);
             if (value.getLabel().equals(p.getLabel())) {
-          /*      System.out.println("Son iguales en nombre");
-                System.out.println("V: " + value.getLabel());
-                System.out.println("P: " + p.getLabel());*/
                 partialMatch = true;
                 matchPosition = i;
                 if (value.getValue() == p.getValue()) {
-                  /*  System.out.println("Son iguales en todo");
-                    System.out.println("V: " + value.getLabel() + "-" + value.getValue());
-                    System.out.println("P: " + p.getLabel() + "-" + p.getValue());*/
                     fullMatch = true;
                 }
             }
@@ -301,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("ACITIVTY ONPAUSE");
     }
 
-    //TODO intercambio de vistas
+
     public void onClickPieChart(View view) {
         statisticsfragment.changeChart(0);
     }

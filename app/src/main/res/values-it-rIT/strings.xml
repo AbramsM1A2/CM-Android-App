@@ -75,5 +75,7 @@
     <string name="statisticsRepetitionsByDeck">Nº di volte che vedi una carta per mazzo</string>
     <string name="messageToAliasPart1">Ciao</string>
     <string name="messageToAliasPart2">questo è l\'elenco dei mazzi da rivedere oggi:</string>
+    <string name="buttonPieChart">TORTA</string>
+    <string name="buttonBarChart">BAR</string>
 
 </resources>
