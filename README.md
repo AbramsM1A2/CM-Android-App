@@ -33,4 +33,3 @@
 - Documentación Android developer: [https://developer.android.com](https://developer.android.com)
 - Iconos: [https://fonts.google.com/icons?selected=Material+Icons](https://developer.android.com)
 - Tutorial Room YT: [https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118](https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118)
-- Enlace al repositorio de nuestra APP: [https://github.com/AbramsM1A2/CM-Android-App]( https://github.com/AbramsM1A2/CM-Android-App)
