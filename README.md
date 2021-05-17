@@ -1,10 +1,6 @@
 # iCARTAS
 
 ## Grupo 1
-
-- Abraham Corta Ramirez.
-- Rafael Delgado Martinez.
-- Juan José Requena Lama.
     
 ## Características
     
