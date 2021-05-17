@@ -23,7 +23,7 @@
     - Italiano
     - Francés
     - Inglés. Este último es el idioma por defecto (un terminal en ruso tendrá la APP en inglés).
-- Dispone de tema claro u oscuro. Si no se configura, la APP mostrará el tema elegido en el dispositivo.
+- Dispone de tema claro u oscuro. Si no se configura, la APP mostrará el tema elegido por el dispositivo.
 - Algoritmo [SM2](https://github.com/thyagoluciano/sm2) para las flashcards.
 
 ## Requisitos
