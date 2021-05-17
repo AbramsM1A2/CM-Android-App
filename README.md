@@ -1,4 +1,4 @@
-# CM-Android-App
+# iCARTAS
 
 ## Grupo 1
 
